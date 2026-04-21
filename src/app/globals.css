@@ -1,0 +1,205 @@
+@import "tailwindcss";
+
+/* ========================================
+   Paixão Design System — Tailwind v4 Theme
+   ======================================== */
+
+@theme inline {
+  /* Brand Colors */
+  --color-background: #0a0a0a;
+  --color-foreground: #f5f5f5;
+  --color-surface: #141414;
+  --color-surface-elevated: #1a1a1a;
+  --color-border: #262626;
+
+  --color-text-primary: #f5f5f5;
+  --color-text-secondary: #a3a3a3;
+
+  --color-accent: #c2185b;
+  --color-accent-hover: #e91e63;
+  --color-accent-muted: rgba(194, 24, 91, 0.15);
+
+  --color-gold: #d4a574;
+  --color-gold-muted: rgba(212, 165, 116, 0.15);
+
+  --color-success: #4caf50;
+  --color-warning: #ff9800;
+  --color-danger: #f44336;
+
+  /* Font Families */
+  --font-sans: var(--font-inter), "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-playfair), "Playfair Display", ui-serif, Georgia, serif;
+
+  /* Border Radius */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.5);
+  --shadow-glow-accent: 0 0 20px rgba(194, 24, 91, 0.3);
+  --shadow-glow-gold: 0 0 20px rgba(212, 165, 116, 0.3);
+
+  /* Animations */
+  --animate-fade-in: fade-in 0.3s ease-out;
+  --animate-slide-up: slide-up 0.4s ease-out;
+  --animate-pulse-glow: pulse-glow 2s ease-in-out infinite;
+}
+
+/* CSS Variables for shadcn/ui compatibility */
+:root {
+  --background: #0a0a0a;
+  --foreground: #f5f5f5;
+
+  --card: #141414;
+  --card-foreground: #f5f5f5;
+
+  --popover: #141414;
+  --popover-foreground: #f5f5f5;
+
+  --primary: #c2185b;
+  --primary-foreground: #ffffff;
+
+  --secondary: #1a1a1a;
+  --secondary-foreground: #f5f5f5;
+
+  --muted: #1a1a1a;
+  --muted-foreground: #a3a3a3;
+
+  --accent: #1a1a1a;
+  --accent-foreground: #f5f5f5;
+
+  --destructive: #f44336;
+  --destructive-foreground: #ffffff;
+
+  --border: #262626;
+  --input: #262626;
+  --ring: #c2185b;
+
+  --radius: 0.5rem;
+
+  --sidebar-background: #0a0a0a;
+  --sidebar-foreground: #f5f5f5;
+  --sidebar-primary: #c2185b;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #1a1a1a;
+  --sidebar-accent-foreground: #f5f5f5;
+  --sidebar-border: #262626;
+  --sidebar-ring: #c2185b;
+
+  --chart-1: #c2185b;
+  --chart-2: #d4a574;
+  --chart-3: #4caf50;
+  --chart-4: #ff9800;
+  --chart-5: #e91e63;
+}
+
+/* Keyframes */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 10px rgba(194, 24, 91, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(194, 24, 91, 0.4);
+  }
+}
+
+/* Base Styles */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+}
+
+/* Selection */
+::selection {
+  background-color: rgba(194, 24, 91, 0.4);
+  color: #f5f5f5;
+}
+
+::-moz-selection {
+  background-color: rgba(194, 24, 91, 0.4);
+  color: #f5f5f5;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #262626;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #333333;
+}
+
+/* Focus visible */
+*:focus-visible {
+  outline: 2px solid #c2185b;
+  outline-offset: 2px;
+}
+
+/* Utility: glass morphism */
+@utility glass {
+  background: rgba(20, 20, 20, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(38, 38, 38, 0.6);
+}
+
+/* Utility: text gradient for brand */
+@utility text-gradient-brand {
+  background: linear-gradient(135deg, #c2185b, #e91e63);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Utility: text gradient for gold */
+@utility text-gradient-gold {
+  background: linear-gradient(135deg, #d4a574, #e8c49a);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
