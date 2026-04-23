@@ -3,8 +3,8 @@ import { redirect } from "next/navigation";
 import { CreateEventClient } from "./create-event-client";
 
 export const metadata = {
-  title: "Create Event | Paixão",
-  description: "Host an exclusive event on Paixão",
+  title: "Create Event | PassionDen",
+  description: "Host an exclusive event on PassionDen",
 };
 
 export default async function CreateEventPage() {

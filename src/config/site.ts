@@ -1,16 +1,16 @@
 export const siteConfig = {
-  name: "Paixão",
-  nameStylized: "PAIXAO",
-  tagline: "Pure passion.",
+  name: "PassionDen",
+  nameStylized: "PASSIONDEN",
+  tagline: "Step inside.",
   description:
     "An exclusive, anonymous, consent-first adult platform. Where desire meets discretion.",
-  url: "https://paixao.club",
+  url: "https://passionden.club",
   links: {
-    twitter: "https://x.com/paixao",
-    instagram: "https://instagram.com/paixao",
+    twitter: "https://x.com/passionden",
+    instagram: "https://instagram.com/passionden",
   },
   support: {
-    email: "support@paixao.club",
+    email: "support@passionden.club",
   },
   legal: {
     minimumAge: 18,

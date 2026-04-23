@@ -52,7 +52,7 @@ export default function TermsPage() {
                   1. Acceptance of Terms
                 </h3>
                 <p>
-                  By accessing or using Paixao (&quot;the Platform&quot;), you
+                  By accessing or using PassionDen (&quot;the Platform&quot;), you
                   agree to be bound by these Terms of Service. If you do not
                   agree, you may not use the Platform. The Platform is intended
                   exclusively for individuals who are at least 18 years of age.
@@ -79,7 +79,7 @@ export default function TermsPage() {
                   You are responsible for maintaining the confidentiality of your
                   account credentials and for all activities that occur under
                   your account. You agree to notify us immediately of any
-                  unauthorized use. Paixao reserves the right to suspend or
+                  unauthorized use. PassionDen reserves the right to suspend or
                   terminate accounts that violate these terms.
                 </p>
               </div>
@@ -103,7 +103,7 @@ export default function TermsPage() {
                 </h3>
                 <p>
                   You retain ownership of content you create and share on the
-                  Platform. By posting content, you grant Paixao a limited,
+                  Platform. By posting content, you grant PassionDen a limited,
                   non-exclusive license to display and distribute that content
                   within the Platform for operational purposes. You may not
                   reproduce, distribute, or create derivative works from other
@@ -119,7 +119,7 @@ export default function TermsPage() {
                   All interactions on the Platform must be consensual. The
                   Platform provides tools for setting boundaries, blocking users,
                   and reporting violations. Use of these tools is encouraged and
-                  protected. Paixao is committed to cooperating with law
+                  protected. PassionDen is committed to cooperating with law
                   enforcement when required by law.
                 </p>
               </div>
@@ -130,7 +130,7 @@ export default function TermsPage() {
                 </h3>
                 <p>
                   The Platform is provided &quot;as is&quot; without warranties
-                  of any kind. Paixao shall not be liable for any indirect,
+                  of any kind. PassionDen shall not be liable for any indirect,
                   incidental, special, or consequential damages arising from your
                   use of the Platform. Your use of the Platform is at your own
                   risk.
@@ -231,7 +231,7 @@ export default function TermsPage() {
                   We use essential cookies for authentication and session
                   management. We do not use third-party tracking cookies or
                   advertising networks. The age verification cookie
-                  (&quot;paixao_age_verified&quot;) is stored for 30 days.
+                  (&quot;passionden_age_verified&quot;) is stored for 30 days.
                 </p>
               </div>
 
@@ -245,7 +245,7 @@ export default function TermsPage() {
                   copy of your data in a portable format; and withdraw consent at
                   any time. To exercise these rights, contact us at{" "}
                   <span className="font-medium text-accent">
-                    privacy@paixao.club
+                    privacy@passionden.club
                   </span>
                   .
                 </p>
@@ -259,7 +259,7 @@ export default function TermsPage() {
                   For questions about these policies or your data, please
                   contact our privacy team at{" "}
                   <span className="font-medium text-accent">
-                    privacy@paixao.club
+                    privacy@passionden.club
                   </span>
                   .
                 </p>

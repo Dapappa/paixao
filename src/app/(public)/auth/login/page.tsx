@@ -4,7 +4,7 @@ import { LoginForm } from "@/components/auth/login-form";
 
 export const metadata: Metadata = {
   title: "Log In",
-  description: "Sign in to your Paixao account.",
+  description: "Sign in to your PassionDen account.",
 };
 
 export default function LoginPage() {

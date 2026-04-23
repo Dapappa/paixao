@@ -25,8 +25,8 @@ import { sidebarNavItems } from "@/config/navigation";
 import { useAuth } from "@/lib/hooks/use-auth";
 import { useProfile } from "@/lib/hooks/use-profile";
 import { motion } from "framer-motion";
+import { NotificationBell } from "@/components/notifications/notification-bell";
 import {
-  Bell,
   LogOut,
   Menu,
   Settings,
@@ -53,7 +53,7 @@ function getPageTitle(pathname: string): string {
   for (const [path, title] of Object.entries(pageTitles)) {
     if (pathname.startsWith(path)) return title;
   }
-  return "Paixao";
+  return "PassionDen";
 }
 
 export function Header() {
@@ -95,7 +95,7 @@ export function Header() {
           >
             <SheetHeader className="px-6 pt-6 pb-4">
               <SheetTitle className="font-serif text-2xl tracking-[0.15em] text-foreground text-left">
-                PAIX<span className="text-[var(--color-accent)]">A</span>O
+                PASSION<span className="text-[var(--color-accent)]">D</span>EN
               </SheetTitle>
             </SheetHeader>
             <Separator className="bg-[var(--color-border)]" />
@@ -156,7 +156,7 @@ export function Header() {
       <div className="flex flex-1 items-center justify-center md:hidden">
         <Link href="/dashboard">
           <h1 className="font-serif text-lg tracking-[0.15em] text-foreground">
-            PAIX<span className="text-[var(--color-accent)]">A</span>O
+            PASSION<span className="text-[var(--color-accent)]">D</span>EN
           </h1>
         </Link>
       </div>
@@ -175,17 +175,7 @@ export function Header() {
 
       {/* Right side: notifications + avatar */}
       <div className="flex items-center gap-2">
-        <Button
-          variant="ghost"
-          size="icon"
-          className="relative h-9 w-9"
-          onClick={() => router.push("/notifications")}
-        >
-          <Bell className="h-5 w-5 text-muted-foreground" />
-          {/* Notification dot */}
-          <span className="absolute right-1.5 top-1.5 h-2 w-2 rounded-full bg-[var(--color-accent)]" />
-          <span className="sr-only">Notifications</span>
-        </Button>
+        <NotificationBell />
 
         {/* Desktop avatar dropdown */}
         <div className="hidden md:block">

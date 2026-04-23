@@ -51,8 +51,8 @@ export function Sidebar() {
         <div className="flex h-16 items-center px-6">
           <Link href="/dashboard" className="flex items-center gap-2">
             <h1 className="font-serif text-2xl tracking-[0.15em] text-foreground">
-              PAIX
-              <span className="text-[var(--color-accent)]">A</span>O
+              PASSION
+              <span className="text-[var(--color-accent)]">D</span>EN
             </h1>
           </Link>
         </div>

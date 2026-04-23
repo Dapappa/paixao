@@ -130,7 +130,7 @@ export default function LandingPage() {
         <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <Link href="/" className="flex items-center gap-2">
             <span className="font-serif text-xl font-bold tracking-wider text-foreground">
-              PAIX<span className="text-accent">A</span>O
+              PASSION<span className="text-accent">D</span>EN
             </span>
           </Link>
           <div className="hidden items-center gap-1 md:flex">
@@ -190,9 +190,9 @@ export default function LandingPage() {
             custom={1}
             className="font-serif text-6xl font-bold tracking-tight sm:text-7xl md:text-8xl lg:text-9xl"
           >
-            <span className="text-foreground">PAIX</span>
-            <span className="text-gradient-brand">A</span>
-            <span className="text-foreground">O</span>
+            <span className="text-foreground">PASSION</span>
+            <span className="text-gradient-brand">D</span>
+            <span className="text-foreground">EN</span>
           </motion.h1>
 
           {/* Tagline */}
@@ -201,7 +201,7 @@ export default function LandingPage() {
             custom={2}
             className="mt-4 font-serif text-xl italic text-gold sm:text-2xl"
           >
-            Pure passion.
+            Step inside.
           </motion.p>
 
           {/* Description */}
@@ -258,7 +258,7 @@ export default function LandingPage() {
         <div id="features" className="scroll-mt-24">
           <motion.div variants={fadeUp} custom={0} className="text-center">
             <h2 className="font-serif text-3xl font-bold tracking-tight sm:text-4xl">
-              Why <span className="text-gradient-brand">Paixao</span>?
+              Why <span className="text-gradient-brand">PassionDen</span>?
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-text-secondary">
               Built from the ground up with safety, privacy, and pleasure in mind.
@@ -372,10 +372,10 @@ export default function LandingPage() {
             {/* Logo */}
             <div>
               <span className="font-serif text-lg font-bold tracking-wider text-foreground">
-                PAIX<span className="text-accent">A</span>O
+                PASSION<span className="text-accent">D</span>EN
               </span>
               <p className="mt-1 text-xs text-text-secondary">
-                Pure passion. Where desire meets discretion.
+                Step inside. Where desire meets discretion.
               </p>
             </div>
 
@@ -403,7 +403,7 @@ export default function LandingPage() {
           </div>
 
           <div className="mt-8 border-t border-border/30 pt-6 text-center text-xs text-text-secondary">
-            &copy; {new Date().getFullYear()} Paixao. All rights reserved.
+            &copy; {new Date().getFullYear()} PassionDen. All rights reserved.
             This platform is intended for adults 18 years of age and older.
           </div>
         </div>

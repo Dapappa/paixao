@@ -91,14 +91,14 @@ export default function AboutPage() {
             custom={1}
             className="mt-4 font-serif text-4xl font-bold tracking-tight sm:text-5xl"
           >
-            What is <span className="text-gradient-brand">Paixao</span>?
+            What is <span className="text-gradient-brand">PassionDen</span>?
           </motion.h1>
           <motion.p
             variants={fadeUp}
             custom={2}
             className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-text-secondary"
           >
-            Paixao is an exclusive platform designed for consenting adults who
+            PassionDen is an exclusive platform designed for consenting adults who
             seek meaningful connections, curated experiences, and a community
             that respects their privacy and boundaries above all else.
           </motion.p>
@@ -118,7 +118,7 @@ export default function AboutPage() {
               <p>
                 We believe that adult connection should be safe, respectful, and
                 empowering. Too many platforms treat privacy as an afterthought
-                and consent as a formality. We built Paixao to be different.
+                and consent as a formality. We built PassionDen to be different.
               </p>
               <p>
                 Our mission is to create a space where adults can explore their
@@ -181,7 +181,7 @@ export default function AboutPage() {
             </h2>
             <p className="mx-auto mt-6 max-w-2xl text-text-secondary leading-relaxed">
               We envision a world where adult platforms are held to the highest
-              standards of ethics, safety, and design. Paixao is not just a
+              standards of ethics, safety, and design. PassionDen is not just a
               platform — it&apos;s a movement toward a better, more respectful
               way for adults to connect and experience intimacy on their own
               terms.

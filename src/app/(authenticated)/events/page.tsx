@@ -2,8 +2,8 @@ import { createClient } from "@/lib/supabase/server";
 import { EventsBrowseClient } from "./events-browse-client";
 
 export const metadata = {
-  title: "Events | Paixão",
-  description: "Browse exclusive events in the Paixão community",
+  title: "Events | PassionDen",
+  description: "Browse exclusive events in the PassionDen community",
 };
 
 export default async function EventsPage() {

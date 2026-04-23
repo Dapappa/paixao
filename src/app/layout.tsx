@@ -16,33 +16,33 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   title: {
-    default: "Paixão — Pure passion.",
-    template: "%s | Paixão",
+    default: "PassionDen — Step inside.",
+    template: "%s | PassionDen",
   },
   description:
     "An exclusive, anonymous, consent-first adult platform. Where desire meets discretion.",
   keywords: [
-    "paixão",
+    "passionden",
     "adult platform",
     "consent",
     "anonymous",
     "exclusive",
     "events",
   ],
-  authors: [{ name: "Paixão" }],
-  creator: "Paixão",
-  metadataBase: new URL("https://paixao.club"),
+  authors: [{ name: "PassionDen" }],
+  creator: "PassionDen",
+  metadataBase: new URL("https://passionden.club"),
   openGraph: {
     type: "website",
     locale: "en_US",
-    siteName: "Paixão",
-    title: "Paixão — Pure passion.",
+    siteName: "PassionDen",
+    title: "PassionDen — Step inside.",
     description:
       "An exclusive, anonymous, consent-first adult platform. Where desire meets discretion.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Paixão — Pure passion.",
+    title: "PassionDen — Step inside.",
     description:
       "An exclusive, anonymous, consent-first adult platform. Where desire meets discretion.",
   },

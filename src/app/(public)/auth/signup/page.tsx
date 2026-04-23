@@ -3,7 +3,7 @@ import { SignupForm } from "@/components/auth/signup-form";
 
 export const metadata: Metadata = {
   title: "Sign Up",
-  description: "Create your Paixao account. Anonymous, safe, consent-first.",
+  description: "Create your PassionDen account. Anonymous, safe, consent-first.",
 };
 
 export default function SignupPage() {

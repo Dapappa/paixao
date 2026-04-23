@@ -76,7 +76,7 @@ export async function middleware(request: NextRequest) {
   // -----------------------------------------------------------------------
   // Gate 1 — Age verification
   // -----------------------------------------------------------------------
-  const ageVerified = request.cookies.get('paixao_age_verified')
+  const ageVerified = request.cookies.get('passionden_age_verified')
 
   if (!ageVerified && !AGE_GATE_BYPASS.has(pathname)) {
     const url = request.nextUrl.clone()

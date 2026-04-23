@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { MyEventsClient } from "./my-events-client";
 
 export const metadata = {
-  title: "My Events | Paixão",
+  title: "My Events | PassionDen",
   description: "Manage your events and registrations",
 };
 

@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { Sidebar } from "@/components/layout/sidebar";
 import { Header } from "@/components/layout/header";
 import { MobileNav } from "@/components/layout/mobile-nav";
+import { PanicButton } from "@/components/safety/panic-button";
 
 interface AuthenticatedShellProps {
   children: React.ReactNode;
@@ -44,6 +45,7 @@ export function AuthenticatedShell({
         </main>
       </div>
       <MobileNav />
+      <PanicButton />
     </div>
   );
 }

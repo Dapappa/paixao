@@ -29,7 +29,7 @@ export function CreateEventClient({ isEligible }: CreateEventClientProps) {
                 Become a Host
               </h2>
               <p className="text-sm text-muted-foreground max-w-sm mx-auto">
-                To create events on Paixão, you need to complete your
+                To create events on PassionDen, you need to complete your
                 profile setup. Hosts are trusted community members who
                 organize safe, consensual experiences.
               </p>

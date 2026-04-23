@@ -76,7 +76,7 @@ const guidelines = [
     items: [
       "Never attempt to discover or share another member's real identity.",
       "Do not screenshot, record, or share content from private interactions.",
-      'Respect the "what happens on Paixao, stays on Paixao" principle.',
+      'Respect the "what happens on PassionDen, stays on PassionDen" principle.',
       "Report any attempts at doxxing immediately.",
     ],
   },
@@ -152,7 +152,7 @@ export default function GuidelinesPage() {
             custom={2}
             className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-text-secondary"
           >
-            These guidelines exist to keep Paixao a safe, respectful, and
+            These guidelines exist to keep PassionDen a safe, respectful, and
             empowering space for all members. Violations may result in warnings,
             suspension, or permanent removal.
           </motion.p>
@@ -246,7 +246,7 @@ export default function GuidelinesPage() {
               If you witness or experience a violation of these guidelines,
               please use the in-app reporting tools or contact our safety team at{" "}
               <span className="font-medium text-accent">
-                safety@paixao.club
+                safety@passionden.club
               </span>
               . All reports are reviewed within 24 hours and handled with strict
               confidentiality. We take every report seriously and are committed

@@ -21,7 +21,7 @@ export default function AgeGatePage() {
     // Set cookie with 30-day expiry
     const expires = new Date();
     expires.setDate(expires.getDate() + 30);
-    document.cookie = `paixao_age_verified=true; path=/; expires=${expires.toUTCString()}; SameSite=Lax`;
+    document.cookie = `passionden_age_verified=true; path=/; expires=${expires.toUTCString()}; SameSite=Lax`;
     router.push("/");
   }
 
@@ -44,7 +44,7 @@ export default function AgeGatePage() {
         {/* Logo */}
         <motion.div variants={fadeUp} custom={0}>
           <span className="font-serif text-3xl font-bold tracking-wider text-foreground">
-            PAIX<span className="text-accent">A</span>O
+            PASSION<span className="text-accent">D</span>EN
           </span>
         </motion.div>
 

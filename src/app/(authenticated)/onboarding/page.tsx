@@ -207,7 +207,7 @@ export default function OnboardingPage() {
         className="mb-8"
       >
         <h1 className="font-serif text-3xl tracking-[0.15em] text-foreground">
-          PAIX<span className="text-[var(--color-accent)]">A</span>O
+          PASSION<span className="text-[var(--color-accent)]">D</span>EN
         </h1>
       </motion.div>
 
@@ -242,7 +242,7 @@ export default function OnboardingPage() {
                       Profile Basics
                     </h2>
                     <p className="text-sm text-muted-foreground">
-                      Create your identity on Paixao. Your display name is how
+                      Create your identity on PassionDen. Your display name is how
                       others will see you.
                     </p>
                   </div>
@@ -641,7 +641,7 @@ export default function OnboardingPage() {
                       You&apos;re All Set!
                     </h2>
                     <p className="text-muted-foreground max-w-sm mx-auto">
-                      Welcome to Paixao, {displayName || "there"}. Your profile
+                      Welcome to PassionDen, {displayName || "there"}. Your profile
                       is ready. Here&apos;s a summary of what you set up.
                     </p>
                   </div>
@@ -766,7 +766,7 @@ export default function OnboardingPage() {
               <>Saving...</>
             ) : (
               <>
-                Explore Paixao
+                Explore PassionDen
                 <Sparkles className="ml-2 h-4 w-4" />
               </>
             )}
