@@ -24,18 +24,17 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { motion } from "framer-motion";
 import {
-  Ban,
+  Prohibit,
   Check,
-  ChevronLeft,
-  ChevronRight,
+  CaretLeft,
+  CaretRight,
   Eye,
-  MoreHorizontal,
-  Search,
+  DotsThree,
+  MagnifyingGlass,
   Shield,
-  ShieldOff,
-  UserCog,
+  ShieldSlash,
   X,
-} from "lucide-react";
+} from "@phosphor-icons/react/ssr";
 import { formatDistanceToNow } from "date-fns";
 
 interface User {
@@ -160,7 +159,7 @@ export function UserTable() {
       {/* Filters */}
       <div className="flex flex-col gap-3 md:flex-row md:items-center">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
+          <MagnifyingGlass weight="light" className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
           <Input
             placeholder="Search by name..."
             value={searchInput}
@@ -322,9 +321,9 @@ export function UserTable() {
                       </td>
                       <td className="px-4 py-3">
                         {user.is_verified ? (
-                          <Check className="h-4 w-4 text-emerald-400" />
+                          <Check weight="bold" className="h-4 w-4 text-emerald-400" />
                         ) : (
-                          <X className="h-4 w-4 text-zinc-600" />
+                          <X weight="bold" className="h-4 w-4 text-zinc-600" />
                         )}
                       </td>
                       <td className="px-4 py-3">
@@ -351,7 +350,7 @@ export function UserTable() {
                               size="icon"
                               className="h-8 w-8 text-zinc-500 hover:text-white hover:bg-white/[0.06]"
                             >
-                              <MoreHorizontal className="h-4 w-4" />
+                              <DotsThree weight="bold" className="h-4 w-4" />
                             </Button>
                           </DropdownMenuTrigger>
                           <DropdownMenuContent
@@ -363,7 +362,7 @@ export function UserTable() {
                               onClick={() => router.push(`/admin/users/${user.id}`)}
                               className="text-zinc-300 focus:bg-white/[0.06] focus:text-white"
                             >
-                              <Eye className="mr-2 h-4 w-4" />
+                              <Eye weight="light" className="mr-2 h-4 w-4" />
                               View Details
                             </DropdownMenuItem>
                             <DropdownMenuSeparator className="bg-zinc-800" />
@@ -372,7 +371,7 @@ export function UserTable() {
                                 onClick={() => handleQuickAction(user.id, "unban")}
                                 className="text-emerald-400 focus:bg-emerald-500/10 focus:text-emerald-400"
                               >
-                                <ShieldOff className="mr-2 h-4 w-4" />
+                                <ShieldSlash weight="light" className="mr-2 h-4 w-4" />
                                 Unban User
                               </DropdownMenuItem>
                             ) : (
@@ -380,7 +379,7 @@ export function UserTable() {
                                 onClick={() => handleQuickAction(user.id, "ban")}
                                 className="text-red-400 focus:bg-red-500/10 focus:text-red-400"
                               >
-                                <Ban className="mr-2 h-4 w-4" />
+                                <Prohibit weight="light" className="mr-2 h-4 w-4" />
                                 Ban User
                               </DropdownMenuItem>
                             )}
@@ -389,7 +388,7 @@ export function UserTable() {
                                 onClick={() => handleQuickAction(user.id, "unverify")}
                                 className="text-zinc-300 focus:bg-white/[0.06] focus:text-white"
                               >
-                                <Shield className="mr-2 h-4 w-4" />
+                                <Shield weight="light" className="mr-2 h-4 w-4" />
                                 Remove Verification
                               </DropdownMenuItem>
                             ) : (
@@ -397,7 +396,7 @@ export function UserTable() {
                                 onClick={() => handleQuickAction(user.id, "verify")}
                                 className="text-emerald-400 focus:bg-emerald-500/10 focus:text-emerald-400"
                               >
-                                <Shield className="mr-2 h-4 w-4" />
+                                <Shield weight="light" className="mr-2 h-4 w-4" />
                                 Verify User
                               </DropdownMenuItem>
                             )}
@@ -427,7 +426,7 @@ export function UserTable() {
                 disabled={page === 1}
                 onClick={() => setPage((p) => p - 1)}
               >
-                <ChevronLeft className="h-4 w-4" />
+                <CaretLeft weight="bold" className="h-4 w-4" />
               </Button>
               <span className="px-2 text-xs text-zinc-400">
                 {page} / {totalPages}
@@ -439,7 +438,7 @@ export function UserTable() {
                 disabled={page >= totalPages}
                 onClick={() => setPage((p) => p + 1)}
               >
-                <ChevronRight className="h-4 w-4" />
+                <CaretRight weight="bold" className="h-4 w-4" />
               </Button>
             </div>
           </div>

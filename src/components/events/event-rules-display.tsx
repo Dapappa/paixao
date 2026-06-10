@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
-import { Shield, CheckCircle, ChevronDown } from "lucide-react";
+import { Shield, CheckCircle, CaretDown } from "@phosphor-icons/react/ssr";
 import { Button } from "@/components/ui/button";
 
 interface EventRulesDisplayProps {
@@ -39,7 +39,7 @@ export function EventRulesDisplay({
       {rules.length > 0 && (
         <div>
           <div className="flex items-center gap-2 mb-3">
-            <Shield className="h-5 w-5 text-[var(--color-accent)]" />
+            <Shield weight="duotone" className="h-5 w-5 text-[var(--color-accent)]" />
             <h3 className="font-serif text-lg font-semibold text-foreground">
               Event Rules
             </h3>
@@ -74,7 +74,8 @@ export function EventRulesDisplay({
               onClick={() => setRulesExpanded(!rulesExpanded)}
               className="mt-2 text-muted-foreground hover:text-foreground"
             >
-              <ChevronDown
+              <CaretDown
+                weight="bold"
                 className={cn(
                   "mr-1 h-4 w-4 transition-transform",
                   rulesExpanded && "rotate-180"
@@ -92,7 +93,7 @@ export function EventRulesDisplay({
       {consentRequirements.length > 0 && (
         <div>
           <div className="flex items-center gap-2 mb-3">
-            <CheckCircle className="h-5 w-5 text-[var(--color-gold)]" />
+            <CheckCircle weight="duotone" className="h-5 w-5 text-[var(--color-gold)]" />
             <h3 className="font-serif text-lg font-semibold text-foreground">
               Consent Requirements
             </h3>
@@ -109,7 +110,7 @@ export function EventRulesDisplay({
                   transition={{ delay: idx * 0.05 }}
                   className="flex items-start gap-3 rounded-lg bg-[var(--color-gold-muted)] p-3 border border-[var(--color-gold)]/20"
                 >
-                  <CheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-[var(--color-gold)]" />
+                  <CheckCircle weight="fill" className="mt-0.5 h-4 w-4 shrink-0 text-[var(--color-gold)]" />
                   <span className="text-sm text-foreground leading-relaxed">
                     {req}
                   </span>
@@ -125,7 +126,8 @@ export function EventRulesDisplay({
               onClick={() => setConsentExpanded(!consentExpanded)}
               className="mt-2 text-muted-foreground hover:text-foreground"
             >
-              <ChevronDown
+              <CaretDown
+                weight="bold"
                 className={cn(
                   "mr-1 h-4 w-4 transition-transform",
                   consentExpanded && "rotate-180"

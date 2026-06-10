@@ -18,12 +18,12 @@ import { useAuth } from "@/lib/hooks/use-auth";
 import { useProfile } from "@/lib/hooks/use-profile";
 import { motion } from "framer-motion";
 import {
-  ChevronUp,
-  LogOut,
-  Settings,
+  CaretUp,
+  SignOut,
+  Gear,
   User,
-  Sparkles,
-} from "lucide-react";
+  Sparkle,
+} from "@phosphor-icons/react/ssr";
 
 export function Sidebar() {
   const pathname = usePathname();
@@ -48,11 +48,10 @@ export function Sidebar() {
     <aside className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0 z-30">
       <div className="flex h-full flex-col bg-[var(--color-surface)] border-r border-[var(--color-border)]">
         {/* Logo */}
-        <div className="flex h-16 items-center px-6">
+        <div className="flex h-20 items-center px-6">
           <Link href="/dashboard" className="flex items-center gap-2">
-            <h1 className="font-serif text-2xl tracking-[0.15em] text-foreground">
-              PASSION
-              <span className="text-[var(--color-accent)]">D</span>EN
+            <h1 className="animate-breath font-serif text-3xl font-bold tracking-[0.18em] text-foreground">
+              PAIX<span className="text-[var(--color-accent)]">Ã</span>O
             </h1>
           </Link>
         </div>
@@ -92,6 +91,7 @@ export function Sidebar() {
                       />
                     )}
                     <Icon
+                      weight={isActive ? "fill" : "light"}
                       className={cn(
                         "h-5 w-5 shrink-0 transition-colors",
                         isActive
@@ -118,7 +118,7 @@ export function Sidebar() {
             <Link href="/profile/settings">
               <div className="rounded-xl bg-gradient-to-r from-[var(--color-accent)]/10 to-[var(--color-gold)]/10 border border-[var(--color-accent)]/20 p-3 transition-all hover:border-[var(--color-accent)]/40">
                 <div className="flex items-center gap-2 mb-1">
-                  <Sparkles className="h-4 w-4 text-[var(--color-gold)]" />
+                  <Sparkle weight="fill" className="h-4 w-4 text-[var(--color-gold)]" />
                   <span className="text-xs font-semibold text-[var(--color-gold)]">
                     Upgrade
                   </span>
@@ -152,7 +152,7 @@ export function Sidebar() {
                     {profile?.subscription_tier || "Curious"} tier
                   </p>
                 </div>
-                <ChevronUp className="h-4 w-4 text-muted-foreground" />
+                <CaretUp weight="bold" className="h-4 w-4 text-muted-foreground" />
               </button>
             </DropdownMenuTrigger>
             <DropdownMenuContent
@@ -164,14 +164,14 @@ export function Sidebar() {
                 onClick={() => router.push("/profile")}
                 className="cursor-pointer"
               >
-                <User className="mr-2 h-4 w-4" />
+                <User weight="light" className="mr-2 h-4 w-4" />
                 View Profile
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => router.push("/profile/settings")}
                 className="cursor-pointer"
               >
-                <Settings className="mr-2 h-4 w-4" />
+                <Gear weight="light" className="mr-2 h-4 w-4" />
                 Settings
               </DropdownMenuItem>
               <DropdownMenuSeparator className="bg-[var(--color-border)]" />
@@ -179,7 +179,7 @@ export function Sidebar() {
                 onClick={handleSignOut}
                 className="cursor-pointer text-[var(--color-danger)] focus:text-[var(--color-danger)]"
               >
-                <LogOut className="mr-2 h-4 w-4" />
+                <SignOut weight="light" className="mr-2 h-4 w-4" />
                 Sign Out
               </DropdownMenuItem>
             </DropdownMenuContent>

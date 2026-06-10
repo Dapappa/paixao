@@ -5,16 +5,14 @@ import { cn } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
 import { motion } from "framer-motion";
 import {
-  Users,
-  Calendar,
-  AlertTriangle,
-  DollarSign,
-  TrendingUp,
-  TrendingDown,
+  UsersThree,
+  CalendarDots,
+  Warning,
+  CurrencyDollar,
   ShieldCheck,
   UserCheck,
-  Activity,
-} from "lucide-react";
+  Pulse,
+} from "@phosphor-icons/react/ssr";
 
 interface StatsData {
   totalUsers: number;
@@ -29,7 +27,7 @@ interface StatsData {
 interface StatCardConfig {
   key: keyof StatsData;
   label: string;
-  icon: typeof Users;
+  icon: typeof UsersThree;
   color: string;
   gradient: string;
   iconBg: string;
@@ -40,7 +38,7 @@ const statCards: StatCardConfig[] = [
   {
     key: "totalUsers",
     label: "Total Users",
-    icon: Users,
+    icon: UsersThree,
     color: "text-blue-400",
     gradient: "from-blue-500/10 to-blue-500/5",
     iconBg: "bg-blue-500/10",
@@ -48,7 +46,7 @@ const statCards: StatCardConfig[] = [
   {
     key: "activeUsers",
     label: "Active (7d)",
-    icon: Activity,
+    icon: Pulse,
     color: "text-emerald-400",
     gradient: "from-emerald-500/10 to-emerald-500/5",
     iconBg: "bg-emerald-500/10",
@@ -56,7 +54,7 @@ const statCards: StatCardConfig[] = [
   {
     key: "upcomingEvents",
     label: "Upcoming Events",
-    icon: Calendar,
+    icon: CalendarDots,
     color: "text-[#c2185b]",
     gradient: "from-[#c2185b]/10 to-[#c2185b]/5",
     iconBg: "bg-[#c2185b]/10",
@@ -64,7 +62,7 @@ const statCards: StatCardConfig[] = [
   {
     key: "pendingReports",
     label: "Pending Reports",
-    icon: AlertTriangle,
+    icon: Warning,
     color: "text-amber-400",
     gradient: "from-amber-500/10 to-amber-500/5",
     iconBg: "bg-amber-500/10",
@@ -88,7 +86,7 @@ const statCards: StatCardConfig[] = [
   {
     key: "monthlyRevenueCents",
     label: "Revenue (Month)",
-    icon: DollarSign,
+    icon: CurrencyDollar,
     color: "text-[#d4a574]",
     gradient: "from-[#d4a574]/10 to-[#d4a574]/5",
     iconBg: "bg-[#d4a574]/10",
@@ -155,7 +153,7 @@ export function AdminStatsCards() {
           >
             <div className="flex items-start justify-between">
               <div className={cn("rounded-lg p-2", card.iconBg)}>
-                <Icon className={cn("h-4 w-4", card.color)} />
+                <Icon weight="duotone" className={cn("h-4 w-4", card.color)} />
               </div>
               {card.key === "pendingReports" && value > 0 && (
                 <span className="flex h-2 w-2">

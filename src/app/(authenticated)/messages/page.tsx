@@ -3,8 +3,8 @@ import { redirect } from "next/navigation";
 import { MessagesClient } from "./messages-client";
 
 export const metadata = {
-  title: "Messages | PassionDen",
-  description: "Your private conversations",
+  title: "Messages | Paixão",
+  description: "Quiet, private conversations — kept between you and the people you've matched with.",
 };
 
 export default async function MessagesPage() {
@@ -13,7 +13,7 @@ export default async function MessagesPage() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) {
+  if (!user && process.env.PREVIEW_AUTH !== "1") {
     redirect("/auth/login");
   }
 

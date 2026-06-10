@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
-import { Users, Crown } from "lucide-react";
+import { UsersThree, Crown } from "@phosphor-icons/react/ssr";
 import Link from "next/link";
 
 /* ─────────────────────────────────────────────
@@ -89,7 +89,7 @@ export function GroupMatchCard({ group, className }: GroupMatchCardProps) {
                 {group.name}
               </h3>
               {group.my_role === "owner" && (
-                <Crown className="h-4 w-4 text-[var(--color-gold)] shrink-0" />
+                <Crown weight="fill" className="h-4 w-4 text-[var(--color-gold)] shrink-0" />
               )}
             </div>
             <Badge
@@ -100,7 +100,7 @@ export function GroupMatchCard({ group, className }: GroupMatchCardProps) {
             </Badge>
           </div>
           <div className="flex h-9 w-9 items-center justify-center rounded-full bg-surface-elevated shrink-0">
-            <Users className="h-4 w-4 text-muted-foreground" />
+            <UsersThree weight="light" className="h-4 w-4 text-muted-foreground" />
           </div>
         </div>
 

@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, MessageSquarePlus } from "lucide-react";
+import { MagnifyingGlass, ChatCircleDots } from "@phosphor-icons/react/ssr";
 import { formatDistanceToNow } from "date-fns";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
@@ -38,7 +38,7 @@ function EmptyConversations() {
   return (
     <div className="flex flex-col items-center justify-center px-6 py-16 text-center">
       <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#c2185b]/15 to-[#d4a574]/15 border border-white/5 mb-4">
-        <MessageSquarePlus className="h-6 w-6 text-[#d4a574]" />
+        <ChatCircleDots weight="duotone" className="h-6 w-6 text-[#d4a574]" />
       </div>
       <p className="text-white/70 font-medium text-sm">No conversations yet</p>
       <p className="text-white/35 text-xs mt-1 max-w-[200px]">
@@ -84,7 +84,7 @@ export function ConversationList({
           Messages
         </h2>
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-white/30" />
+          <MagnifyingGlass weight="light" className="absolute left-3 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-white/30" />
           <Input
             value={search}
             onChange={(e) => setSearch(e.target.value)}

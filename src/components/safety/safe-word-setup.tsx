@@ -4,11 +4,10 @@ import { useState, useEffect } from "react";
 import {
   Shield,
   Info,
-  Loader2,
-  CheckCircle2,
-  Trash2,
-  Save,
-} from "lucide-react";
+  CircleNotch,
+  CheckCircle,
+  FloppyDisk,
+} from "@phosphor-icons/react/ssr";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -97,7 +96,7 @@ export function SafeWordSetup({ className }: SafeWordSetupProps) {
   if (initialLoading) {
     return (
       <div className={cn("flex items-center justify-center py-12", className)}>
-        <Loader2 className="h-6 w-6 animate-spin text-[#c2185b]" />
+        <CircleNotch weight="bold" className="h-6 w-6 animate-spin text-[#c2185b]" />
       </div>
     );
   }
@@ -111,7 +110,7 @@ export function SafeWordSetup({ className }: SafeWordSetupProps) {
         className="rounded-xl border border-[#d4a574]/20 bg-[#d4a574]/5 p-4"
       >
         <div className="flex items-start gap-3">
-          <Info className="mt-0.5 h-4 w-4 shrink-0 text-[#d4a574]" />
+          <Info weight="light" className="mt-0.5 h-4 w-4 shrink-0 text-[#d4a574]" />
           <div className="text-sm text-[#d4a574]/80">
             <p className="mb-1 font-medium text-[#d4a574]">
               How safe words work
@@ -247,12 +246,12 @@ export function SafeWordSetup({ className }: SafeWordSetupProps) {
         >
           {loading ? (
             <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              <CircleNotch weight="bold" className="mr-2 h-4 w-4 animate-spin" />
               Saving...
             </>
           ) : (
             <>
-              <Save className="mr-2 h-4 w-4" />
+              <FloppyDisk weight="light" className="mr-2 h-4 w-4" />
               Save Safe Word
             </>
           )}
@@ -264,7 +263,7 @@ export function SafeWordSetup({ className }: SafeWordSetupProps) {
             animate={{ opacity: 1, x: 0 }}
             className="flex items-center gap-1 text-sm text-emerald-400"
           >
-            <CheckCircle2 className="h-4 w-4" />
+            <CheckCircle weight="fill" className="h-4 w-4" />
             Saved
           </motion.span>
         )}
@@ -282,7 +281,7 @@ export function SafeWordSetup({ className }: SafeWordSetupProps) {
               className="flex items-center justify-between rounded-lg border border-zinc-800 bg-zinc-900/30 px-4 py-3"
             >
               <div className="flex items-center gap-3">
-                <Shield className="h-4 w-4 text-[#c2185b]" />
+                <Shield weight="light" className="h-4 w-4 text-[#c2185b]" />
                 <div>
                   <p className="text-sm font-medium text-foreground">
                     {word.safe_word_hash}

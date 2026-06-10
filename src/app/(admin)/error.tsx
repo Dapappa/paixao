@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { AlertTriangle, RotateCcw, Shield } from "lucide-react";
+import { Warning, ArrowCounterClockwise, Shield } from "@phosphor-icons/react/ssr";
 
 export default function AdminError({
   error,
@@ -25,7 +25,7 @@ export default function AdminError({
       <div className="relative">
         {/* Admin badge */}
         <div className="mx-auto mb-4 flex items-center justify-center gap-1.5 rounded-full border border-[var(--color-border)] bg-[var(--color-surface-elevated)] px-3 py-1">
-          <Shield className="h-3 w-3 text-[var(--color-gold)]" />
+          <Shield weight="light" className="h-3 w-3 text-[var(--color-gold)]" />
           <span className="text-[10px] font-semibold uppercase tracking-widest text-[var(--color-gold)]">
             Admin Panel
           </span>
@@ -33,7 +33,7 @@ export default function AdminError({
 
         {/* Icon */}
         <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-orange-500/10">
-          <AlertTriangle className="h-8 w-8 text-orange-400" />
+          <Warning weight="duotone" className="h-8 w-8 text-orange-400" />
         </div>
 
         {/* Copy */}
@@ -56,7 +56,7 @@ export default function AdminError({
             onClick={reset}
             className="gap-2 bg-[var(--color-gold)] text-black hover:bg-[var(--color-gold)]/90"
           >
-            <RotateCcw className="h-4 w-4" />
+            <ArrowCounterClockwise weight="bold" className="h-4 w-4" />
             Try Again
           </Button>
           <Button

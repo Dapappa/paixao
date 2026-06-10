@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -7,19 +8,20 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { EmptyState } from "@/components/shared/empty-state";
-import { motion } from "framer-motion";
+import { LazyMotion, domAnimation, m } from "motion/react";
+import { riseIn, riseInSoft, stagger } from "@/lib/motion";
 import {
-  Calendar,
+  CalendarDots,
   MapPin,
   Monitor,
   Plus,
   QrCode,
-  Edit,
+  PencilSimple,
   Eye,
-  Users,
+  UsersThree,
   Ticket,
-  CalendarDays,
-} from "lucide-react";
+  Sparkle,
+} from "@phosphor-icons/react/ssr";
 import { format } from "date-fns";
 import Link from "next/link";
 
@@ -108,6 +110,46 @@ const eventTypeLabels: Record<string, string> = {
   other: "Other",
 };
 
+/* Anonymous masked personas for the attendee stack. */
+const personaAvatars = [
+  "/generated/masked-2.webp",
+  "/generated/masked-3.webp",
+  "/generated/masked-4.webp",
+  "/generated/masked-5.webp",
+  "/generated/masked-6.webp",
+];
+
+/* A small stack of masked attendee avatars + a warm count. */
+function AttendeeStack({ count }: { count: number }) {
+  const shown = Math.min(Math.max(count, 0), 4);
+  if (shown === 0) {
+    return (
+      <span className="text-xs text-text-secondary">First one in?</span>
+    );
+  }
+  return (
+    <div className="flex items-center gap-2">
+      <div className="flex -space-x-2">
+        {Array.from({ length: shown }).map((_, i) => (
+          <span
+            key={i}
+            className="relative inline-flex h-6 w-6 overflow-hidden rounded-full border border-background ring-1 ring-border"
+          >
+            <Image
+              src={personaAvatars[i % personaAvatars.length]}
+              alt=""
+              fill
+              sizes="24px"
+              className="object-cover"
+            />
+          </span>
+        ))}
+      </div>
+      <span className="text-xs text-text-secondary">{count} going</span>
+    </div>
+  );
+}
+
 /* ─────────────────────────────────────────────
    Component
    ───────────────────────────────────────────── */
@@ -119,283 +161,332 @@ export function MyEventsClient({
   const router = useRouter();
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <h1 className="font-serif text-3xl font-bold text-foreground">
-            My Events
-          </h1>
-          <p className="text-sm text-muted-foreground mt-1">
-            Manage your registrations and hosted events
-          </p>
-        </div>
-        <Button
-          onClick={() => router.push("/events/create")}
-          className="bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-hover)]"
-        >
-          <Plus className="mr-1 h-4 w-4" />
-          Create Event
-        </Button>
+    <LazyMotion features={domAnimation}>
+      {/* ── Masquerade atmosphere — candlelit ballroom ── */}
+      <div className="pointer-events-none fixed inset-0 z-0">
+        <Image
+          src="/generated/bg-masquerade.webp"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center opacity-[0.20]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/75 to-background" />
+        <div className="aura-field absolute inset-0 animate-aura-drift opacity-55" />
+        <div className="absolute bottom-[-8%] left-[-4%] h-[420px] w-[540px] rounded-full bg-gold/[0.05] blur-[120px]" />
       </div>
 
-      {/* Tabs */}
-      <Tabs defaultValue="attending" className="w-full">
-        <TabsList className="w-full sm:w-auto bg-surface border border-border">
-          <TabsTrigger value="attending" className="flex-1 sm:flex-none">
-            <Ticket className="mr-1.5 h-4 w-4" />
-            Attending ({registrations.length})
-          </TabsTrigger>
-          <TabsTrigger value="hosting" className="flex-1 sm:flex-none">
-            <CalendarDays className="mr-1.5 h-4 w-4" />
-            Hosting ({hostedEvents.length})
-          </TabsTrigger>
-        </TabsList>
+      <m.div
+        initial="hidden"
+        animate="visible"
+        variants={stagger}
+        className="relative z-10 space-y-8"
+      >
+        {/* Header */}
+        <m.div
+          variants={riseIn}
+          custom={0}
+          className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"
+        >
+          <div>
+            <span className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-[0.3em] text-gold">
+              <Sparkle weight="fill" className="h-3.5 w-3.5" />
+              Your nights
+            </span>
+            <h1 className="mt-3 font-serif text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+              Where you&rsquo;re <span className="text-gradient-brand">going</span>
+            </h1>
+            <p className="mt-3 max-w-md text-sm leading-relaxed text-text-secondary">
+              The rooms you&rsquo;ve held a seat in, and the ones you&rsquo;re
+              opening for others.
+            </p>
+          </div>
+          <Button
+            onClick={() => router.push("/events/create")}
+            size="lg"
+            className="group shrink-0 shadow-glow-accent"
+          >
+            <Plus weight="bold" className="mr-1 h-4 w-4 transition-transform group-hover:rotate-90" />
+            Open a room
+          </Button>
+        </m.div>
 
-        {/* Attending tab */}
-        <TabsContent value="attending" className="space-y-4 mt-4">
-          {registrations.length === 0 ? (
-            <EmptyState
-              icon={Ticket}
-              title="No events yet"
-              description="You haven't registered for any events yet. Browse upcoming events to find something that interests you."
-              action={{
-                label: "Browse Events",
-                onClick: () => router.push("/events"),
-              }}
-            />
-          ) : (
-            registrations.map((reg, idx) => (
-              <motion.div
-                key={reg.id}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.05 }}
-              >
-                <Link href={`/events/${reg.event.id}`}>
-                  <Card className="bg-surface border-border hover:border-[var(--color-accent)]/30 transition-colors group">
-                    <CardContent className="p-4">
-                      <div className="flex gap-4">
-                        {/* Mini cover */}
-                        <div className="hidden sm:block h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-[var(--color-accent-muted)]">
-                          {reg.event.cover_image_url ? (
-                            <img
-                              src={reg.event.cover_image_url}
-                              alt=""
-                              className="h-full w-full object-cover"
-                            />
-                          ) : (
-                            <div className="h-full w-full bg-gradient-to-br from-[var(--color-accent)]/30 to-transparent" />
-                          )}
-                        </div>
+        {/* Tabs */}
+        <m.div variants={riseIn} custom={1}>
+          <Tabs defaultValue="attending" className="w-full">
+            <TabsList className="w-full border border-border bg-surface/70 backdrop-blur-sm sm:w-auto">
+              <TabsTrigger value="attending" className="flex-1 sm:flex-none">
+                <Ticket weight="light" className="mr-1.5 h-4 w-4" />
+                Attending ({registrations.length})
+              </TabsTrigger>
+              <TabsTrigger value="hosting" className="flex-1 sm:flex-none">
+                <CalendarDots weight="light" className="mr-1.5 h-4 w-4" />
+                Hosting ({hostedEvents.length})
+              </TabsTrigger>
+            </TabsList>
 
-                        {/* Info */}
-                        <div className="flex-1 min-w-0 space-y-1.5">
-                          <div className="flex items-start justify-between gap-2">
-                            <h3 className="font-serif text-base font-semibold text-foreground leading-tight truncate group-hover:text-[var(--color-accent)] transition-colors">
-                              {reg.event.title}
-                            </h3>
-                            <Badge
-                              variant="outline"
-                              className={cn(
-                                "shrink-0 text-[10px]",
-                                statusColors[reg.status] || ""
-                              )}
-                            >
-                              {statusLabels[reg.status] || reg.status}
-                            </Badge>
-                          </div>
+            {/* Attending tab */}
+            <TabsContent value="attending" className="mt-5 space-y-4">
+              {registrations.length === 0 ? (
+                <EmptyState
+                  icon={Ticket}
+                  title="No seats held yet"
+                  description="Quiet here — for now. Wander the rooms and find a night worth dressing for."
+                  action={{
+                    label: "Browse the rooms",
+                    onClick: () => router.push("/events"),
+                  }}
+                />
+              ) : (
+                <m.div
+                  initial="hidden"
+                  animate="visible"
+                  variants={stagger}
+                  className="space-y-4"
+                >
+                  {registrations.map((reg) => (
+                    <m.div key={reg.id} variants={riseInSoft}>
+                      <Link href={`/events/${reg.event.id}`}>
+                        <Card className="group border-border/60 bg-surface/60 backdrop-blur-sm transition-all duration-300 hover:border-accent/30 hover:shadow-glow-accent">
+                          <CardContent className="p-4">
+                            <div className="flex gap-4">
+                              {/* Mini cover */}
+                              <div className="hidden h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-accent-muted sm:block">
+                                {reg.event.cover_image_url ? (
+                                  // eslint-disable-next-line @next/next/no-img-element
+                                  <img
+                                    src={reg.event.cover_image_url}
+                                    alt=""
+                                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                  />
+                                ) : (
+                                  <div className="h-full w-full bg-gradient-to-br from-accent/30 to-transparent" />
+                                )}
+                              </div>
 
-                          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
-                            <span className="flex items-center gap-1">
-                              <Calendar className="h-3 w-3" />
-                              {format(
-                                new Date(reg.event.starts_at),
-                                "MMM d, yyyy 'at' h:mm a"
-                              )}
-                            </span>
-                            {reg.event.format === "virtual" ? (
-                              <span className="flex items-center gap-1">
-                                <Monitor className="h-3 w-3" />
-                                Virtual
-                              </span>
-                            ) : (
-                              reg.event.venue_city && (
-                                <span className="flex items-center gap-1">
-                                  <MapPin className="h-3 w-3" />
-                                  {reg.event.venue_city}
-                                </span>
-                              )
-                            )}
-                            <Badge
-                              variant="secondary"
-                              className="text-[10px] px-1.5 py-0"
-                            >
-                              {eventTypeLabels[reg.event.event_type] ||
-                                reg.event.event_type}
-                            </Badge>
-                          </div>
+                              {/* Info */}
+                              <div className="min-w-0 flex-1 space-y-2">
+                                <div className="flex items-start justify-between gap-2">
+                                  <h3 className="truncate font-serif text-base font-semibold leading-tight text-foreground transition-colors group-hover:text-accent">
+                                    {reg.event.title}
+                                  </h3>
+                                  <Badge
+                                    variant="outline"
+                                    className={cn(
+                                      "shrink-0 text-[10px]",
+                                      statusColors[reg.status] || ""
+                                    )}
+                                  >
+                                    {statusLabels[reg.status] || reg.status}
+                                  </Badge>
+                                </div>
 
-                          {/* Actions */}
-                          {(reg.status === "confirmed" ||
-                            reg.status === "pending") && (
-                            <div className="pt-1">
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                className="h-7 text-xs text-[var(--color-accent)] hover:text-[var(--color-accent-hover)]"
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  router.push(
-                                    `/events/${reg.event.id}/check-in`
-                                  );
-                                }}
-                              >
-                                <QrCode className="mr-1 h-3 w-3" />
-                                Check-in Pass
-                              </Button>
+                                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-text-secondary">
+                                  <span className="flex items-center gap-1">
+                                    <CalendarDots className="h-3 w-3" />
+                                    {format(
+                                      new Date(reg.event.starts_at),
+                                      "MMM d, yyyy 'at' h:mm a"
+                                    )}
+                                  </span>
+                                  {reg.event.format === "virtual" ? (
+                                    <span className="flex items-center gap-1">
+                                      <Monitor weight="light" className="h-3 w-3" />
+                                      Virtual
+                                    </span>
+                                  ) : (
+                                    reg.event.venue_city && (
+                                      <span className="flex items-center gap-1">
+                                        <MapPin weight="light" className="h-3 w-3" />
+                                        {reg.event.venue_city}
+                                      </span>
+                                    )
+                                  )}
+                                  <Badge
+                                    variant="secondary"
+                                    className="px-1.5 py-0 text-[10px]"
+                                  >
+                                    {eventTypeLabels[reg.event.event_type] ||
+                                      reg.event.event_type}
+                                  </Badge>
+                                </div>
+
+                                <div className="flex items-center justify-between gap-2 pt-0.5">
+                                  <AttendeeStack
+                                    count={reg.event.current_attendees}
+                                  />
+
+                                  {/* Actions */}
+                                  {(reg.status === "confirmed" ||
+                                    reg.status === "pending") && (
+                                    <Button
+                                      variant="ghost"
+                                      size="sm"
+                                      className="h-7 text-xs text-accent hover:text-accent"
+                                      onClick={(e) => {
+                                        e.preventDefault();
+                                        router.push(
+                                          `/events/${reg.event.id}/check-in`
+                                        );
+                                      }}
+                                    >
+                                      <QrCode weight="light" className="mr-1 h-3 w-3" />
+                                      Your pass
+                                    </Button>
+                                  )}
+                                </div>
+                              </div>
                             </div>
-                          )}
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </Link>
-              </motion.div>
-            ))
-          )}
-        </TabsContent>
+                          </CardContent>
+                        </Card>
+                      </Link>
+                    </m.div>
+                  ))}
+                </m.div>
+              )}
+            </TabsContent>
 
-        {/* Hosting tab */}
-        <TabsContent value="hosting" className="space-y-4 mt-4">
-          {hostedEvents.length === 0 ? (
-            <EmptyState
-              icon={CalendarDays}
-              title="No hosted events"
-              description="You haven't created any events yet. Start hosting to bring the community together."
-              action={{
-                label: "Create Event",
-                onClick: () => router.push("/events/create"),
-              }}
-            />
-          ) : (
-            hostedEvents.map((event, idx) => (
-              <motion.div
-                key={event.id}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.05 }}
-              >
-                <Card className="bg-surface border-border hover:border-[var(--color-gold)]/30 transition-colors group">
-                  <CardContent className="p-4">
-                    <div className="flex gap-4">
-                      {/* Mini cover */}
-                      <div className="hidden sm:block h-20 w-20 shrink-0 overflow-hidden rounded-lg bg-[var(--color-gold-muted)]">
-                        {event.cover_image_url ? (
-                          <img
-                            src={event.cover_image_url}
-                            alt=""
-                            className="h-full w-full object-cover"
-                          />
-                        ) : (
-                          <div className="h-full w-full bg-gradient-to-br from-[var(--color-gold)]/30 to-transparent" />
-                        )}
-                      </div>
+            {/* Hosting tab */}
+            <TabsContent value="hosting" className="mt-5 space-y-4">
+              {hostedEvents.length === 0 ? (
+                <EmptyState
+                  icon={CalendarDots}
+                  title="No rooms of your own"
+                  description="No rooms open tonight. The next one's worth the wait — open one and bring the floor to life."
+                  action={{
+                    label: "Open a room",
+                    onClick: () => router.push("/events/create"),
+                  }}
+                />
+              ) : (
+                <m.div
+                  initial="hidden"
+                  animate="visible"
+                  variants={stagger}
+                  className="space-y-4"
+                >
+                  {hostedEvents.map((event) => (
+                    <m.div key={event.id} variants={riseInSoft}>
+                      <Card className="group border-border/60 bg-surface/60 backdrop-blur-sm transition-all duration-300 hover:border-gold/30 hover:shadow-glow-gold">
+                        <CardContent className="p-4">
+                          <div className="flex gap-4">
+                            {/* Mini cover */}
+                            <div className="hidden h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-gold-muted sm:block">
+                              {event.cover_image_url ? (
+                                // eslint-disable-next-line @next/next/no-img-element
+                                <img
+                                  src={event.cover_image_url}
+                                  alt=""
+                                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                />
+                              ) : (
+                                <div className="h-full w-full bg-gradient-to-br from-gold/30 to-transparent" />
+                              )}
+                            </div>
 
-                      {/* Info */}
-                      <div className="flex-1 min-w-0 space-y-1.5">
-                        <div className="flex items-start justify-between gap-2">
-                          <h3 className="font-serif text-base font-semibold text-foreground leading-tight truncate">
-                            {event.title}
-                          </h3>
-                          <Badge
-                            variant="outline"
-                            className={cn(
-                              "shrink-0 text-[10px]",
-                              statusColors[event.status] || ""
-                            )}
-                          >
-                            {statusLabels[event.status] || event.status}
-                          </Badge>
-                        </div>
+                            {/* Info */}
+                            <div className="min-w-0 flex-1 space-y-2">
+                              <div className="flex items-start justify-between gap-2">
+                                <h3 className="truncate font-serif text-base font-semibold leading-tight text-foreground">
+                                  {event.title}
+                                </h3>
+                                <Badge
+                                  variant="outline"
+                                  className={cn(
+                                    "shrink-0 text-[10px]",
+                                    statusColors[event.status] || ""
+                                  )}
+                                >
+                                  {statusLabels[event.status] || event.status}
+                                </Badge>
+                              </div>
 
-                        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
-                          <span className="flex items-center gap-1">
-                            <Calendar className="h-3 w-3" />
-                            {format(
-                              new Date(event.starts_at),
-                              "MMM d, yyyy"
-                            )}
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <Users className="h-3 w-3" />
-                            {event.current_attendees}
-                            {event.capacity
-                              ? ` / ${event.capacity}`
-                              : ""}{" "}
-                            attendees
-                          </span>
-                          <Badge
-                            variant="secondary"
-                            className="text-[10px] px-1.5 py-0"
-                          >
-                            {eventTypeLabels[event.event_type] ||
-                              event.event_type}
-                          </Badge>
-                        </div>
+                              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-text-secondary">
+                                <span className="flex items-center gap-1">
+                                  <CalendarDots className="h-3 w-3" />
+                                  {format(
+                                    new Date(event.starts_at),
+                                    "MMM d, yyyy"
+                                  )}
+                                </span>
+                                <span className="flex items-center gap-1">
+                                  <UsersThree className="h-3 w-3" />
+                                  {event.current_attendees}
+                                  {event.capacity
+                                    ? ` / ${event.capacity}`
+                                    : ""}{" "}
+                                  going
+                                </span>
+                                <Badge
+                                  variant="secondary"
+                                  className="px-1.5 py-0 text-[10px]"
+                                >
+                                  {eventTypeLabels[event.event_type] ||
+                                    event.event_type}
+                                </Badge>
+                              </div>
 
-                        {/* Host actions */}
-                        <div className="flex items-center gap-2 pt-1">
-                          <Link href={`/events/${event.id}`}>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              className="h-7 text-xs text-muted-foreground hover:text-foreground"
-                            >
-                              <Eye className="mr-1 h-3 w-3" />
-                              View
-                            </Button>
-                          </Link>
-                          {event.status === "draft" && (
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              className="h-7 text-xs text-[var(--color-gold)] hover:text-[var(--color-gold)]"
-                              onClick={async () => {
-                                // Quick publish
-                                try {
-                                  const res = await fetch(
-                                    `/api/events/${event.id}`,
-                                    {
-                                      method: "PUT",
-                                      headers: {
-                                        "Content-Type": "application/json",
-                                      },
-                                      body: JSON.stringify({
-                                        status: "published",
-                                      }),
-                                    }
-                                  );
-                                  if (res.ok) {
-                                    window.location.reload();
-                                  }
-                                } catch {}
-                              }}
-                            >
-                              <Edit className="mr-1 h-3 w-3" />
-                              Publish
-                            </Button>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))
-          )}
-        </TabsContent>
-      </Tabs>
-    </div>
+                              {/* Host actions */}
+                              <div className="flex items-center gap-2 pt-0.5">
+                                <Link href={`/events/${event.id}`}>
+                                  <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    className="h-7 text-xs text-text-secondary hover:text-foreground"
+                                  >
+                                    <Eye weight="light" className="mr-1 h-3 w-3" />
+                                    View
+                                  </Button>
+                                </Link>
+                                {event.status === "draft" && (
+                                  <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    className="h-7 text-xs text-gold hover:text-gold"
+                                    onClick={async () => {
+                                      // Quick publish
+                                      try {
+                                        const res = await fetch(
+                                          `/api/events/${event.id}`,
+                                          {
+                                            method: "PUT",
+                                            headers: {
+                                              "Content-Type":
+                                                "application/json",
+                                            },
+                                            body: JSON.stringify({
+                                              status: "published",
+                                            }),
+                                          }
+                                        );
+                                        if (res.ok) {
+                                          window.location.reload();
+                                        }
+                                      } catch {}
+                                    }}
+                                  >
+                                    <PencilSimple className="mr-1 h-3 w-3" />
+                                    Open the doors
+                                  </Button>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </m.div>
+                  ))}
+                </m.div>
+              )}
+            </TabsContent>
+          </Tabs>
+        </m.div>
+      </m.div>
+
+      {/* ── Atmosphere overlays ── */}
+      <div className="vignette" aria-hidden />
+      <div className="film-grain" aria-hidden />
+    </LazyMotion>
   );
 }

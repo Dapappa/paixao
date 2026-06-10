@@ -3,7 +3,7 @@ import { ProfileViewClient } from "./profile-view-client";
 import type { ProfileData } from "@/components/matches/profile-preview";
 
 export const metadata = {
-  title: "Profile | PassionDen",
+  title: "Profile | Paixão",
   description: "View a member profile",
 };
 

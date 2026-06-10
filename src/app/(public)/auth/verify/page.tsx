@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Mail, ArrowLeft, Loader2 } from "lucide-react";
+import { Envelope, ArrowLeft, CircleNotch } from "@phosphor-icons/react/ssr";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 
@@ -70,7 +70,7 @@ export default function VerifyEmailPage() {
             {/* Icon */}
             <motion.div variants={fadeUp} custom={0}>
               <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-border bg-surface">
-                <Mail className="h-8 w-8 text-gold" />
+                <Envelope className="h-8 w-8 text-gold" weight="duotone" />
               </div>
             </motion.div>
 
@@ -118,7 +118,7 @@ export default function VerifyEmailPage() {
               >
                 {isResending ? (
                   <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    <CircleNotch className="mr-2 h-4 w-4 animate-spin" weight="bold" />
                     Resending...
                   </>
                 ) : (
@@ -139,7 +139,7 @@ export default function VerifyEmailPage() {
                 href="/auth/login"
                 className="flex items-center gap-1 text-sm text-text-secondary hover:text-foreground transition-colors"
               >
-                <ArrowLeft className="h-3.5 w-3.5" />
+                <ArrowLeft className="h-3.5 w-3.5" weight="bold" />
                 Back to login
               </Link>
             </motion.div>

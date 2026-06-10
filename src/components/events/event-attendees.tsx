@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { Users } from "lucide-react";
+import { UsersThree } from "@phosphor-icons/react/ssr";
 
 interface EventAttendeesProps {
   count: number;
@@ -53,7 +53,7 @@ export function EventAttendees({
       {/* Fallback: icon + count when no avatars */}
       {visibleAvatars.length === 0 && (
         <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--color-accent-muted)]">
-          <Users className="h-4 w-4 text-[var(--color-accent)]" />
+          <UsersThree className="h-4 w-4 text-[var(--color-accent)]" />
         </div>
       )}
 

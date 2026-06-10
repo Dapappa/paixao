@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { MyEventsClient } from "./my-events-client";
 
 export const metadata = {
-  title: "My Events | PassionDen",
+  title: "My Events | Paixão",
   description: "Manage your events and registrations",
 };
 
@@ -14,7 +14,7 @@ export default async function MyEventsPage() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) {
+  if (!user && process.env.PREVIEW_AUTH !== "1") {
     redirect("/auth/login");
   }
 
@@ -25,14 +25,14 @@ export default async function MyEventsPage() {
     .select(
       "id, status, check_in_code, event:events(id, title, slug, starts_at, ends_at, venue_city, format, event_type, cover_image_url, status, current_attendees, capacity)"
     )
-    .eq("profile_id", user.id)
+    .eq("profile_id", user?.id)
     .neq("status", "cancelled")
     .order("created_at", { ascending: false });
 
   // Fetch events user is hosting
   const { data: hostedEvents } = await (supabase.from("events") as any)
     .select("*")
-    .eq("host_id", user.id)
+    .eq("host_id", user?.id)
     .neq("status", "archived")
     .order("created_at", { ascending: false });
 

@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 import { useSearchParams } from 'next/navigation';
 import { toast } from 'sonner';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, ArrowLeft } from 'lucide-react';
+import { Sparkle, ArrowLeft } from '@phosphor-icons/react/ssr';
 import { Button } from '@/components/ui/button';
 import { SubscriptionManager } from '@/components/payments/subscription-manager';
 import Link from 'next/link';
@@ -29,7 +29,18 @@ export function BillingClient() {
   }, [searchParams]);
 
   return (
-    <div className="min-h-screen pb-20">
+    <div className="relative min-h-[calc(100dvh-4rem)] overflow-hidden pb-20">
+      {/* ── Ambient aura backdrop (Velvet Aura) ── */}
+      <div className="pointer-events-none absolute inset-0 z-0">
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-[0.16] mix-blend-screen"
+          style={{ backgroundImage: 'url(/generated/bg-bar.webp)' }}
+        />
+        <div className="aura-field absolute inset-0 animate-aura-drift opacity-60" />
+        <div className="absolute left-1/2 top-[-10%] h-[460px] w-[640px] -translate-x-1/2 rounded-full bg-gold/[0.05] blur-[130px]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background" />
+      </div>
+
       {/* Celebration overlay */}
       <AnimatePresence>
         {showCelebration && (
@@ -71,7 +82,8 @@ export function BillingClient() {
                 }}
                 className="absolute"
               >
-                <Sparkles
+                <Sparkle
+                  weight="fill"
                   className={cn(
                     'h-4 w-4',
                     i % 3 === 0
@@ -88,32 +100,40 @@ export function BillingClient() {
       </AnimatePresence>
 
       {/* Header */}
-      <div className="px-4 pt-8 pb-6">
+      <div className="relative z-10 px-4 pt-10 pb-6">
         <div className="mx-auto max-w-3xl">
           <Link href="/dashboard">
             <Button
               variant="ghost"
               size="sm"
-              className="mb-4 text-white/40 hover:text-white/60"
+              className="mb-4 text-text-secondary hover:text-foreground"
             >
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Dashboard
+              <ArrowLeft weight="bold" className="mr-2 h-4 w-4" />
+              Back inside
             </Button>
           </Link>
-          <h1 className="font-serif text-3xl font-bold text-white tracking-wide">
-            Billing &amp; Subscription
+          <span className="text-xs font-medium uppercase tracking-[0.34em] text-gold">
+            Your standing
+          </span>
+          <h1 className="mt-3 font-serif text-3xl font-bold tracking-wide text-foreground sm:text-4xl">
+            Your seat &amp; your plan
           </h1>
-          <p className="mt-2 text-white/50">
-            Manage your plan, view payment history, and update billing
-            preferences.
+          <p className="mt-3 leading-relaxed text-text-secondary">
+            Everything that keeps your place in the room — your plan, what
+            you&apos;ve paid, the details only you can see. Change it whenever you
+            like.
           </p>
         </div>
       </div>
 
       {/* Subscription Manager */}
-      <div className="mx-auto max-w-3xl px-4">
+      <div className="relative z-10 mx-auto max-w-3xl px-4">
         <SubscriptionManager />
       </div>
+
+      {/* ── Atmosphere overlays ── */}
+      <div className="vignette" aria-hidden />
+      <div className="film-grain" aria-hidden />
     </div>
   );
 }

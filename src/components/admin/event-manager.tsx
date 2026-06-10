@@ -18,19 +18,17 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { motion } from "framer-motion";
 import {
-  Calendar,
   Check,
-  ChevronLeft,
-  ChevronRight,
+  CaretLeft,
+  CaretRight,
   Eye,
-  MoreHorizontal,
-  Search,
+  DotsThree,
+  MagnifyingGlass,
   Star,
-  StarOff,
-  Users,
+  UsersThree,
   X,
   XCircle,
-} from "lucide-react";
+} from "@phosphor-icons/react/ssr";
 import { format } from "date-fns";
 
 interface Event {
@@ -147,7 +145,7 @@ export function EventManager() {
         </Tabs>
 
         <div className="relative w-full md:w-72">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
+          <MagnifyingGlass weight="light" className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
           <Input
             placeholder="Search events..."
             value={searchInput}
@@ -257,7 +255,7 @@ export function EventManager() {
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-1 text-xs text-zinc-400">
-                        <Users className="h-3 w-3" />
+                        <UsersThree weight="light" className="h-3 w-3" />
                         <span>
                           {event.current_attendees}
                           {event.capacity ? `/${event.capacity}` : ""}
@@ -276,9 +274,9 @@ export function EventManager() {
                         className="inline-flex"
                       >
                         {event.is_featured ? (
-                          <Star className="h-4 w-4 fill-[#d4a574] text-[#d4a574]" />
+                          <Star weight="fill" className="h-4 w-4 text-[#d4a574]" />
                         ) : (
-                          <Star className="h-4 w-4 text-zinc-600 hover:text-[#d4a574] transition-colors" />
+                          <Star weight="light" className="h-4 w-4 text-zinc-600 hover:text-[#d4a574] transition-colors" />
                         )}
                       </button>
                     </td>
@@ -290,7 +288,7 @@ export function EventManager() {
                             size="icon"
                             className="h-8 w-8 text-zinc-500 hover:text-white hover:bg-white/[0.06]"
                           >
-                            <MoreHorizontal className="h-4 w-4" />
+                            <DotsThree weight="bold" className="h-4 w-4" />
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent
@@ -302,7 +300,7 @@ export function EventManager() {
                             onClick={() => router.push(`/admin/events/${event.id}`)}
                             className="text-zinc-300 focus:bg-white/[0.06] focus:text-white"
                           >
-                            <Eye className="mr-2 h-4 w-4" />
+                            <Eye weight="light" className="mr-2 h-4 w-4" />
                             View Details
                           </DropdownMenuItem>
                           {event.status === "draft" && (
@@ -312,14 +310,14 @@ export function EventManager() {
                                 onClick={() => handleAction(event.id, "approve")}
                                 className="text-emerald-400 focus:bg-emerald-500/10 focus:text-emerald-400"
                               >
-                                <Check className="mr-2 h-4 w-4" />
+                                <Check weight="bold" className="mr-2 h-4 w-4" />
                                 Approve
                               </DropdownMenuItem>
                               <DropdownMenuItem
                                 onClick={() => handleAction(event.id, "reject")}
                                 className="text-orange-400 focus:bg-orange-500/10 focus:text-orange-400"
                               >
-                                <X className="mr-2 h-4 w-4" />
+                                <X weight="bold" className="mr-2 h-4 w-4" />
                                 Reject
                               </DropdownMenuItem>
                             </>
@@ -331,7 +329,7 @@ export function EventManager() {
                                 onClick={() => handleAction(event.id, "cancel")}
                                 className="text-red-400 focus:bg-red-500/10 focus:text-red-400"
                               >
-                                <XCircle className="mr-2 h-4 w-4" />
+                                <XCircle weight="light" className="mr-2 h-4 w-4" />
                                 Cancel Event
                               </DropdownMenuItem>
                             </>
@@ -360,7 +358,7 @@ export function EventManager() {
                 disabled={page === 1}
                 onClick={() => setPage((p) => p - 1)}
               >
-                <ChevronLeft className="h-4 w-4" />
+                <CaretLeft weight="bold" className="h-4 w-4" />
               </Button>
               <Button
                 variant="ghost"
@@ -369,7 +367,7 @@ export function EventManager() {
                 disabled={page >= totalPages}
                 onClick={() => setPage((p) => p + 1)}
               >
-                <ChevronRight className="h-4 w-4" />
+                <CaretRight weight="bold" className="h-4 w-4" />
               </Button>
             </div>
           </div>

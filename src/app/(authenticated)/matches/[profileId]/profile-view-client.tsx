@@ -8,8 +8,9 @@ import {
 } from "@/components/matches/profile-preview";
 import { LoadingSpinner } from "@/components/shared/loading-spinner";
 import { useMatchAction } from "@/lib/hooks/use-matches";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "@phosphor-icons/react/ssr";
 import Link from "next/link";
+import { MatchesAtmosphere } from "../matches-atmosphere";
 
 /* ─────────────────────────────────────────────
    ProfileViewClient
@@ -94,25 +95,30 @@ export function ProfileViewClient({
 
   if (loading) {
     return (
-      <div className="flex justify-center py-20">
-        <LoadingSpinner size="lg" />
+      <div className="relative z-10">
+        <MatchesAtmosphere />
+        <div className="flex flex-col items-center justify-center gap-4 py-20">
+          <LoadingSpinner size="lg" />
+          <p className="text-sm italic text-text-secondary">Setting the mood&hellip;</p>
+        </div>
       </div>
     );
   }
 
   if (error || !profile) {
     return (
-      <div className="space-y-6">
+      <div className="relative z-10 space-y-6">
+        <MatchesAtmosphere />
         <Link
           href="/matches"
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+          className="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-foreground transition-colors"
         >
-          <ArrowLeft className="h-4 w-4" />
-          Back to Discover
+          <ArrowLeft weight="bold" className="h-4 w-4" />
+          Back to the room
         </Link>
-        <div className="rounded-lg border border-[var(--color-danger)]/30 bg-[var(--color-danger)]/10 p-6 text-center">
+        <div className="rounded-2xl border border-[var(--color-danger)]/30 bg-[var(--color-danger)]/10 p-6 text-center backdrop-blur-sm">
           <p className="text-sm text-[var(--color-danger)]">
-            {error || "Profile not found"}
+            {error || "This one slipped away. The profile&rsquo;s gone quiet."}
           </p>
         </div>
       </div>
@@ -120,14 +126,16 @@ export function ProfileViewClient({
   }
 
   return (
-    <div className="space-y-6">
+    <div className="relative z-10 space-y-6">
+      <MatchesAtmosphere />
+
       {/* Back link */}
       <Link
         href="/matches"
-        className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+        className="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-foreground transition-colors"
       >
         <ArrowLeft className="h-4 w-4" />
-        Back to Discover
+        Back to the room
       </Link>
 
       {/* Profile */}

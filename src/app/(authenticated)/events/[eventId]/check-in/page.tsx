@@ -11,12 +11,12 @@ import { LoadingSpinner } from "@/components/shared/loading-spinner";
 import { motion } from "framer-motion";
 import {
   ArrowLeft,
-  Calendar,
+  CalendarDots,
   MapPin,
   Monitor,
   Info,
-  AlertTriangle,
-} from "lucide-react";
+  Warning,
+} from "@phosphor-icons/react/ssr";
 import { format } from "date-fns";
 import type { EventWithHost } from "@/lib/hooks/use-events";
 
@@ -103,14 +103,14 @@ export default function CheckInPage() {
   if (error) {
     return (
       <div className="mx-auto max-w-lg py-12 text-center space-y-4">
-        <AlertTriangle className="mx-auto h-12 w-12 text-[var(--color-danger)]" />
+        <Warning weight="duotone" className="mx-auto h-12 w-12 text-[var(--color-danger)]" />
         <h2 className="text-lg font-semibold text-foreground">{error}</h2>
         <Button
           variant="outline"
           onClick={() => router.push(`/events/${eventId}`)}
           className="border-border"
         >
-          <ArrowLeft className="mr-1 h-4 w-4" />
+          <ArrowLeft weight="bold" className="mr-1 h-4 w-4" />
           Back to Event
         </Button>
       </div>
@@ -130,7 +130,7 @@ export default function CheckInPage() {
         onClick={() => router.push(`/events/${eventId}`)}
         className="text-muted-foreground -ml-2"
       >
-        <ArrowLeft className="mr-1 h-4 w-4" />
+        <ArrowLeft weight="bold" className="mr-1 h-4 w-4" />
         Back to event
       </Button>
 
@@ -179,7 +179,7 @@ export default function CheckInPage() {
           </h2>
           <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
             <span className="flex items-center gap-1">
-              <Calendar className="h-3.5 w-3.5" />
+              <CalendarDots className="h-3.5 w-3.5" />
               {format(new Date(event.starts_at), "EEEE, MMMM d, yyyy")}
             </span>
             <span className="flex items-center gap-1">
@@ -192,7 +192,7 @@ export default function CheckInPage() {
           {(event.format === "in_person" || event.format === "hybrid") &&
             event.venue_name && (
               <div className="flex items-start gap-2 text-sm">
-                <MapPin className="mt-0.5 h-4 w-4 text-[var(--color-accent)]" />
+                <MapPin weight="light" className="mt-0.5 h-4 w-4 text-[var(--color-accent)]" />
                 <div>
                   <p className="text-foreground font-medium">
                     {event.venue_name}
@@ -215,7 +215,7 @@ export default function CheckInPage() {
 
           {(event.format === "virtual" || event.format === "hybrid") && (
             <div className="flex items-center gap-2 text-sm">
-              <Monitor className="h-4 w-4 text-[var(--color-gold)]" />
+              <Monitor weight="light" className="h-4 w-4 text-[var(--color-gold)]" />
               <span className="text-foreground">
                 {event.virtual_platform || "Virtual Event"}
               </span>
@@ -253,7 +253,7 @@ export default function CheckInPage() {
       {/* Instruction */}
       {!isCheckedIn && !isWaitlisted && (
         <div className="flex items-start gap-3 rounded-lg bg-surface p-4 border border-border">
-          <Info className="mt-0.5 h-5 w-5 text-[var(--color-gold)]" />
+          <Info weight="duotone" className="mt-0.5 h-5 w-5 text-[var(--color-gold)]" />
           <div className="space-y-1">
             <p className="text-sm font-medium text-foreground">
               Show this to the host at check-in

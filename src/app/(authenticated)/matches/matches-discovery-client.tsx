@@ -12,8 +12,9 @@ import {
   useMatchAction,
 } from "@/lib/hooks/use-matches";
 import { motion } from "framer-motion";
-import { Heart, Sparkles, Users, Star } from "lucide-react";
+import { Heart, Sparkle, UsersThree, Star } from "@phosphor-icons/react/ssr";
 import Link from "next/link";
+import { MatchesAtmosphere } from "./matches-atmosphere";
 
 /* ─────────────────────────────────────────────
    MatchesDiscoveryClient
@@ -74,15 +75,20 @@ export function MatchesDiscoveryClient({
   );
 
   return (
-    <div className="space-y-6">
+    <div className="relative z-10 space-y-6">
+      <MatchesAtmosphere />
+
       {/* Page header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="font-serif text-3xl font-bold text-foreground">
-            Discover
+          <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-gold/80">
+            Read the room
+          </p>
+          <h1 className="mt-1.5 font-serif text-4xl font-bold tracking-tight text-foreground">
+            Who&rsquo;s near
           </h1>
-          <p className="text-sm text-muted-foreground mt-1">
-            Find your next connection
+          <p className="text-sm text-text-secondary mt-1.5">
+            Linger a little. The right one&rsquo;s worth slowing down for.
           </p>
         </div>
 
@@ -90,17 +96,17 @@ export function MatchesDiscoveryClient({
         <div className="flex items-center gap-2">
           <Link
             href="/matches/connections"
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-border text-sm text-muted-foreground hover:text-foreground hover:border-foreground/30 transition-colors"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-border bg-surface/50 backdrop-blur-sm text-sm text-text-secondary hover:text-foreground hover:border-accent/30 hover:shadow-glow-accent transition-all"
           >
-            <Users className="h-3.5 w-3.5" />
-            Connections
+            <UsersThree weight="light" className="h-3.5 w-3.5" />
+            Yours
           </Link>
           <Link
             href="/matches/suggestions"
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[var(--color-gold)]/30 text-sm text-[var(--color-gold)] hover:border-[var(--color-gold)]/60 transition-colors"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-gold/30 bg-surface/50 backdrop-blur-sm text-sm text-gold hover:border-gold/60 transition-all"
           >
-            <Sparkles className="h-3.5 w-3.5" />
-            Top Picks
+            <Sparkle weight="fill" className="h-3.5 w-3.5" />
+            Top picks
           </Link>
         </div>
       </div>
@@ -109,19 +115,19 @@ export function MatchesDiscoveryClient({
       <motion.div
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
-        className="flex items-center gap-4 rounded-xl border border-border bg-surface px-4 py-3"
+        className="flex flex-wrap items-center gap-x-4 gap-y-2 rounded-2xl border border-border/60 bg-surface/50 backdrop-blur-sm px-4 py-3"
       >
         <div className="flex items-center gap-2">
-          <Heart className="h-4 w-4 text-[var(--color-accent)]" />
-          <span className="text-sm text-muted-foreground">
+          <Heart weight="fill" className="h-4 w-4 text-accent" />
+          <span className="text-sm text-text-secondary">
             <span className="font-semibold text-foreground">{maxLikes}</span>{" "}
             likes / day
           </span>
         </div>
         <div className="h-4 w-px bg-border" />
         <div className="flex items-center gap-2">
-          <Star className="h-4 w-4 text-[var(--color-gold)]" />
-          <span className="text-sm text-muted-foreground">
+          <Star weight="fill" className="h-4 w-4 text-gold" />
+          <span className="text-sm text-text-secondary">
             <span className="font-semibold text-foreground">
               {subscriptionTier === "curious" ? 1 : subscriptionTier === "explorer" ? 3 : 5}
             </span>{" "}
@@ -131,7 +137,7 @@ export function MatchesDiscoveryClient({
         <div className="ml-auto">
           <Badge
             variant="outline"
-            className="border-[var(--color-gold)]/30 text-[var(--color-gold)] text-[10px] capitalize"
+            className="border-gold/30 text-gold text-[10px] capitalize"
           >
             {subscriptionTier}
           </Badge>
@@ -143,8 +149,9 @@ export function MatchesDiscoveryClient({
 
       {/* Loading */}
       {loading && candidates.length === 0 && (
-        <div className="flex justify-center py-20">
+        <div className="flex flex-col items-center justify-center gap-4 py-20">
           <LoadingSpinner size="lg" />
+          <p className="text-sm italic text-text-secondary">Setting the mood&hellip;</p>
         </div>
       )}
 
@@ -170,16 +177,22 @@ export function MatchesDiscoveryClient({
       {/* Empty state handled inside MatchStack */}
       {!loading && !error && candidates.length === 0 && (
         <div className="flex flex-col items-center justify-center py-16 px-6 text-center">
-          <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-[var(--color-accent-muted)]">
-            <Heart className="h-8 w-8 text-[var(--color-accent)]" />
+          <div className="mb-4 flex h-16 w-16 animate-breath items-center justify-center rounded-2xl bg-accent-muted">
+            <Heart weight="duotone" className="h-8 w-8 text-accent" />
           </div>
-          <h3 className="mb-2 text-lg font-semibold text-foreground">
-            No profiles yet
+          <h3 className="mb-2 font-serif text-xl font-semibold text-foreground">
+            Quiet here &mdash; for now
           </h3>
-          <p className="mb-6 max-w-sm text-sm text-muted-foreground">
-            There are no profiles matching your preferences right now. Try
-            adjusting your filters or check back later.
+          <p className="mb-6 max-w-sm text-sm leading-relaxed text-text-secondary">
+            No one new tonight who fits what you&rsquo;ve set. Widen your circle
+            a touch, or come back when the room fills.
           </p>
+          <Link
+            href="/matches/preferences"
+            className="rounded-full border border-accent/30 bg-surface/50 px-4 py-2 text-sm text-foreground backdrop-blur-sm transition-all hover:border-accent/60 hover:shadow-glow-accent"
+          >
+            Widen your circle
+          </Link>
         </div>
       )}
     </div>

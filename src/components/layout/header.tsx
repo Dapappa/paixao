@@ -27,11 +27,11 @@ import { useProfile } from "@/lib/hooks/use-profile";
 import { motion } from "framer-motion";
 import { NotificationBell } from "@/components/notifications/notification-bell";
 import {
-  LogOut,
-  Menu,
-  Settings,
+  SignOut,
+  List,
+  Gear,
   User,
-} from "lucide-react";
+} from "@phosphor-icons/react/ssr";
 import { useState } from "react";
 
 const pageTitles: Record<string, string> = {
@@ -53,7 +53,7 @@ function getPageTitle(pathname: string): string {
   for (const [path, title] of Object.entries(pageTitles)) {
     if (pathname.startsWith(path)) return title;
   }
-  return "PassionDen";
+  return "Paixão";
 }
 
 export function Header() {
@@ -79,13 +79,13 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-20 flex h-16 items-center border-b border-[var(--color-border)] bg-background/80 backdrop-blur-xl px-4 md:px-6">
+    <header className="sticky top-0 z-20 flex h-20 items-center border-b border-[var(--color-border)] bg-background/80 backdrop-blur-xl px-4 md:px-6">
       {/* Mobile: Hamburger */}
       <div className="md:hidden">
         <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
           <SheetTrigger asChild>
             <Button variant="ghost" size="icon" className="h-9 w-9">
-              <Menu className="h-5 w-5" />
+              <List weight="bold" className="h-5 w-5" />
               <span className="sr-only">Toggle menu</span>
             </Button>
           </SheetTrigger>
@@ -95,7 +95,7 @@ export function Header() {
           >
             <SheetHeader className="px-6 pt-6 pb-4">
               <SheetTitle className="font-serif text-2xl tracking-[0.15em] text-foreground text-left">
-                PASSION<span className="text-[var(--color-accent)]">D</span>EN
+                PAIX<span className="text-[var(--color-accent)]">Ã</span>O
               </SheetTitle>
             </SheetHeader>
             <Separator className="bg-[var(--color-border)]" />
@@ -121,7 +121,7 @@ export function Header() {
                             : "text-muted-foreground hover:bg-[var(--color-surface-elevated)] hover:text-foreground"
                         )}
                       >
-                        <Icon className="h-5 w-5 shrink-0" />
+                        <Icon weight={isActive ? "fill" : "light"} className="h-5 w-5 shrink-0" />
                         <span>{item.label}</span>
                       </div>
                     </Link>
@@ -155,8 +155,8 @@ export function Header() {
       {/* Mobile: Logo (centered) */}
       <div className="flex flex-1 items-center justify-center md:hidden">
         <Link href="/dashboard">
-          <h1 className="font-serif text-lg tracking-[0.15em] text-foreground">
-            PASSION<span className="text-[var(--color-accent)]">D</span>EN
+          <h1 className="font-serif text-2xl font-bold tracking-[0.18em] text-foreground">
+            PAIX<span className="text-[var(--color-accent)]">Ã</span>O
           </h1>
         </Link>
       </div>
@@ -205,14 +205,14 @@ export function Header() {
                 onClick={() => router.push("/profile")}
                 className="cursor-pointer"
               >
-                <User className="mr-2 h-4 w-4" />
+                <User weight="light" className="mr-2 h-4 w-4" />
                 View Profile
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => router.push("/profile/settings")}
                 className="cursor-pointer"
               >
-                <Settings className="mr-2 h-4 w-4" />
+                <Gear weight="light" className="mr-2 h-4 w-4" />
                 Settings
               </DropdownMenuItem>
               <DropdownMenuSeparator className="bg-[var(--color-border)]" />
@@ -220,7 +220,7 @@ export function Header() {
                 onClick={handleSignOut}
                 className="cursor-pointer text-[var(--color-danger)] focus:text-[var(--color-danger)]"
               >
-                <LogOut className="mr-2 h-4 w-4" />
+                <SignOut weight="light" className="mr-2 h-4 w-4" />
                 Sign Out
               </DropdownMenuItem>
             </DropdownMenuContent>

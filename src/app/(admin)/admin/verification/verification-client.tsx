@@ -25,12 +25,12 @@ import {
 import { motion } from "framer-motion";
 import {
   Check,
-  ChevronLeft,
-  ChevronRight,
+  CaretLeft,
+  CaretRight,
   Eye,
   ShieldCheck,
   X,
-} from "lucide-react";
+} from "@phosphor-icons/react/ssr";
 import { formatDistanceToNow } from "date-fns";
 
 interface VerificationSubmission {
@@ -132,7 +132,7 @@ export function VerificationPageClient() {
       ) : submissions.length === 0 ? (
         <div className="flex flex-col items-center justify-center rounded-xl border border-white/[0.06] bg-white/[0.02] py-16">
           <div className="rounded-full bg-emerald-500/10 p-4">
-            <ShieldCheck className="h-10 w-10 text-emerald-400/40" />
+            <ShieldCheck weight="duotone" className="h-10 w-10 text-emerald-400/40" />
           </div>
           <p className="mt-4 text-sm font-medium text-zinc-400">
             No pending verifications
@@ -196,7 +196,7 @@ export function VerificationPageClient() {
                         className="h-8 w-8 text-zinc-500 hover:text-white"
                         onClick={() => window.open(sub.document_url!, "_blank")}
                       >
-                        <Eye className="h-4 w-4" />
+                        <Eye weight="light" className="h-4 w-4" />
                       </Button>
                     )}
                     {sub.status === "pending" && (
@@ -210,7 +210,7 @@ export function VerificationPageClient() {
                             setDialogNotes("");
                           }}
                         >
-                          <Check className="h-4 w-4" />
+                          <Check weight="bold" className="h-4 w-4" />
                         </Button>
                         <Button
                           size="icon"
@@ -222,7 +222,7 @@ export function VerificationPageClient() {
                             setDialogNotes("");
                           }}
                         >
-                          <X className="h-4 w-4" />
+                          <X weight="bold" className="h-4 w-4" />
                         </Button>
                       </>
                     )}
@@ -240,10 +240,10 @@ export function VerificationPageClient() {
           <span className="text-xs text-zinc-500">Page {page} of {totalPages}</span>
           <div className="flex items-center gap-1">
             <Button variant="ghost" size="icon" className="h-8 w-8 text-zinc-500" disabled={page === 1} onClick={() => setPage((p) => p - 1)}>
-              <ChevronLeft className="h-4 w-4" />
+              <CaretLeft weight="bold" className="h-4 w-4" />
             </Button>
             <Button variant="ghost" size="icon" className="h-8 w-8 text-zinc-500" disabled={page >= totalPages} onClick={() => setPage((p) => p + 1)}>
-              <ChevronRight className="h-4 w-4" />
+              <CaretRight weight="bold" className="h-4 w-4" />
             </Button>
           </div>
         </div>

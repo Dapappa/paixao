@@ -3,7 +3,7 @@
 import { useEffect, useRef, useCallback } from "react";
 import { format, isToday, isYesterday, isSameDay } from "date-fns";
 import { motion } from "framer-motion";
-import { MessageSquare } from "lucide-react";
+import { ChatText } from "@phosphor-icons/react/ssr";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
 import { MessageBubble } from "./message-bubble";
@@ -58,7 +58,7 @@ function EmptyState() {
       className="flex flex-1 flex-col items-center justify-center gap-4 text-center px-8"
     >
       <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-[#c2185b]/20 to-[#d4a574]/20 border border-white/5">
-        <MessageSquare className="h-7 w-7 text-[#c2185b]" />
+        <ChatText weight="duotone" className="h-7 w-7 text-[#c2185b]" />
       </div>
       <div>
         <p className="text-white/80 font-medium font-[family-name:var(--font-playfair)]">

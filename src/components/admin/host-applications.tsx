@@ -25,14 +25,13 @@ import {
 import { motion } from "framer-motion";
 import {
   Check,
-  ChevronDown,
-  ChevronLeft,
-  ChevronRight,
-  ChevronUp,
-  Clock,
+  CaretDown,
+  CaretLeft,
+  CaretRight,
+  CaretUp,
   ShieldCheck,
   X,
-} from "lucide-react";
+} from "@phosphor-icons/react/ssr";
 import { formatDistanceToNow } from "date-fns";
 
 interface HostApplication {
@@ -154,7 +153,7 @@ export function HostApplications() {
           ))
         ) : applications.length === 0 ? (
           <div className="flex flex-col items-center justify-center rounded-xl border border-white/[0.06] bg-white/[0.02] py-16">
-            <ShieldCheck className="h-10 w-10 text-zinc-600" />
+            <ShieldCheck weight="duotone" className="h-10 w-10 text-zinc-600" />
             <p className="mt-3 text-sm text-zinc-500">No applications found</p>
           </div>
         ) : (
@@ -189,7 +188,7 @@ export function HostApplications() {
                         {app.applicant?.display_name || "Unknown"}
                       </p>
                       {app.applicant?.is_verified && (
-                        <ShieldCheck className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
+                        <ShieldCheck weight="fill" className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
                       )}
                     </div>
                     <div className="flex items-center gap-2 mt-0.5">
@@ -210,7 +209,7 @@ export function HostApplications() {
                     onClick={() => setExpandedId(isExpanded ? null : app.id)}
                     className="text-zinc-500 hover:text-zinc-300 transition-colors shrink-0"
                   >
-                    {isExpanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                    {isExpanded ? <CaretUp weight="bold" className="h-4 w-4" /> : <CaretDown weight="bold" className="h-4 w-4" />}
                   </button>
                 </div>
 
@@ -271,7 +270,7 @@ export function HostApplications() {
                               setDialogNotes("");
                             }}
                           >
-                            <Check className="mr-1 h-3.5 w-3.5" />
+                            <Check weight="bold" className="mr-1 h-3.5 w-3.5" />
                             Approve
                           </Button>
                           <Button
@@ -284,7 +283,7 @@ export function HostApplications() {
                               setDialogNotes("");
                             }}
                           >
-                            <X className="mr-1 h-3.5 w-3.5" />
+                            <X weight="bold" className="mr-1 h-3.5 w-3.5" />
                             Reject
                           </Button>
                         </div>
@@ -304,10 +303,10 @@ export function HostApplications() {
           <span className="text-xs text-zinc-500">Page {page} of {totalPages}</span>
           <div className="flex items-center gap-1">
             <Button variant="ghost" size="icon" className="h-8 w-8 text-zinc-500" disabled={page === 1} onClick={() => setPage((p) => p - 1)}>
-              <ChevronLeft className="h-4 w-4" />
+              <CaretLeft weight="bold" className="h-4 w-4" />
             </Button>
             <Button variant="ghost" size="icon" className="h-8 w-8 text-zinc-500" disabled={page >= totalPages} onClick={() => setPage((p) => p + 1)}>
-              <ChevronRight className="h-4 w-4" />
+              <CaretRight weight="bold" className="h-4 w-4" />
             </Button>
           </div>
         </div>

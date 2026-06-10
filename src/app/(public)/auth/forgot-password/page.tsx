@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowLeft, Loader2, Mail, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, CircleNotch, Envelope, CheckCircle } from "@phosphor-icons/react/ssr";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -78,7 +78,7 @@ export default function ForgotPasswordPage() {
               className="flex flex-col items-center py-4 text-center"
             >
               <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-success/10">
-                <CheckCircle2 className="h-7 w-7 text-success" />
+                <CheckCircle className="h-7 w-7 text-success" weight="fill" />
               </div>
               <h2 className="text-lg font-semibold text-foreground">
                 Check your email
@@ -139,12 +139,12 @@ export default function ForgotPasswordPage() {
                 >
                   {isLoading ? (
                     <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      <CircleNotch className="mr-2 h-4 w-4 animate-spin" weight="bold" />
                       Sending...
                     </>
                   ) : (
                     <>
-                      <Mail className="mr-2 h-4 w-4" />
+                      <Envelope className="mr-2 h-4 w-4" weight="light" />
                       Send Reset Link
                     </>
                   )}
@@ -156,7 +156,7 @@ export default function ForgotPasswordPage() {
                   href="/auth/login"
                   className="flex items-center justify-center gap-1 text-sm text-text-secondary hover:text-foreground transition-colors"
                 >
-                  <ArrowLeft className="h-3.5 w-3.5" />
+                  <ArrowLeft className="h-3.5 w-3.5" weight="bold" />
                   Back to login
                 </Link>
               </motion.div>

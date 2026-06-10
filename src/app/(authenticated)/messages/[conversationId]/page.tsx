@@ -3,8 +3,8 @@ import { redirect, notFound } from "next/navigation";
 import { ConversationClient } from "./conversation-client";
 
 export const metadata = {
-  title: "Conversation | PassionDen",
-  description: "Private conversation",
+  title: "Conversation | Paixão",
+  description: "A private thread, just between the two of you.",
 };
 
 interface PageProps {
@@ -19,7 +19,7 @@ export default async function ConversationPage({ params }: PageProps) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) {
+  if (!user && process.env.PREVIEW_AUTH !== "1") {
     redirect("/auth/login");
   }
 
@@ -33,7 +33,7 @@ export default async function ConversationPage({ params }: PageProps) {
     notFound();
   }
 
-  if (conv.participant_a !== user.id && conv.participant_b !== user.id) {
+  if (user && conv.participant_a !== user.id && conv.participant_b !== user.id) {
     notFound();
   }
 

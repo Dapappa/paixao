@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Check, CheckCheck } from "lucide-react";
+import { Check, Checks } from "@phosphor-icons/react/ssr";
 import { format } from "date-fns";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
@@ -78,9 +78,9 @@ export function MessageBubble({
           {isSent && !isOptimistic && (
             <span className="inline-flex ml-1.5 align-bottom">
               {message.read_at ? (
-                <CheckCheck className="h-3.5 w-3.5 text-white/60" />
+                <Checks weight="bold" className="h-3.5 w-3.5 text-white/60" />
               ) : (
-                <Check className="h-3.5 w-3.5 text-white/40" />
+                <Check weight="bold" className="h-3.5 w-3.5 text-white/40" />
               )}
             </span>
           )}

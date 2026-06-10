@@ -13,7 +13,7 @@ import { Separator } from "@/components/ui/separator";
 import { NotificationItem } from "@/components/notifications/notification-item";
 import { useNotifications } from "@/lib/hooks/use-notifications";
 import { motion, AnimatePresence } from "framer-motion";
-import { Bell, ChevronRight } from "lucide-react";
+import { Bell, CaretRight } from "@phosphor-icons/react/ssr";
 import { useState } from "react";
 
 /* ─────────────────────────────────────────────
@@ -36,7 +36,7 @@ export function NotificationBell() {
           className="relative h-9 w-9"
           aria-label="Notifications"
         >
-          <Bell className="h-5 w-5 text-muted-foreground transition-colors group-hover:text-foreground" />
+          <Bell weight="light" className="h-5 w-5 text-muted-foreground transition-colors group-hover:text-foreground" />
           <AnimatePresence>
             {unreadCount > 0 && (
               <motion.span
@@ -60,7 +60,7 @@ export function NotificationBell() {
       <PopoverContent
         align="end"
         sideOffset={8}
-        className="w-[360px] border-[var(--color-border)] bg-[var(--color-surface)] p-0 shadow-2xl"
+        className="w-[calc(100vw-2rem)] max-w-[360px] border-[var(--color-border)] bg-[var(--color-surface)] p-0 shadow-2xl sm:w-[360px]"
       >
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-3">
@@ -84,7 +84,7 @@ export function NotificationBell() {
           {recentNotifications.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-10 text-center">
               <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[var(--color-surface-elevated)]">
-                <Bell className="h-5 w-5 text-muted-foreground/50" />
+                <Bell weight="duotone" className="h-5 w-5 text-muted-foreground/50" />
               </div>
               <p className="mt-3 text-sm text-muted-foreground">
                 No notifications yet
@@ -117,7 +117,7 @@ export function NotificationBell() {
           className="flex items-center justify-center gap-1 py-2.5 text-xs font-medium text-[var(--color-accent)] transition-colors hover:text-[var(--color-accent)]/80"
         >
           View all notifications
-          <ChevronRight className="h-3 w-3" />
+          <CaretRight weight="bold" className="h-3 w-3" />
         </Link>
       </PopoverContent>
     </Popover>

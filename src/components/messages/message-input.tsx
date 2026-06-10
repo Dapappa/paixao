@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useRef, useState } from "react";
-import { Send } from "lucide-react";
+import { PaperPlaneTilt } from "@phosphor-icons/react/ssr";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import type { RealtimeChannel } from "@supabase/supabase-js";
@@ -123,7 +123,7 @@ export function MessageInput({
               : "bg-gradient-to-br from-[#c2185b] to-[#a01548] text-white hover:from-[#d4266b] hover:to-[#b51a55] shadow-lg shadow-[#c2185b]/20",
           )}
         >
-          <Send className="h-4 w-4" />
+          <PaperPlaneTilt weight="fill" className="h-4 w-4" />
         </Button>
       </div>
     </div>

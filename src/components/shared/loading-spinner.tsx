@@ -50,7 +50,7 @@ export function LoadingScreen() {
         className="flex flex-col items-center gap-6"
       >
         <h1 className="font-serif text-3xl tracking-wider text-foreground">
-          PASSIONDEN
+          PAIXÃO
         </h1>
         <LoadingSpinner size="lg" />
       </motion.div>

@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { NotificationsClient } from "./notifications-client";
 
 export const metadata = {
-  title: "Notifications | PassionDen",
+  title: "Notifications | Paixão",
   description: "Your notifications and alerts",
 };
 
@@ -13,7 +13,7 @@ export default async function NotificationsPage() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) {
+  if (!user && process.env.PREVIEW_AUTH !== "1") {
     redirect("/auth/login");
   }
 

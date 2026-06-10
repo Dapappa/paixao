@@ -25,14 +25,14 @@ import {
   Check,
   Plus,
   X,
-  Loader2,
+  CircleNotch,
   Info,
-  Calendar,
+  CalendarDots,
   MapPin,
   Shield,
   Eye,
-  Sparkles,
-} from "lucide-react";
+  Sparkle,
+} from "@phosphor-icons/react/ssr";
 import { format } from "date-fns";
 import { toast } from "sonner";
 
@@ -108,8 +108,8 @@ const INITIAL_DATA: FormData = {
 };
 
 const STEPS = [
-  { id: 1, label: "Basic Info", icon: Sparkles },
-  { id: 2, label: "Schedule", icon: Calendar },
+  { id: 1, label: "Basic Info", icon: Sparkle },
+  { id: 2, label: "Schedule", icon: CalendarDots },
   { id: 3, label: "Location", icon: MapPin },
   { id: 4, label: "Rules", icon: Shield },
   { id: 5, label: "Review", icon: Eye },
@@ -165,9 +165,9 @@ function StepIndicator({
               )}
             >
               {isCompleted ? (
-                <Check className="h-3 w-3" />
+                <Check weight="bold" className="h-3 w-3" />
               ) : (
-                <StepIcon className="h-3 w-3" />
+                <StepIcon weight="duotone" className="h-3 w-3" />
               )}
               <span className="hidden sm:inline">{step.label}</span>
             </div>
@@ -238,7 +238,7 @@ function ListEditor({
           onClick={handleAdd}
           className="shrink-0 border-border"
         >
-          <Plus className="h-4 w-4" />
+          <Plus weight="bold" className="h-4 w-4" />
         </Button>
       </div>
       <AnimatePresence>
@@ -259,7 +259,7 @@ function ListEditor({
               onClick={() => onRemove(idx)}
               className="text-muted-foreground hover:text-[var(--color-danger)] transition-colors"
             >
-              <X className="h-4 w-4" />
+              <X weight="bold" className="h-4 w-4" />
             </button>
           </motion.div>
         ))}
@@ -619,7 +619,7 @@ export function EventCreateForm() {
         {needsVenue && (
           <div className="space-y-4 rounded-lg border border-border bg-surface p-4">
             <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
-              <MapPin className="h-4 w-4 text-[var(--color-accent)]" />
+              <MapPin weight="light" className="h-4 w-4 text-[var(--color-accent)]" />
               Venue Details
             </h3>
 
@@ -703,7 +703,7 @@ export function EventCreateForm() {
         {needsVirtual && (
           <div className="space-y-4 rounded-lg border border-border bg-surface p-4">
             <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
-              <Info className="h-4 w-4 text-[var(--color-gold)]" />
+              <Info weight="light" className="h-4 w-4 text-[var(--color-gold)]" />
               Virtual Details
             </h3>
 
@@ -891,7 +891,7 @@ export function EventCreateForm() {
       <div className="space-y-6">
         <div className="rounded-lg border border-[var(--color-accent)]/20 bg-[var(--color-accent-muted)] p-4">
           <div className="flex items-center gap-2 mb-2">
-            <Info className="h-4 w-4 text-[var(--color-accent)]" />
+            <Info weight="light" className="h-4 w-4 text-[var(--color-accent)]" />
             <p className="text-sm font-medium text-foreground">
               Review your event
             </p>
@@ -1032,7 +1032,7 @@ export function EventCreateForm() {
                 <ul className="space-y-1">
                   {formData.consent_requirements.map((req, idx) => (
                     <li key={idx} className="text-sm text-foreground flex gap-2">
-                      <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[var(--color-gold)]" />
+                      <Check weight="bold" className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[var(--color-gold)]" />
                       {req}
                     </li>
                   ))}
@@ -1073,7 +1073,7 @@ export function EventCreateForm() {
               disabled={step === 1}
               className="text-muted-foreground"
             >
-              <ArrowLeft className="mr-1 h-4 w-4" />
+              <ArrowLeft weight="bold" className="mr-1 h-4 w-4" />
               Back
             </Button>
 
@@ -1083,7 +1083,7 @@ export function EventCreateForm() {
                 className="bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-hover)]"
               >
                 Next
-                <ArrowRight className="ml-1 h-4 w-4" />
+                <ArrowRight weight="bold" className="ml-1 h-4 w-4" />
               </Button>
             ) : (
               <Button
@@ -1093,12 +1093,12 @@ export function EventCreateForm() {
               >
                 {submitting ? (
                   <>
-                    <Loader2 className="mr-1 h-4 w-4 animate-spin" />
+                    <CircleNotch className="mr-1 h-4 w-4 animate-spin" />
                     Creating...
                   </>
                 ) : (
                   <>
-                    <Check className="mr-1 h-4 w-4" />
+                    <Check weight="bold" className="mr-1 h-4 w-4" />
                     Create Event
                   </>
                 )}

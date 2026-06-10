@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { QRCodeSVG } from "qrcode.react";
-import { Calendar, QrCode } from "lucide-react";
+import { CalendarDots, QrCode } from "@phosphor-icons/react/ssr";
 import { format } from "date-fns";
 import { motion } from "framer-motion";
 
@@ -32,7 +32,7 @@ export function CheckInQR({
         {/* Header band */}
         <div className="bg-gradient-to-r from-[var(--color-accent)] to-[var(--color-accent-hover)] px-6 py-4">
           <div className="flex items-center gap-2 mb-1">
-            <QrCode className="h-4 w-4 text-white/80" />
+            <QrCode weight="light" className="h-4 w-4 text-white/80" />
             <span className="text-xs font-medium text-white/80 uppercase tracking-wider">
               Check-in Pass
             </span>
@@ -45,7 +45,7 @@ export function CheckInQR({
         <CardContent className="flex flex-col items-center gap-4 p-6">
           {/* Date */}
           <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
-            <Calendar className="h-3.5 w-3.5" />
+            <CalendarDots className="h-3.5 w-3.5" />
             <span>
               {format(new Date(eventDate), "EEEE, MMMM d, yyyy 'at' h:mm a")}
             </span>

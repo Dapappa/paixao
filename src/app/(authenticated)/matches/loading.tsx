@@ -2,8 +2,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export default function MatchesLoading() {
   return (
-    <div className="min-h-[calc(100dvh-4rem)] px-4 py-6 md:px-6 md:py-8">
-      <div className="mx-auto max-w-6xl">
+    <div>
+      <div>
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>

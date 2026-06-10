@@ -11,16 +11,15 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { motion } from "framer-motion";
 import {
   ArrowLeft,
-  Calendar,
+  CalendarDots,
   Check,
-  Clock,
-  DollarSign,
+  CurrencyDollar,
   MapPin,
   Star,
-  Users,
+  UsersThree,
   X,
   XCircle,
-} from "lucide-react";
+} from "@phosphor-icons/react/ssr";
 import { format } from "date-fns";
 
 interface EventDetail {
@@ -127,7 +126,7 @@ export function EventDetailClient({ eventId }: { eventId: string }) {
           className="text-zinc-500 hover:text-white hover:bg-white/[0.06]"
           onClick={() => router.push("/admin/events")}
         >
-          <ArrowLeft className="h-5 w-5" />
+          <ArrowLeft weight="bold" className="h-5 w-5" />
         </Button>
         <div className="flex-1">
           <h1 className="text-2xl font-bold tracking-tight text-white">{event.title}</h1>
@@ -169,23 +168,23 @@ export function EventDetailClient({ eventId }: { eventId: string }) {
 
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div className="flex items-center gap-2 text-zinc-400">
-              <Calendar className="h-4 w-4 text-zinc-600" />
+              <CalendarDots weight="light" className="h-4 w-4 text-zinc-600" />
               <span>
                 {event.starts_at ? format(new Date(event.starts_at), "MMM dd, yyyy 'at' h:mm a") : "TBD"}
               </span>
             </div>
             {event.venue_name && (
               <div className="flex items-center gap-2 text-zinc-400">
-                <MapPin className="h-4 w-4 text-zinc-600" />
+                <MapPin weight="light" className="h-4 w-4 text-zinc-600" />
                 <span>{event.venue_name}{event.venue_city ? `, ${event.venue_city}` : ""}</span>
               </div>
             )}
             <div className="flex items-center gap-2 text-zinc-400">
-              <Users className="h-4 w-4 text-zinc-600" />
+              <UsersThree weight="light" className="h-4 w-4 text-zinc-600" />
               <span>{event.current_attendees}{event.capacity ? ` / ${event.capacity}` : ""} attendees</span>
             </div>
             <div className="flex items-center gap-2 text-zinc-400">
-              <DollarSign className="h-4 w-4 text-zinc-600" />
+              <CurrencyDollar weight="light" className="h-4 w-4 text-zinc-600" />
               <span>
                 {event.ticket_price_cents > 0
                   ? `$${(event.ticket_price_cents / 100).toFixed(2)} ${event.currency}`
@@ -240,7 +239,7 @@ export function EventDetailClient({ eventId }: { eventId: string }) {
                   className="w-full bg-emerald-600 hover:bg-emerald-700 text-white"
                   onClick={() => handleAction("approve")}
                 >
-                  <Check className="mr-2 h-4 w-4" />
+                  <Check weight="bold" className="mr-2 h-4 w-4" />
                   Approve & Publish
                 </Button>
                 <Button
@@ -248,7 +247,7 @@ export function EventDetailClient({ eventId }: { eventId: string }) {
                   className="w-full bg-white/[0.03] border-white/[0.08] text-orange-400 hover:bg-orange-500/10"
                   onClick={() => handleAction("reject")}
                 >
-                  <X className="mr-2 h-4 w-4" />
+                  <X weight="bold" className="mr-2 h-4 w-4" />
                   Reject
                 </Button>
               </>
@@ -260,7 +259,7 @@ export function EventDetailClient({ eventId }: { eventId: string }) {
                 className="w-full"
                 onClick={() => handleAction("cancel")}
               >
-                <XCircle className="mr-2 h-4 w-4" />
+                <XCircle weight="light" className="mr-2 h-4 w-4" />
                 Cancel Event
               </Button>
             )}
@@ -273,7 +272,7 @@ export function EventDetailClient({ eventId }: { eventId: string }) {
               )}
               onClick={() => handleAction(event.is_featured ? "unfeature" : "feature")}
             >
-              <Star className={cn("mr-2 h-4 w-4", event.is_featured && "fill-[#d4a574] text-[#d4a574]")} />
+              <Star weight={event.is_featured ? "fill" : "light"} className={cn("mr-2 h-4 w-4", event.is_featured && "text-[#d4a574]")} />
               {event.is_featured ? "Remove Featured" : "Feature Event"}
             </Button>
           </div>

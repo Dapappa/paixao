@@ -12,7 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { Search, X, SlidersHorizontal } from "lucide-react";
+import { MagnifyingGlass, X, SlidersHorizontal } from "@phosphor-icons/react/ssr";
 import { motion, AnimatePresence } from "framer-motion";
 import type { EventFilters } from "@/lib/hooks/use-events";
 
@@ -78,7 +78,7 @@ export function EventFilterBar({
       <div className="flex items-center gap-3">
         {/* Search input */}
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <MagnifyingGlass className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             placeholder="Search events..."
             value={filters.search || ""}
@@ -94,7 +94,7 @@ export function EventFilterBar({
           className="md:hidden relative border-border"
           onClick={() => setShowMobileFilters(!showMobileFilters)}
         >
-          <SlidersHorizontal className="h-4 w-4" />
+          <SlidersHorizontal weight="bold" className="h-4 w-4" />
           {activeFilterCount > 0 && (
             <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-[var(--color-accent)] text-[10px] font-bold text-white">
               {activeFilterCount}
@@ -164,7 +164,7 @@ export function EventFilterBar({
               onClick={clearFilters}
               className="text-muted-foreground hover:text-foreground"
             >
-              <X className="mr-1 h-3 w-3" />
+              <X weight="bold" className="mr-1 h-3 w-3" />
               Clear
             </Button>
           )}
@@ -241,7 +241,7 @@ export function EventFilterBar({
                   onClick={clearFilters}
                   className="col-span-2 text-muted-foreground"
                 >
-                  <X className="mr-1 h-3 w-3" />
+                  <X weight="bold" className="mr-1 h-3 w-3" />
                   Clear all filters
                 </Button>
               )}
@@ -261,7 +261,7 @@ export function EventFilterBar({
             >
               {eventTypeOptions.find((o) => o.value === filters.event_type)
                 ?.label || filters.event_type}
-              <X className="h-3 w-3" />
+              <X weight="bold" className="h-3 w-3" />
             </Badge>
           )}
           {filters.format && (
@@ -272,7 +272,7 @@ export function EventFilterBar({
             >
               {formatOptions.find((o) => o.value === filters.format)?.label ||
                 filters.format}
-              <X className="h-3 w-3" />
+              <X weight="bold" className="h-3 w-3" />
             </Badge>
           )}
           {filters.city && (
@@ -282,7 +282,7 @@ export function EventFilterBar({
               onClick={() => updateFilter("city", undefined)}
             >
               {filters.city}
-              <X className="h-3 w-3" />
+              <X weight="bold" className="h-3 w-3" />
             </Badge>
           )}
           {filters.date_from && (
@@ -292,7 +292,7 @@ export function EventFilterBar({
               onClick={() => updateFilter("date_from", undefined)}
             >
               From {filters.date_from}
-              <X className="h-3 w-3" />
+              <X weight="bold" className="h-3 w-3" />
             </Badge>
           )}
         </div>

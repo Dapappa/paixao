@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Ban, Loader2, UserCheck } from "lucide-react";
+import { Prohibit, CircleNotch, UserCheck } from "@phosphor-icons/react/ssr";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -73,10 +73,10 @@ export function BlockButton({
         )}
       >
         {loading ? (
-          <Loader2 className="h-4 w-4 animate-spin" />
+          <CircleNotch weight="bold" className="h-4 w-4 animate-spin" />
         ) : (
           <>
-            <UserCheck className="h-4 w-4" />
+            <UserCheck weight="light" className="h-4 w-4" />
             {variant !== "icon" && <span className="ml-2">Unblock User</span>}
           </>
         )}
@@ -95,7 +95,7 @@ export function BlockButton({
           className
         )}
       >
-        <Ban className="h-4 w-4" />
+        <Prohibit weight="light" className="h-4 w-4" />
         {variant !== "icon" && <span className="ml-2">Block User</span>}
       </Button>
 
@@ -103,7 +103,7 @@ export function BlockButton({
         <DialogContent className="border-zinc-800 bg-[#0a0a0a] sm:max-w-md">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2 text-foreground">
-              <Ban className="h-5 w-5 text-[#c2185b]" />
+              <Prohibit weight="light" className="h-5 w-5 text-[#c2185b]" />
               Block this user?
             </DialogTitle>
             <DialogDescription className="text-muted-foreground">
@@ -145,12 +145,12 @@ export function BlockButton({
             >
               {loading ? (
                 <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  <CircleNotch weight="bold" className="mr-2 h-4 w-4 animate-spin" />
                   Blocking...
                 </>
               ) : (
                 <>
-                  <Ban className="mr-2 h-4 w-4" />
+                  <Prohibit weight="light" className="mr-2 h-4 w-4" />
                   Block User
                 </>
               )}

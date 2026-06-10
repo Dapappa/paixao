@@ -1,12 +1,13 @@
 "use client";
 
+import type { ComponentType, SVGProps } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import type { LucideIcon } from "lucide-react";
 
 interface EmptyStateProps {
-  icon: LucideIcon;
+  /** Accepts lucide-react or @phosphor-icons SVG icon components. */
+  icon: ComponentType<SVGProps<SVGSVGElement> & { className?: string }>;
   title: string;
   description: string;
   action?: {

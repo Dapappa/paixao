@@ -1,18 +1,26 @@
+import type { ComponentType } from "react";
 import {
-  AlertTriangle,
-  BarChart3,
-  Calendar,
-  LayoutDashboard,
+  Warning,
+  ChartBar,
+  CalendarDots,
+  ClipboardText,
+  House,
   ShieldCheck,
   UserCheck,
-  Users,
-  type LucideIcon,
-} from "lucide-react";
+  UsersThree,
+} from "@phosphor-icons/react/ssr";
+
+/** Phosphor icon component shape (works for both /ssr and client icons). */
+export type NavIcon = ComponentType<{
+  className?: string;
+  size?: number;
+  weight?: "thin" | "light" | "regular" | "bold" | "fill" | "duotone";
+}>;
 
 export interface AdminNavItem {
   label: string;
   href: string;
-  icon: LucideIcon;
+  icon: NavIcon;
   description?: string;
 }
 
@@ -20,25 +28,31 @@ export const adminNavItems: AdminNavItem[] = [
   {
     label: "Dashboard",
     href: "/admin",
-    icon: LayoutDashboard,
+    icon: House,
     description: "Overview and key metrics",
   },
   {
     label: "Users",
     href: "/admin/users",
-    icon: Users,
+    icon: UsersThree,
     description: "Manage user accounts",
+  },
+  {
+    label: "Waitlist",
+    href: "/admin/waitlist",
+    icon: ClipboardText,
+    description: "Pre-sale signups and founding members",
   },
   {
     label: "Events",
     href: "/admin/events",
-    icon: Calendar,
+    icon: CalendarDots,
     description: "Event moderation and management",
   },
   {
     label: "Reports",
     href: "/admin/reports",
-    icon: AlertTriangle,
+    icon: Warning,
     description: "Review and resolve reports",
   },
   {
@@ -56,7 +70,7 @@ export const adminNavItems: AdminNavItem[] = [
   {
     label: "Analytics",
     href: "/admin/analytics",
-    icon: BarChart3,
+    icon: ChartBar,
     description: "Platform analytics and trends",
   },
 ];

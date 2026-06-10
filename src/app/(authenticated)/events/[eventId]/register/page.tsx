@@ -16,14 +16,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Shield,
   CheckCircle,
-  Calendar,
+  CalendarDots,
   MapPin,
   Monitor,
-  Loader2,
+  CircleNotch,
   ArrowLeft,
-  PartyPopper,
-  AlertTriangle,
-} from "lucide-react";
+  Confetti,
+  Warning,
+} from "@phosphor-icons/react/ssr";
 import { format } from "date-fns";
 import { toast } from "sonner";
 import type { EventWithHost } from "@/lib/hooks/use-events";
@@ -130,7 +130,7 @@ export default function RegisterPage() {
   if (pageState === "error") {
     return (
       <div className="mx-auto max-w-lg py-12 text-center">
-        <AlertTriangle className="mx-auto mb-4 h-12 w-12 text-[var(--color-danger)]" />
+        <Warning weight="duotone" className="mx-auto mb-4 h-12 w-12 text-[var(--color-danger)]" />
         <h2 className="text-lg font-semibold text-foreground mb-2">
           Something went wrong
         </h2>
@@ -162,9 +162,9 @@ export default function RegisterPage() {
           >
             <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[var(--color-success)]/20">
               {registrationStatus === "waitlisted" ? (
-                <AlertTriangle className="h-8 w-8 text-[var(--color-warning)]" />
+                <Warning weight="duotone" className="h-8 w-8 text-[var(--color-warning)]" />
               ) : (
-                <PartyPopper className="h-8 w-8 text-[var(--color-success)]" />
+                <Confetti weight="duotone" className="h-8 w-8 text-[var(--color-success)]" />
               )}
             </div>
           </motion.div>
@@ -220,7 +220,7 @@ export default function RegisterPage() {
         onClick={() => router.push(`/events/${eventId}`)}
         className="text-muted-foreground -ml-2"
       >
-        <ArrowLeft className="mr-1 h-4 w-4" />
+        <ArrowLeft weight="bold" className="mr-1 h-4 w-4" />
         Back to event
       </Button>
 
@@ -232,18 +232,18 @@ export default function RegisterPage() {
           </h2>
           <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
             <span className="flex items-center gap-1">
-              <Calendar className="h-3.5 w-3.5" />
+              <CalendarDots className="h-3.5 w-3.5" />
               {format(new Date(event.starts_at), "MMM d, yyyy 'at' h:mm a")}
             </span>
             {event.format === "virtual" ? (
               <span className="flex items-center gap-1">
-                <Monitor className="h-3.5 w-3.5" />
+                <Monitor weight="light" className="h-3.5 w-3.5" />
                 Virtual
               </span>
             ) : (
               event.venue_city && (
                 <span className="flex items-center gap-1">
-                  <MapPin className="h-3.5 w-3.5" />
+                  <MapPin weight="light" className="h-3.5 w-3.5" />
                   {event.venue_city}
                 </span>
               )
@@ -261,7 +261,7 @@ export default function RegisterPage() {
       <Card className="bg-surface border-border overflow-hidden">
         <div className="bg-gradient-to-r from-[var(--color-accent)]/20 to-transparent px-5 py-4 border-b border-border">
           <div className="flex items-center gap-2">
-            <Shield className="h-5 w-5 text-[var(--color-accent)]" />
+            <Shield weight="duotone" className="h-5 w-5 text-[var(--color-accent)]" />
             <h3 className="font-serif text-lg font-semibold text-foreground">
               Consent & Acknowledgment
             </h3>
@@ -306,7 +306,7 @@ export default function RegisterPage() {
                         {req}
                       </label>
                       {consentChecked[idx] && (
-                        <CheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-[var(--color-success)]" />
+                        <CheckCircle weight="fill" className="mt-0.5 h-4 w-4 shrink-0 text-[var(--color-success)]" />
                       )}
                     </motion.div>
                   )
@@ -389,7 +389,7 @@ export default function RegisterPage() {
           >
             {submitting ? (
               <>
-                <Loader2 className="mr-1 h-4 w-4 animate-spin" />
+                <CircleNotch className="mr-1 h-4 w-4 animate-spin" />
                 Registering...
               </>
             ) : (

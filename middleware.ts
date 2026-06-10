@@ -21,6 +21,8 @@ const PUBLIC_ROUTES = new Set([
   '/about',
   '/guidelines',
   '/terms',
+  '/founding',
+  '/founding/thank-you',
 ])
 
 /** Prefix check for auth pages (/auth/login, /auth/register, etc.). */
@@ -70,6 +72,15 @@ export async function middleware(request: NextRequest) {
 
   // Fast exit for assets / internals
   if (shouldSkip(pathname)) {
+    return NextResponse.next()
+  }
+
+  // -----------------------------------------------------------------------
+  // DEV PREVIEW BYPASS — skips the age-gate + auth/admin gates so the
+  // authenticated UI can be walked without a Supabase session. Gated behind an
+  // explicit env flag and off by default. NEVER enable in production.
+  // -----------------------------------------------------------------------
+  if (process.env.PREVIEW_AUTH === '1') {
     return NextResponse.next()
   }
 

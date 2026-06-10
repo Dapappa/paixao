@@ -33,21 +33,18 @@ import { LoadingSpinner } from "@/components/shared/loading-spinner";
 import { createClient } from "@/lib/supabase/client";
 import { motion } from "framer-motion";
 import {
-  AlertTriangle,
+  Warning,
   ArrowLeft,
   Bell,
-  Check,
   CreditCard,
   Eye,
   Key,
-  Lock,
-  Mail,
-  Shield,
-  Sparkles,
+  Envelope,
+  Sparkle,
   Star,
-  Trash2,
+  Trash,
   User,
-} from "lucide-react";
+} from "@phosphor-icons/react/ssr";
 
 const container = {
   hidden: { opacity: 0 },
@@ -170,7 +167,7 @@ export default function SettingsPage() {
       variants={container}
       initial="hidden"
       animate="show"
-      className="space-y-6 p-4 md:p-6 lg:p-8 max-w-3xl"
+      className="mx-auto max-w-3xl space-y-6"
     >
       {/* Header */}
       <motion.div variants={item} className="flex items-center gap-3">
@@ -180,7 +177,7 @@ export default function SettingsPage() {
           onClick={() => router.back()}
           className="h-9 w-9"
         >
-          <ArrowLeft className="h-5 w-5" />
+          <ArrowLeft weight="bold" className="h-5 w-5" />
         </Button>
         <div>
           <h1 className="text-xl font-bold text-foreground">Settings</h1>
@@ -198,7 +195,7 @@ export default function SettingsPage() {
           )}
           <CardHeader>
             <CardTitle className="text-base flex items-center gap-2">
-              <CreditCard className="h-4 w-4 text-[var(--color-accent)]" />
+              <CreditCard weight="light" className="h-4 w-4 text-[var(--color-accent)]" />
               Subscription
             </CardTitle>
           </CardHeader>
@@ -216,6 +213,7 @@ export default function SettingsPage() {
                   )}
                 >
                   <Star
+                    weight="fill"
                     className={cn(
                       "h-6 w-6",
                       currentTier?.color === "gold"
@@ -246,7 +244,7 @@ export default function SettingsPage() {
             {currentTier?.id === "curious" && (
               <div className="rounded-xl border border-[var(--color-accent)]/20 bg-[var(--color-accent)]/5 p-4">
                 <div className="flex items-center gap-2 mb-2">
-                  <Sparkles className="h-4 w-4 text-[var(--color-accent)]" />
+                  <Sparkle weight="fill" className="h-4 w-4 text-[var(--color-accent)]" />
                   <span className="text-sm font-semibold text-[var(--color-accent)]">
                     Upgrade to unlock more
                   </span>
@@ -272,7 +270,7 @@ export default function SettingsPage() {
         <Card className="border-[var(--color-border)] bg-[var(--color-surface)]">
           <CardHeader>
             <CardTitle className="text-base flex items-center gap-2">
-              <User className="h-4 w-4 text-[var(--color-accent)]" />
+              <User weight="light" className="h-4 w-4 text-[var(--color-accent)]" />
               Account
             </CardTitle>
           </CardHeader>
@@ -292,7 +290,7 @@ export default function SettingsPage() {
             {/* Change email */}
             <div className="space-y-3">
               <Label className="flex items-center gap-2">
-                <Mail className="h-3.5 w-3.5" />
+                <Envelope weight="light" className="h-3.5 w-3.5" />
                 Change Email
               </Label>
               <div className="flex gap-2">
@@ -319,7 +317,7 @@ export default function SettingsPage() {
             {/* Change password */}
             <div className="space-y-3">
               <Label className="flex items-center gap-2">
-                <Key className="h-3.5 w-3.5" />
+                <Key weight="light" className="h-3.5 w-3.5" />
                 Change Password
               </Label>
               <div className="space-y-2">
@@ -360,7 +358,7 @@ export default function SettingsPage() {
         <Card className="border-[var(--color-border)] bg-[var(--color-surface)]">
           <CardHeader>
             <CardTitle className="text-base flex items-center gap-2">
-              <Eye className="h-4 w-4 text-[var(--color-accent)]" />
+              <Eye weight="light" className="h-4 w-4 text-[var(--color-accent)]" />
               Privacy
             </CardTitle>
           </CardHeader>
@@ -396,7 +394,7 @@ export default function SettingsPage() {
         <Card className="border-[var(--color-border)] bg-[var(--color-surface)]">
           <CardHeader>
             <CardTitle className="text-base flex items-center gap-2">
-              <Bell className="h-4 w-4 text-[var(--color-accent)]" />
+              <Bell weight="light" className="h-4 w-4 text-[var(--color-accent)]" />
               Notifications
             </CardTitle>
           </CardHeader>
@@ -493,7 +491,7 @@ export default function SettingsPage() {
         <Card className="border-[var(--color-danger)]/20 bg-[var(--color-surface)]">
           <CardHeader>
             <CardTitle className="text-base flex items-center gap-2 text-[var(--color-danger)]">
-              <AlertTriangle className="h-4 w-4" />
+              <Warning weight="fill" className="h-4 w-4" />
               Danger Zone
             </CardTitle>
           </CardHeader>
@@ -516,7 +514,7 @@ export default function SettingsPage() {
                     size="sm"
                     className="bg-[var(--color-danger)] hover:bg-[var(--color-danger)]/90"
                   >
-                    <Trash2 className="mr-2 h-4 w-4" />
+                    <Trash weight="light" className="mr-2 h-4 w-4" />
                     Delete My Account
                   </Button>
                 </DialogTrigger>

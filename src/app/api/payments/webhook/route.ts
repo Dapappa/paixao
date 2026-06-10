@@ -44,6 +44,52 @@ export async function POST(req: NextRequest) {
       /* ── Checkout completed ────────────────── */
       case 'checkout.session.completed': {
         const session = event.data.object as Stripe.Checkout.Session;
+
+        /* ── Founding pre-sale (one-time payment) ──
+           Founding sessions carry metadata.kind === 'founding' and an email,
+           but no user_id/tier_id. Confirm the purchase by upgrading the
+           waitlist row. Idempotent: the unique stripe_session_id index and
+           the deterministic upsert make repeat deliveries a no-op. */
+        if (session.metadata?.kind === 'founding') {
+          // Only act on a paid session (guards against unpaid/async events).
+          if (session.payment_status !== 'paid') {
+            break;
+          }
+
+          const email = (session.metadata?.email || session.customer_email || '')
+            .trim()
+            .toLowerCase();
+
+          if (!email) {
+            console.warn('Founding session missing email:', session.id);
+            break;
+          }
+
+          const { error: foundingError } = await (admin.from('waitlist') as any).upsert(
+            {
+              email,
+              status: 'founding',
+              is_founding: true,
+              founding_paid_at: new Date().toISOString(),
+              stripe_session_id: session.id,
+              amount_cents: session.amount_total ?? null,
+              currency: session.currency ?? null,
+            },
+            { onConflict: 'email' },
+          );
+
+          if (foundingError) {
+            console.error('Founding waitlist upsert error:', foundingError);
+            // Surface as 500 so Stripe retries the delivery.
+            return NextResponse.json(
+              { error: 'Failed to record founding membership' },
+              { status: 500 },
+            );
+          }
+
+          break;
+        }
+
         const userId = session.metadata?.user_id;
         const tierId = session.metadata?.tier_id;
 

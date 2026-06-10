@@ -13,14 +13,13 @@ import { findInterestById, findCategoryByInterestId } from "@/config/interests";
 import { motion } from "framer-motion";
 import {
   Camera,
-  Edit,
+  PencilSimple,
   Heart,
   MapPin,
   Shield,
-  Sparkles,
   Star,
   User,
-} from "lucide-react";
+} from "@phosphor-icons/react/ssr";
 
 const container = {
   hidden: { opacity: 0 },
@@ -34,7 +33,7 @@ const item = {
 
 function ProfileSkeleton() {
   return (
-    <div className="space-y-6 p-4 md:p-6 lg:p-8">
+    <div className="space-y-6">
       <div className="flex items-start gap-6">
         <Skeleton className="h-24 w-24 rounded-full" />
         <div className="space-y-3 flex-1">
@@ -95,7 +94,7 @@ export default function ProfilePage() {
       variants={container}
       initial="hidden"
       animate="show"
-      className="space-y-6 p-4 md:p-6 lg:p-8"
+      className="space-y-6"
     >
       {/* Profile Header */}
       <motion.div variants={item}>
@@ -121,7 +120,7 @@ export default function ProfilePage() {
                   {profile?.subscription_tier &&
                     profile.subscription_tier !== "curious" && (
                       <Badge className="bg-[var(--color-gold)]/15 text-[var(--color-gold)] border-[var(--color-gold)]/30">
-                        <Star className="mr-1 h-3 w-3" />
+                        <Star weight="fill" className="mr-1 h-3 w-3" />
                         {profile.subscription_tier}
                       </Badge>
                     )}
@@ -134,13 +133,13 @@ export default function ProfilePage() {
                 <div className="flex items-center gap-4 mt-2 text-sm text-muted-foreground">
                   {profile?.location && (
                     <span className="flex items-center gap-1">
-                      <MapPin className="h-3.5 w-3.5" />
+                      <MapPin weight="light" className="h-3.5 w-3.5" />
                       {profile.location}
                     </span>
                   )}
                   {profile?.pronouns && (
                     <span className="flex items-center gap-1">
-                      <User className="h-3.5 w-3.5" />
+                      <User weight="light" className="h-3.5 w-3.5" />
                       {profile.pronouns}
                     </span>
                   )}
@@ -150,7 +149,7 @@ export default function ProfilePage() {
               <div className="flex gap-2 sm:pb-1">
                 <Link href="/profile/edit">
                   <Button className="bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-hover)]">
-                    <Edit className="mr-2 h-4 w-4" />
+                    <PencilSimple weight="light" className="mr-2 h-4 w-4" />
                     Edit Profile
                   </Button>
                 </Link>
@@ -159,7 +158,7 @@ export default function ProfilePage() {
                     variant="outline"
                     className="border-[var(--color-border)]"
                   >
-                    <Camera className="mr-2 h-4 w-4" />
+                    <Camera weight="light" className="mr-2 h-4 w-4" />
                     Photos
                   </Button>
                 </Link>
@@ -227,7 +226,7 @@ export default function ProfilePage() {
           <Card className="border-[var(--color-border)] bg-[var(--color-surface)] h-full">
             <CardHeader>
               <CardTitle className="text-base flex items-center gap-2">
-                <User className="h-4 w-4 text-[var(--color-accent)]" />
+                <User weight="light" className="h-4 w-4 text-[var(--color-accent)]" />
                 About
               </CardTitle>
             </CardHeader>
@@ -279,7 +278,7 @@ export default function ProfilePage() {
           <Card className="border-[var(--color-border)] bg-[var(--color-surface)] h-full">
             <CardHeader>
               <CardTitle className="text-base flex items-center gap-2">
-                <Heart className="h-4 w-4 text-[var(--color-accent)]" />
+                <Heart weight="light" className="h-4 w-4 text-[var(--color-accent)]" />
                 Interests
                 {activeInterests.length > 0 && (
                   <Badge variant="secondary" className="ml-auto">
@@ -326,7 +325,7 @@ export default function ProfilePage() {
           <Card className="border-[var(--color-border)] bg-[var(--color-surface)] h-full">
             <CardHeader>
               <CardTitle className="text-base flex items-center gap-2">
-                <Shield className="h-4 w-4 text-[var(--color-accent)]" />
+                <Shield weight="light" className="h-4 w-4 text-[var(--color-accent)]" />
                 Boundaries
               </CardTitle>
             </CardHeader>
@@ -374,7 +373,7 @@ export default function ProfilePage() {
           <Card className="border-[var(--color-border)] bg-[var(--color-surface)] h-full">
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle className="text-base flex items-center gap-2">
-                <Camera className="h-4 w-4 text-[var(--color-accent)]" />
+                <Camera weight="light" className="h-4 w-4 text-[var(--color-accent)]" />
                 Photos
               </CardTitle>
               <Link href="/profile/photos">
@@ -410,7 +409,7 @@ export default function ProfilePage() {
                 </div>
               ) : (
                 <div className="flex flex-col items-center py-6 text-center">
-                  <Camera className="h-8 w-8 text-muted-foreground mb-2" />
+                  <Camera weight="duotone" className="h-8 w-8 text-muted-foreground mb-2" />
                   <p className="text-sm text-muted-foreground">
                     No photos uploaded yet
                   </p>

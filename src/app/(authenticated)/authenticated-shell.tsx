@@ -40,7 +40,7 @@ export function AuthenticatedShell({
       <Sidebar />
       <div className="md:pl-64">
         <Header />
-        <main className="min-h-[calc(100dvh-4rem)] pb-20 md:pb-0">
+        <main className="mx-auto min-h-[calc(100dvh-5rem)] w-full max-w-6xl px-5 py-8 pb-24 sm:px-7 lg:px-10 md:pb-12">
           {children}
         </main>
       </div>

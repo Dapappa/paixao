@@ -1,0 +1,58 @@
+[
+  {
+    "name": "vid-hero-aura",
+    "model": "google/veo-3.1/image-to-video",
+    "args": {
+      "prompt": "Animate this still into a seamless six-second cinematic loop. Keep the framing and the Velvet Aura grade exactly as the source — near-black #0a0a0a depths, warm amber #d4a574 highlights, a single crimson #c2185b ember accent. MOTION: an almost imperceptible living warmth — the amber glow breathes with a slow organic flicker as if from a real candle just out of frame; a faint haze of dust motes floats upward through the warm light like slow embers; the crimson haze undulates softly. CAMERA: an extremely slow push-in, no more than three percent over the full clip, hand-held-calm, no shake. LOOP: first and last frame identical — the glow returns to its starting brightness and the motes recirculate so the cut is invisible. Tungsten low-key lighting held constant throughout. Mood: a five-star lounge at midnight, intimate, human, unhurried.",
+      "image": "REPLACE_WITH_ABSTRACT_AURA_RESULT_URL",
+      "negative_prompt": "morphing, warping, flicker banding, strobing, fast motion, jump cuts, lighting color shift to cool or blue, added text or logos, plastic CGI sheen, exaggerated zoom, lens distortion, watermark",
+      "aspect_ratio": "16:9",
+      "resolution": "1080p",
+      "duration": "6",
+      "generate_audio": false
+    },
+    "surface": "Hero aura video loop (16:9) — primary loop behind the wordmark"
+  },
+  {
+    "name": "vid-silk",
+    "model": "google/veo-3.1/image-to-video",
+    "args": {
+      "prompt": "Animate this still into a seamless five-second ambient loop. Preserve the exact composition, fabric folds and grade of the source — deep near-black #0a0a0a shadows pooling in the folds, amber #d4a574 light grazing the raised silk, a single crimson #c2185b glow bleeding from one edge. MOTION: the draped silk drifts and undulates as if breathed on by the faintest warm air current — slow, weighty, gravity-true ripples that travel across the fabric and gently subside, never billowing or flapping. Highlights slide softly along the folds as they move, the amber catchlight shimmering once across the satin sheen. A trace of dust drifts through the warm rim light. CAMERA: locked, completely static — let the fabric carry all the motion. LOOP: oscillating ripple with zero net displacement; the silk returns to its exact resting fold pattern at the final frame so first and last frames match seamlessly. Constant warm tungsten exposure, no brightness pumping. Mood: sensual, luxurious, restrained, suggestive not explicit.",
+      "image": "REPLACE_WITH_TEXTURE_DRAPERY_RESULT_URL",
+      "negative_prompt": "violent billowing, flapping, fabric tearing or morphing, texture boiling, color shift, flicker, strobe, added objects or text, fast camera moves, sharpening halos, plastic look, watermark",
+      "aspect_ratio": "16:9",
+      "resolution": "1080p",
+      "duration": "6",
+      "generate_audio": false
+    },
+    "surface": "Silk / velvet drapery ambient loop (16:9) — behind content sections"
+  },
+  {
+    "name": "vid-candle",
+    "model": "google/veo-3.1/image-to-video",
+    "args": {
+      "prompt": "Animate this still into a seamless six-second loop, holding the source framing, props and Velvet Aura grade precisely — pools of near-black #0a0a0a, warm amber #d4a574 candle glow, a crimson #c2185b reflection in the glassware. MOTION: a real candle flame flickers organically — irregular, gentle, never theatrical — its glow pulsing softly across the tabletop and into the surrounding warm bokeh so the out-of-focus highlights twinkle and breathe. Thin wisps of smoke and heat-shimmer rise faintly above the flame and dissipate. The amber reflection in the glass wavers in time with the flame. Dust motes drift slowly through the warm light. CAMERA: a whisper-slow lateral drift, under two percent of frame width, minimal parallax. LOOP: the flame cycle, smoke wisp and bokeh shimmer all resolve back to the opening state; first and last frames identical for an invisible cut. Lighting energy constant — no overall dimming or brightening. Mood: intimate, warm, human, midnight-lounge calm.",
+      "image": "REPLACE_WITH_LANDING_HERO_RESULT_URL",
+      "negative_prompt": "flame growing too large, fire spreading, smoke filling frame, flicker banding, strobing, color shift to cool, morphing glassware, warped reflections, added text, fast pan, harsh sharpening, CGI sheen, watermark",
+      "aspect_ratio": "16:9",
+      "resolution": "1080p",
+      "duration": "6",
+      "generate_audio": false
+    },
+    "surface": "Candlelit tabletop ambient loop (16:9) — section dividers"
+  },
+  {
+    "name": "vid-intimacy",
+    "model": "google/veo-3.1/image-to-video",
+    "args": {
+      "prompt": "Animate this still into a seamless five-second intimate loop. Keep the subjects, pose, wardrobe (fully clothed) and grade exactly as the source — skin lit by warm amber #d4a574 falling into near-black #0a0a0a shadow, a soft crimson #c2185b rim from behind. MOTION: a single slow natural breath — shoulders and chest rise and settle once, gentle and human; the gaze drifts a few degrees and returns, or one slow soft blink; a loose strand of hair stirs faintly on a barely-there draft. The amber key light breathes with a barely-there candle flicker so warmth seems to live on the skin. Keep imperfection — real texture, a stray hair, an uneven highlight — never airbrushed or plastic. CAMERA: imperceptible push-in under three percent, hand-held-calm, no shake. LOOP: the breath completes one cycle, the gaze returns to origin, the hair resettles — first and last frames identical, cut invisible. Constant warm tungsten exposure. Mood: sensual, tender, real, suggestive not explicit, ad-safe.",
+      "image": "REPLACE_WITH_COUPLE_LOW_LIGHT_RESULT_URL",
+      "negative_prompt": "morphing or warping face or eyes or hands, uncanny smile, plastic skin, beauty-filter smoothing, teeth artifacts, fast motion, head turning fully, color shift to cool, flicker banding, strobe, added text or logos, double pupils, lens distortion, watermark, nudity, explicit",
+      "aspect_ratio": "9:16",
+      "resolution": "1080p",
+      "duration": "6",
+      "generate_audio": false
+    },
+    "surface": "Intimacy portrait loop (4:5) — emotional landing section"
+  }
+]

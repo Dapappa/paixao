@@ -11,8 +11,10 @@ import {
 import { LoadingSpinner } from "@/components/shared/loading-spinner";
 import { EmptyState } from "@/components/shared/empty-state";
 import { motion } from "framer-motion";
-import { ArrowLeft, Plus, Users } from "lucide-react";
+import { ArrowLeft, Plus, UsersThree } from "@phosphor-icons/react/ssr";
+import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
+import { MatchesAtmosphere } from "../matches-atmosphere";
 
 /* ─────────────────────────────────────────────
    GroupsClient
@@ -48,39 +50,45 @@ export function GroupsClient() {
   }, [fetchGroups]);
 
   return (
-    <div className="space-y-6">
+    <div className="relative z-10 space-y-6">
+      <MatchesAtmosphere />
+
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div className="flex items-center gap-4">
           <Link
             href="/matches"
-            className="flex h-9 w-9 items-center justify-center rounded-full border border-border hover:border-foreground/30 text-muted-foreground hover:text-foreground transition-colors"
+            className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-surface/50 backdrop-blur-sm hover:border-accent/30 text-text-secondary hover:text-foreground transition-all"
           >
-            <ArrowLeft className="h-4 w-4" />
+            <ArrowLeft weight="bold" className="h-4 w-4" />
           </Link>
           <div>
-            <h1 className="font-serif text-3xl font-bold text-foreground">
-              Groups
+            <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-gold/80">
+              More than two
+            </p>
+            <h1 className="mt-1.5 font-serif text-4xl font-bold tracking-tight text-foreground">
+              Together
             </h1>
-            <p className="text-sm text-muted-foreground mt-1">
-              Match as a couple, triad, or polycule
+            <p className="text-sm text-text-secondary mt-1.5">
+              Arrive as a couple, a triad, a whole polycule.
             </p>
           </div>
         </div>
 
         <Button
           onClick={() => router.push("/matches/groups/create")}
-          className="bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-hover)] shadow-[0_0_20px_rgba(194,24,91,0.2)]"
+          className="bg-accent text-white hover:bg-accent-hover shadow-glow-accent"
         >
-          <Plus className="mr-1 h-4 w-4" />
-          Create Group
+          <Plus weight="bold" className="mr-1 h-4 w-4" />
+          Start a group
         </Button>
       </div>
 
       {/* Loading */}
       {loading && (
-        <div className="flex justify-center py-20">
+        <div className="flex flex-col items-center justify-center gap-4 py-20">
           <LoadingSpinner size="lg" />
+          <p className="text-sm italic text-text-secondary">Setting the mood&hellip;</p>
         </div>
       )}
 
@@ -114,11 +122,11 @@ export function GroupsClient() {
       {/* Empty state */}
       {!loading && !error && groups.length === 0 && (
         <EmptyState
-          icon={Users}
+          icon={UsersThree as unknown as LucideIcon}
           title="No groups yet"
-          description="Create a group to match as a couple, triad, or polycule with other members."
+          description="Start one to meet other members as a couple, a triad, or a whole polycule — together, on your terms."
           action={{
-            label: "Create Group",
+            label: "Start a group",
             onClick: () => router.push("/matches/groups/create"),
           }}
         />

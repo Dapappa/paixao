@@ -4,14 +4,43 @@ import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import {
   X,
   Heart,
   Star,
   MapPin,
-  Sparkles,
-} from "lucide-react";
+  Sparkle,
+} from "@phosphor-icons/react/ssr";
 import type { MatchCandidate } from "@/lib/hooks/use-matches";
+
+/* ─────────────────────────────────────────────
+   Authentic persona fallbacks
+   Real lived-in, candid phone-photo personas — used when a candidate
+   has no uploaded photo so the deck reads like real people, not avatars.
+   Ordered for variety (alternating presentation / framing).
+   ───────────────────────────────────────────── */
+
+const REAL_PERSONAS = [
+  "/generated/real-persona-w.webp",
+  "/generated/real-persona-3.webp",
+  "/generated/real-persona-5.webp",
+  "/generated/real-persona-7.webp",
+  "/generated/real-persona-8.webp",
+  "/generated/real-persona-m.webp",
+  "/generated/real-persona-6.webp",
+  "/generated/real-persona-4.webp",
+] as const;
+
+/** Deterministically pick an authentic persona photo for a candidate. */
+export function personaFallback(seed: string | number): string {
+  let hash = 0;
+  const str = String(seed);
+  for (let i = 0; i < str.length; i++) {
+    hash = (hash * 31 + str.charCodeAt(i)) >>> 0;
+  }
+  return REAL_PERSONAS[hash % REAL_PERSONAS.length];
+}
 
 /* ─────────────────────────────────────────────
    Helpers
@@ -49,8 +78,9 @@ export function MatchCard({
   className,
 }: MatchCardProps) {
   const age = calculateAge(candidate.date_of_birth);
-  const photoUrl =
+  const realPhotoUrl =
     candidate.primary_photo?.url || candidate.avatar_url || null;
+  const photoUrl = realPhotoUrl || personaFallback(candidate.id);
   const sharedInterests = candidate.interests.filter((i) => i.is_shared);
   const topInterests = candidate.interests.slice(0, 5);
 
@@ -81,24 +111,22 @@ export function MatchCard({
       transition={{ type: "spring", stiffness: 300, damping: 25 }}
     >
       {/* Photo */}
-      <div className="relative h-full w-full">
-        {photoUrl ? (
-          <img
-            src={photoUrl}
-            alt={candidate.display_name || "Profile"}
-            className="h-full w-full object-cover"
-            draggable={false}
-          />
-        ) : (
-          <div className="h-full w-full bg-gradient-to-br from-[var(--color-accent)]/20 via-surface to-surface-elevated flex items-center justify-center">
-            <span className="text-6xl font-serif text-[var(--color-accent)]/40">
-              {(candidate.display_name || "?")[0]?.toUpperCase()}
-            </span>
-          </div>
-        )}
+      <div className="relative h-full w-full bg-surface-elevated">
+        <Image
+          src={photoUrl}
+          alt={candidate.display_name || "Profile"}
+          fill
+          sizes="(max-width: 768px) 100vw, 28rem"
+          priority={isTop}
+          draggable={false}
+          className="object-cover select-none"
+        />
 
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+        {/* Warm candid grade — softens the studio feel, pulls in amber light */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-[var(--color-accent)]/10 via-transparent to-[var(--color-gold)]/10 mix-blend-soft-light" />
+
+        {/* Legibility gradient */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
 
         {/* Compatibility badge */}
         {candidate.compatibility_score > 0 && (
@@ -113,7 +141,7 @@ export function MatchCard({
                     : "bg-white/20 text-white"
               )}
             >
-              <Sparkles className="mr-1 h-3.5 w-3.5" />
+              <Sparkle weight="fill" className="mr-1 h-3.5 w-3.5" />
               {candidate.compatibility_score}%
             </Badge>
           </div>
@@ -141,7 +169,7 @@ export function MatchCard({
           {/* Location */}
           {candidate.location && (
             <div className="flex items-center gap-1.5 text-sm text-white/60 mb-3">
-              <MapPin className="h-3.5 w-3.5" />
+              <MapPin weight="fill" className="h-3.5 w-3.5" />
               <span>{candidate.location}</span>
             </div>
           )}
@@ -190,7 +218,7 @@ export function MatchCard({
               }}
               className="h-14 w-14 rounded-full border-2 border-red-400/40 bg-black/40 backdrop-blur-sm text-red-400 hover:bg-red-500/20 hover:border-red-400 hover:text-red-300 transition-all shadow-lg"
             >
-              <X className="h-6 w-6" />
+              <X weight="bold" className="h-6 w-6" />
             </Button>
 
             <Button
@@ -202,7 +230,7 @@ export function MatchCard({
               }}
               className="h-12 w-12 rounded-full border-2 border-[var(--color-gold)]/40 bg-black/40 backdrop-blur-sm text-[var(--color-gold)] hover:bg-[var(--color-gold)]/20 hover:border-[var(--color-gold)] transition-all shadow-lg"
             >
-              <Star className="h-5 w-5" />
+              <Star weight="fill" className="h-5 w-5" />
             </Button>
 
             <Button
@@ -214,7 +242,7 @@ export function MatchCard({
               }}
               className="h-14 w-14 rounded-full border-2 border-[var(--color-accent)]/40 bg-black/40 backdrop-blur-sm text-[var(--color-accent)] hover:bg-[var(--color-accent)]/20 hover:border-[var(--color-accent)] hover:text-[var(--color-accent-hover)] transition-all shadow-lg"
             >
-              <Heart className="h-6 w-6" />
+              <Heart weight="fill" className="h-6 w-6" />
             </Button>
           </div>
         )}

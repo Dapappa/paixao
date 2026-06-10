@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { Eye, EyeOff, Loader2, CheckCircle2 } from "lucide-react";
+import { Eye, EyeSlash, CircleNotch, CheckCircle } from "@phosphor-icons/react/ssr";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -91,7 +91,7 @@ export default function ResetPasswordPage() {
               className="flex flex-col items-center py-4 text-center"
             >
               <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-success/10">
-                <CheckCircle2 className="h-7 w-7 text-success" />
+                <CheckCircle className="h-7 w-7 text-success" weight="fill" />
               </div>
               <h2 className="text-lg font-semibold text-foreground">
                 Password Updated
@@ -129,9 +129,9 @@ export default function ResetPasswordPage() {
                     tabIndex={-1}
                   >
                     {showPassword ? (
-                      <EyeOff className="h-4 w-4" />
+                      <EyeSlash className="h-4 w-4" weight="light" />
                     ) : (
-                      <Eye className="h-4 w-4" />
+                      <Eye className="h-4 w-4" weight="light" />
                     )}
                   </button>
                 </div>
@@ -173,7 +173,7 @@ export default function ResetPasswordPage() {
                 >
                   {isLoading ? (
                     <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      <CircleNotch className="mr-2 h-4 w-4 animate-spin" weight="bold" />
                       Updating...
                     </>
                   ) : (

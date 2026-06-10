@@ -11,12 +11,13 @@ import { useMatchPreferences } from "@/lib/hooks/use-match-preferences";
 import { motion } from "framer-motion";
 import {
   ArrowLeft,
-  Save,
+  FloppyDisk,
   Check,
   SlidersHorizontal,
-} from "lucide-react";
+} from "@phosphor-icons/react/ssr";
 import Link from "next/link";
 import { toast } from "sonner";
+import { MatchesAtmosphere } from "../matches-atmosphere";
 
 /* ─────────────────────────────────────────────
    Options
@@ -106,35 +107,44 @@ export function PreferencesClient() {
 
     if (result) {
       setSaved(true);
-      toast.success("Preferences saved successfully");
+      toast.success("Saved. You're looking good.");
       setTimeout(() => setSaved(false), 2000);
     }
   };
 
   if (loading) {
     return (
-      <div className="flex justify-center py-20">
-        <LoadingSpinner size="lg" />
+      <div className="relative z-10">
+        <MatchesAtmosphere src="/generated/tier1-boudoir-bg.webp" />
+        <div className="flex flex-col items-center justify-center gap-4 py-20">
+          <LoadingSpinner size="lg" />
+          <p className="text-sm italic text-text-secondary">Setting the mood&hellip;</p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6 max-w-2xl">
+    <div className="relative z-10 space-y-6 max-w-2xl mx-auto">
+      <MatchesAtmosphere src="/generated/tier1-boudoir-bg.webp" />
+
       {/* Header */}
       <div className="flex items-center gap-4">
         <Link
           href="/matches"
-          className="flex h-9 w-9 items-center justify-center rounded-full border border-border hover:border-foreground/30 text-muted-foreground hover:text-foreground transition-colors"
+          className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-surface/50 backdrop-blur-sm hover:border-accent/30 text-text-secondary hover:text-foreground transition-all"
         >
-          <ArrowLeft className="h-4 w-4" />
+          <ArrowLeft weight="bold" className="h-4 w-4" />
         </Link>
         <div>
-          <h1 className="font-serif text-3xl font-bold text-foreground">
-            Match Preferences
+          <p className="text-[11px] font-medium uppercase tracking-[0.3em] text-gold/80">
+            Your terms
+          </p>
+          <h1 className="mt-1.5 font-serif text-4xl font-bold tracking-tight text-foreground">
+            Who you&rsquo;d like to meet
           </h1>
-          <p className="text-sm text-muted-foreground mt-1">
-            Fine-tune who appears in your discover feed
+          <p className="text-sm text-text-secondary mt-1.5">
+            Set the shape of the room. Change it whenever the mood does.
           </p>
         </div>
       </div>
@@ -145,9 +155,9 @@ export function PreferencesClient() {
         className="space-y-6"
       >
         {/* Gender preferences */}
-        <section className="rounded-xl border border-border bg-surface p-5 space-y-3">
+        <section className="rounded-2xl border border-border/60 bg-surface/50 backdrop-blur-sm p-5 space-y-3">
           <div className="flex items-center gap-2 mb-1">
-            <SlidersHorizontal className="h-4 w-4 text-[var(--color-accent)]" />
+            <SlidersHorizontal weight="light" className="h-4 w-4 text-[var(--color-accent)]" />
             <h2 className="text-sm font-semibold text-foreground">
               Gender Preferences
             </h2>
@@ -174,7 +184,7 @@ export function PreferencesClient() {
         </section>
 
         {/* Age range */}
-        <section className="rounded-xl border border-border bg-surface p-5 space-y-3">
+        <section className="rounded-2xl border border-border/60 bg-surface/50 backdrop-blur-sm p-5 space-y-3">
           <h2 className="text-sm font-semibold text-foreground">Age Range</h2>
           <div className="flex items-center gap-4">
             <div className="space-y-1.5">
@@ -208,7 +218,7 @@ export function PreferencesClient() {
         </section>
 
         {/* Experience level */}
-        <section className="rounded-xl border border-border bg-surface p-5 space-y-3">
+        <section className="rounded-2xl border border-border/60 bg-surface/50 backdrop-blur-sm p-5 space-y-3">
           <h2 className="text-sm font-semibold text-foreground">
             Experience Level
           </h2>
@@ -236,7 +246,7 @@ export function PreferencesClient() {
         </section>
 
         {/* Relationship type */}
-        <section className="rounded-xl border border-border bg-surface p-5 space-y-3">
+        <section className="rounded-2xl border border-border/60 bg-surface/50 backdrop-blur-sm p-5 space-y-3">
           <h2 className="text-sm font-semibold text-foreground">
             Relationship Types
           </h2>
@@ -262,7 +272,7 @@ export function PreferencesClient() {
         </section>
 
         {/* Distance */}
-        <section className="rounded-xl border border-border bg-surface p-5 space-y-3">
+        <section className="rounded-2xl border border-border/60 bg-surface/50 backdrop-blur-sm p-5 space-y-3">
           <div className="flex items-center justify-between">
             <h2 className="text-sm font-semibold text-foreground">
               Maximum Distance
@@ -308,9 +318,9 @@ export function PreferencesClient() {
             {saving ? (
               <LoadingSpinner size="sm" className="mr-2" />
             ) : saved ? (
-              <Check className="mr-2 h-4 w-4" />
+              <Check weight="bold" className="mr-2 h-4 w-4" />
             ) : (
-              <Save className="mr-2 h-4 w-4" />
+              <FloppyDisk weight="light" className="mr-2 h-4 w-4" />
             )}
             {saving ? "Saving..." : saved ? "Saved!" : "Save Preferences"}
           </Button>

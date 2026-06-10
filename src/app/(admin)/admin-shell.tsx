@@ -16,13 +16,12 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  ChevronRight,
-  LogOut,
-  Menu,
-  PanelLeftClose,
-  Settings,
-  X,
-} from "lucide-react";
+  CaretRight,
+  SignOut,
+  List,
+  CaretDoubleLeft,
+  Gear,
+} from "@phosphor-icons/react/ssr";
 import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 
@@ -90,6 +89,7 @@ export function AdminShell({ children, user }: AdminShellProps) {
                 ? pathname === "/admin"
                 : pathname === item.href || pathname.startsWith(item.href + "/");
             const Icon = item.icon;
+            const iconWeight = isActive ? "fill" : "light";
 
             return (
               <Link
@@ -119,6 +119,7 @@ export function AdminShell({ children, user }: AdminShellProps) {
                     />
                   )}
                   <Icon
+                    weight={iconWeight}
                     className={cn(
                       "h-5 w-5 shrink-0 transition-colors",
                       isActive ? "text-[#c2185b]" : "text-zinc-500 group-hover:text-zinc-300"
@@ -138,7 +139,7 @@ export function AdminShell({ children, user }: AdminShellProps) {
       <div className="p-3">
         <Link href="/dashboard">
           <div className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-zinc-500 transition-colors hover:bg-white/[0.04] hover:text-zinc-300">
-            <PanelLeftClose className="h-5 w-5 shrink-0" />
+            <CaretDoubleLeft weight="bold" className="h-5 w-5 shrink-0" />
             <span>Back to App</span>
           </div>
         </Link>
@@ -174,7 +175,7 @@ export function AdminShell({ children, user }: AdminShellProps) {
               onClick={() => router.push("/profile/settings")}
               className="cursor-pointer text-zinc-300 focus:bg-white/[0.06] focus:text-white"
             >
-              <Settings className="mr-2 h-4 w-4" />
+              <Gear weight="light" className="mr-2 h-4 w-4" />
               Settings
             </DropdownMenuItem>
             <DropdownMenuSeparator className="bg-zinc-800" />
@@ -182,7 +183,7 @@ export function AdminShell({ children, user }: AdminShellProps) {
               onClick={() => router.push("/auth/login")}
               className="cursor-pointer text-red-400 focus:bg-red-500/10 focus:text-red-400"
             >
-              <LogOut className="mr-2 h-4 w-4" />
+              <SignOut weight="light" className="mr-2 h-4 w-4" />
               Sign Out
             </DropdownMenuItem>
           </DropdownMenuContent>
@@ -236,7 +237,7 @@ export function AdminShell({ children, user }: AdminShellProps) {
             className="md:hidden text-zinc-400 hover:text-white hover:bg-white/[0.06]"
             onClick={() => setSidebarOpen(true)}
           >
-            <Menu className="h-5 w-5" />
+            <List weight="bold" className="h-5 w-5" />
           </Button>
 
           {/* Breadcrumbs */}
@@ -244,7 +245,7 @@ export function AdminShell({ children, user }: AdminShellProps) {
             {breadcrumbs.map((crumb, i) => (
               <span key={crumb.href} className="flex items-center gap-1.5">
                 {i > 0 && (
-                  <ChevronRight className="h-3.5 w-3.5 text-zinc-600" />
+                  <CaretRight weight="bold" className="h-3.5 w-3.5 text-zinc-600" />
                 )}
                 {i === breadcrumbs.length - 1 ? (
                   <span className="font-medium text-zinc-200">

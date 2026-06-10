@@ -11,10 +11,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import Image from "next/image";
 import { interestCategories, type InterestCategory } from "@/config/interests";
+import { desireMoods, fallbackMood } from "@/config/desire-moods";
 import type { UserInterest } from "@/lib/stores/auth-store";
 import { motion, AnimatePresence } from "framer-motion";
-import { Ban, Sparkles } from "lucide-react";
+import { Prohibit, Sparkle } from "@phosphor-icons/react/ssr";
 
 interface InterestSelectorProps {
   selectedInterests: UserInterest[];
@@ -130,8 +132,36 @@ export function InterestSelector({
         })}
       </div>
 
-      {/* Category Description */}
-      <p className="text-sm text-muted-foreground">{currentCategory.description}</p>
+      {/* Category mood banner — cinematic Tier-1 imagery per category */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={activeCategory}
+          initial={{ opacity: 0, scale: 1.02 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.45, ease: [0.05, 0.7, 0.1, 1] }}
+          className="relative h-40 w-full overflow-hidden rounded-2xl border border-[var(--color-border)] sm:h-48"
+        >
+          <Image
+            src={(desireMoods[activeCategory] ?? fallbackMood).image}
+            alt=""
+            fill
+            sizes="(max-width: 768px) 100vw, 720px"
+            className="object-cover object-center"
+          />
+          {/* legibility grade — warm, near-black mask */}
+          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/55 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background/85 via-transparent to-transparent" />
+          <div className="relative flex h-full flex-col justify-end p-5">
+            <h3 className="font-serif text-2xl font-bold tracking-tight text-foreground">
+              {currentCategory.label}
+            </h3>
+            <p className="mt-1.5 max-w-md text-sm leading-relaxed text-text-secondary">
+              {(desireMoods[activeCategory] ?? fallbackMood).line}
+            </p>
+          </div>
+        </motion.div>
+      </AnimatePresence>
 
       {/* Interest Tags */}
       <AnimatePresence mode="wait">
@@ -206,7 +236,7 @@ export function InterestSelector({
                   )}
                   title={hardLimit ? "Remove hard limit" : "Mark as hard limit"}
                 >
-                  <Ban className="h-3 w-3" />
+                  <Prohibit weight="bold" className="h-3 w-3" />
                 </button>
               </div>
             );
@@ -217,14 +247,14 @@ export function InterestSelector({
       {/* Summary */}
       <div className="flex items-center gap-4 text-xs text-muted-foreground pt-2">
         <div className="flex items-center gap-1.5">
-          <Sparkles className="h-3.5 w-3.5 text-[var(--color-accent)]" />
+          <Sparkle weight="fill" className="h-3.5 w-3.5 text-[var(--color-accent)]" />
           <span>
             {selectedInterests.filter((i) => !i.is_hard_limit).length} interests
             selected
           </span>
         </div>
         <div className="flex items-center gap-1.5">
-          <Ban className="h-3.5 w-3.5 text-[var(--color-danger)]" />
+          <Prohibit weight="light" className="h-3.5 w-3.5 text-[var(--color-danger)]" />
           <span>
             {selectedInterests.filter((i) => i.is_hard_limit).length} hard limits
           </span>

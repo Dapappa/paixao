@@ -6,18 +6,18 @@ import { motion } from "framer-motion";
 import { formatDistanceToNow } from "date-fns";
 import {
   Bell,
-  Calendar,
+  CalendarDots,
   CheckCircle,
   Heart,
-  MessageCircle,
+  ChatCircle,
   Shield,
-  Sparkles,
+  Sparkle,
   Star,
   UserCheck,
   XCircle,
   CreditCard,
-  AlertTriangle,
-} from "lucide-react";
+  Warning,
+} from "@phosphor-icons/react/ssr";
 import type { Notification } from "@/lib/hooks/use-notifications";
 
 /* ─────────────────────────────────────────────
@@ -34,22 +34,22 @@ const typeConfig: Record<
     bgColor: "bg-[var(--color-accent)]/10",
   },
   match_suggestion: {
-    icon: Sparkles,
+    icon: Sparkle,
     color: "text-[var(--color-gold)]",
     bgColor: "bg-[var(--color-gold)]/10",
   },
   new_message: {
-    icon: MessageCircle,
+    icon: ChatCircle,
     color: "text-blue-400",
     bgColor: "bg-blue-500/10",
   },
   event_reminder: {
-    icon: Calendar,
+    icon: CalendarDots,
     color: "text-purple-400",
     bgColor: "bg-purple-500/10",
   },
   event_update: {
-    icon: Calendar,
+    icon: CalendarDots,
     color: "text-purple-400",
     bgColor: "bg-purple-500/10",
   },
@@ -64,7 +64,7 @@ const typeConfig: Record<
     bgColor: "bg-orange-500/10",
   },
   consent_request: {
-    icon: AlertTriangle,
+    icon: Warning,
     color: "text-yellow-400",
     bgColor: "bg-yellow-500/10",
   },
@@ -151,7 +151,7 @@ export function NotificationItem({
           config.bgColor,
         )}
       >
-        <Icon className={cn(compact ? "h-4 w-4" : "h-5 w-5", config.color)} />
+        <Icon weight="light" className={cn(compact ? "h-4 w-4" : "h-5 w-5", config.color)} />
       </div>
 
       {/* Content */}

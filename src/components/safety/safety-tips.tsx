@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Shield, ChevronDown } from "lucide-react";
+import { Shield, CaretDown } from "@phosphor-icons/react/ssr";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -93,12 +93,13 @@ export function SafetyTips({
         className="flex w-full items-center justify-between px-4 py-3 text-left transition-colors hover:bg-zinc-800/30"
       >
         <div className="flex items-center gap-2">
-          <Shield className="h-4 w-4 text-[#d4a574]" />
+          <Shield weight="light" className="h-4 w-4 text-[#d4a574]" />
           <span className="text-sm font-medium text-foreground">
             {data.title}
           </span>
         </div>
-        <ChevronDown
+        <CaretDown
+          weight="bold"
           className={cn(
             "h-4 w-4 text-muted-foreground transition-transform duration-200",
             open && "rotate-180"

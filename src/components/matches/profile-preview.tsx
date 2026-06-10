@@ -4,21 +4,22 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
+import { personaFallback } from "./match-card";
 import {
   Heart,
   X,
-  MessageCircle,
+  ChatCircle,
   Shield,
   Flag,
   MapPin,
-  Sparkles,
-  ChevronLeft,
-  ChevronRight,
-  Users,
+  Sparkle,
+  CaretLeft,
+  CaretRight,
+  UsersThree,
   Eye,
-} from "lucide-react";
+} from "@phosphor-icons/react/ssr";
 
 /* ─────────────────────────────────────────────
    Types
@@ -129,6 +130,8 @@ export function ProfilePreview({
   const age = calculateAge(profile.date_of_birth);
   const sortedPhotos = [...profile.photos].sort((a, b) => a.order - b.order);
   const currentPhoto = sortedPhotos[currentPhotoIndex];
+  // Authentic candid fallback when this profile has no uploaded photos.
+  const fallbackPhoto = profile.avatar_url || personaFallback(profile.id);
 
   const sharedInterests = profile.interests.filter((i) => i.is_shared);
   const otherInterests = profile.interests.filter((i) => !i.is_shared);
@@ -205,14 +208,14 @@ export function ProfilePreview({
                   disabled={currentPhotoIndex === 0}
                   className="absolute left-2 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-black/40 backdrop-blur-sm text-white disabled:opacity-30 hover:bg-black/60 transition-colors"
                 >
-                  <ChevronLeft className="h-5 w-5" />
+                  <CaretLeft weight="bold" className="h-5 w-5" />
                 </button>
                 <button
                   onClick={nextPhoto}
                   disabled={currentPhotoIndex === sortedPhotos.length - 1}
                   className="absolute right-2 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-black/40 backdrop-blur-sm text-white disabled:opacity-30 hover:bg-black/60 transition-colors"
                 >
-                  <ChevronRight className="h-5 w-5" />
+                  <CaretRight weight="bold" className="h-5 w-5" />
                 </button>
               </>
             )}
@@ -220,19 +223,23 @@ export function ProfilePreview({
             {/* Private badge */}
             {currentPhoto.is_private && (
               <Badge className="absolute top-4 right-4 bg-black/50 text-white border-0 backdrop-blur-sm">
-                <Eye className="mr-1 h-3 w-3" />
+                <Eye weight="fill" className="mr-1 h-3 w-3" />
                 Private
               </Badge>
             )}
           </>
         ) : (
-          <div className="h-full w-full bg-gradient-to-br from-[var(--color-accent)]/10 via-surface to-surface-elevated flex items-center justify-center">
-            <Avatar className="h-32 w-32">
-              <AvatarImage src={profile.avatar_url || undefined} />
-              <AvatarFallback className="bg-[var(--color-accent-muted)] text-[var(--color-accent)] font-serif text-5xl">
-                {(profile.display_name || "?")[0]?.toUpperCase()}
-              </AvatarFallback>
-            </Avatar>
+          <div className="relative h-full w-full bg-surface-elevated">
+            <Image
+              src={fallbackPhoto}
+              alt={profile.display_name || "Profile"}
+              fill
+              sizes="(max-width: 768px) 100vw, 42rem"
+              priority
+              className="object-cover"
+            />
+            {/* Warm candid grade */}
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-[var(--color-accent)]/10 via-transparent to-[var(--color-gold)]/10 mix-blend-soft-light" />
           </div>
         )}
 
@@ -267,7 +274,7 @@ export function ProfilePreview({
                     : "bg-white/20 text-white"
               )}
             >
-              <Sparkles className="mr-1 h-3.5 w-3.5" />
+              <Sparkle weight="fill" className="mr-1 h-3.5 w-3.5" />
               {profile.compatibility_score}% match
             </Badge>
           </div>
@@ -283,7 +290,7 @@ export function ProfilePreview({
             onClick={onPass}
             className="h-12 w-12 rounded-full border-2 border-red-400/30 text-red-400 hover:bg-red-500/10 hover:border-red-400"
           >
-            <X className="h-5 w-5" />
+            <X weight="bold" className="h-5 w-5" />
           </Button>
         )}
 
@@ -293,7 +300,7 @@ export function ProfilePreview({
             onClick={onLike}
             className="h-14 w-14 rounded-full bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-accent-hover)] text-white hover:shadow-[0_0_25px_rgba(194,24,91,0.4)] transition-shadow"
           >
-            <Heart className="h-6 w-6" />
+            <Heart weight="fill" className="h-6 w-6" />
           </Button>
         )}
 
@@ -302,7 +309,7 @@ export function ProfilePreview({
             onClick={onMessage}
             className="bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-hover)] shadow-[0_0_20px_rgba(194,24,91,0.2)]"
           >
-            <MessageCircle className="mr-2 h-4 w-4" />
+            <ChatCircle weight="light" className="mr-2 h-4 w-4" />
             Send Message
           </Button>
         )}
@@ -314,7 +321,7 @@ export function ProfilePreview({
             onClick={onBlock}
             className="h-10 w-10 rounded-full border-border text-muted-foreground hover:text-foreground"
           >
-            <Shield className="h-4 w-4" />
+            <Shield weight="light" className="h-4 w-4" />
           </Button>
         )}
 
@@ -325,7 +332,7 @@ export function ProfilePreview({
             onClick={onReport}
             className="h-10 w-10 rounded-full border-border text-muted-foreground hover:text-foreground"
           >
-            <Flag className="h-4 w-4" />
+            <Flag weight="light" className="h-4 w-4" />
           </Button>
         )}
       </div>
@@ -374,7 +381,7 @@ export function ProfilePreview({
             <DetailItem
               label="Location"
               value={profile.location}
-              icon={<MapPin className="h-3.5 w-3.5 text-[var(--color-accent)]" />}
+              icon={<MapPin weight="fill" className="h-3.5 w-3.5 text-[var(--color-accent)]" />}
             />
           )}
         </div>
@@ -383,7 +390,7 @@ export function ProfilePreview({
         {profile.looking_for && profile.looking_for.length > 0 && (
           <div>
             <h3 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-2">
-              <Users className="inline h-3.5 w-3.5 mr-1" />
+              <UsersThree weight="light" className="inline h-3.5 w-3.5 mr-1" />
               Looking For
             </h3>
             <div className="flex flex-wrap gap-1.5">
@@ -412,7 +419,7 @@ export function ProfilePreview({
           {sharedInterests.length > 0 && (
             <div>
               <p className="text-xs text-[var(--color-gold)] mb-2 font-medium">
-                <Sparkles className="inline h-3 w-3 mr-1" />
+                <Sparkle weight="fill" className="inline h-3 w-3 mr-1" />
                 {sharedInterests.length} shared{" "}
                 {sharedInterests.length === 1 ? "interest" : "interests"}
               </p>

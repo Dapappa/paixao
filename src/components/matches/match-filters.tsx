@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
-import { SlidersHorizontal, X } from "lucide-react";
+import { SlidersHorizontal, X } from "@phosphor-icons/react/ssr";
 import { useState } from "react";
 
 /* ─────────────────────────────────────────────
@@ -97,7 +97,7 @@ export function MatchFilters({
             expanded && "border-[var(--color-accent)]/40 text-[var(--color-accent)]"
           )}
         >
-          <SlidersHorizontal className="mr-1.5 h-4 w-4" />
+          <SlidersHorizontal weight="light" className="mr-1.5 h-4 w-4" />
           Filters
           {activeFilterCount > 0 && (
             <Badge className="ml-2 h-5 w-5 rounded-full p-0 flex items-center justify-center bg-[var(--color-accent)] text-white text-[10px] border-0">
@@ -113,7 +113,7 @@ export function MatchFilters({
             onClick={clearFilters}
             className="text-muted-foreground hover:text-foreground text-xs"
           >
-            <X className="mr-1 h-3 w-3" />
+            <X weight="bold" className="mr-1 h-3 w-3" />
             Clear all
           </Button>
         )}

@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { ShieldAlert } from "lucide-react";
+import { ShieldWarning } from "@phosphor-icons/react/ssr";
 import { Button } from "@/components/ui/button";
 
 const fadeUp = {
@@ -51,7 +51,7 @@ export default function AgeGatePage() {
         {/* Icon */}
         <motion.div variants={fadeUp} custom={1} className="mt-8">
           <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl border border-border bg-surface">
-            <ShieldAlert className="h-8 w-8 text-accent" />
+            <ShieldWarning className="h-8 w-8 text-accent" weight="duotone" />
           </div>
         </motion.div>
 

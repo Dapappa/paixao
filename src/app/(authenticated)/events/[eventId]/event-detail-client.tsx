@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { EventDetailView } from "@/components/events/event-detail-view";
@@ -93,28 +94,51 @@ export function EventDetailClient({
   }, [event.id, router]);
 
   return (
-    <EventDetailView
-      event={event}
-      isRegistered={isRegistered}
-      actionSlot={
-        <RSVPButton
-          state={rsvpState}
-          onRegister={handleRegister}
-          onCancel={handleCancel}
-          disabled={!userId}
+    <>
+      {/* ── Masquerade atmosphere — candlelit ballroom ── */}
+      <div className="pointer-events-none fixed inset-0 z-0">
+        <Image
+          src="/generated/bg-masquerade.webp"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-center opacity-[0.20]"
         />
-      }
-      qrSlot={
-        isRegistered && currentReg?.check_in_code ? (
-          <div className="mt-4">
-            <CheckInQR
-              eventTitle={event.title}
-              eventDate={event.starts_at}
-              checkInCode={currentReg.check_in_code}
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/75 to-background" />
+        <div className="aura-field absolute inset-0 animate-aura-drift opacity-55" />
+        <div className="absolute right-[-4%] top-[10%] h-[420px] w-[540px] rounded-full bg-accent/[0.06] blur-[130px] animate-breath" />
+      </div>
+
+      <div className="relative z-10">
+        <EventDetailView
+          event={event}
+          isRegistered={isRegistered}
+          actionSlot={
+            <RSVPButton
+              state={rsvpState}
+              onRegister={handleRegister}
+              onCancel={handleCancel}
+              disabled={!userId}
             />
-          </div>
-        ) : null
-      }
-    />
+          }
+          qrSlot={
+            isRegistered && currentReg?.check_in_code ? (
+              <div className="mt-4">
+                <CheckInQR
+                  eventTitle={event.title}
+                  eventDate={event.starts_at}
+                  checkInCode={currentReg.check_in_code}
+                />
+              </div>
+            ) : null
+          }
+        />
+      </div>
+
+      {/* ── Atmosphere overlays ── */}
+      <div className="vignette" aria-hidden />
+      <div className="film-grain" aria-hidden />
+    </>
   );
 }

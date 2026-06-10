@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { List, X } from "@phosphor-icons/react/ssr";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -41,7 +41,7 @@ export default function PublicLayout({
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <span className="font-serif text-xl font-bold tracking-wider text-foreground">
-              PAIX<span className="text-accent">A</span>O
+              PAIX<span className="text-accent">Ã</span>O
             </span>
           </Link>
 
@@ -83,9 +83,9 @@ export default function PublicLayout({
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? (
-              <X className="h-5 w-5" />
+              <X className="h-5 w-5" weight="bold" />
             ) : (
-              <Menu className="h-5 w-5" />
+              <List className="h-5 w-5" weight="bold" />
             )}
           </button>
         </nav>

@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, ShieldCheck } from "lucide-react";
+import { ArrowLeft, Heart } from "@phosphor-icons/react/ssr";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { ConversationList } from "@/components/messages/conversation-list";
@@ -80,11 +80,23 @@ export function MessagesClient({ initialConversationId }: MessagesClientProps) {
   const isEncrypted = !!(otherUser?.public_key);
 
   return (
-    <div className="flex h-[calc(100dvh-4rem)] md:h-[calc(100dvh-4rem)]">
+    <div className="relative -mx-5 -mt-8 -mb-24 flex h-[calc(100dvh-5rem)] overflow-hidden border-y border-border/40 sm:-mx-7 md:-mb-12 lg:-mx-10">
+      {/* ── Velvet Aura backdrop — a low-lit booth (bg-bar) ── */}
+      <div className="pointer-events-none absolute inset-0 z-0" aria-hidden>
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-[0.22]"
+          style={{ backgroundImage: "url(/generated/bg-bar.webp)" }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/70 to-background/90" />
+        <div className="aura-field absolute inset-0 animate-aura-drift opacity-50" />
+        <div className="absolute bottom-[-20%] left-[-10%] h-[420px] w-[520px] rounded-full bg-accent/[0.06] blur-[130px]" />
+        <div className="absolute right-[-8%] top-[-15%] h-[360px] w-[460px] rounded-full bg-gold/[0.05] blur-[120px]" />
+      </div>
+
       {/* ── Conversation List (left panel) ── */}
       <div
         className={cn(
-          "w-full md:w-80 md:shrink-0 md:border-r md:border-white/5 bg-[#0a0a0a]",
+          "relative z-10 w-full md:w-80 md:shrink-0 md:border-r md:border-border/60 bg-background/40 backdrop-blur-xl",
           // On mobile: hide when a conversation is selected
           selectedId ? "hidden md:flex md:flex-col" : "flex flex-col",
         )}
@@ -100,7 +112,7 @@ export function MessagesClient({ initialConversationId }: MessagesClientProps) {
       {/* ── Message Area (right panel) ── */}
       <div
         className={cn(
-          "flex-1 flex flex-col bg-[#0d0d0d]",
+          "relative z-10 flex-1 flex flex-col bg-background/30 backdrop-blur-xl",
           // On mobile: hide when no conversation selected
           !selectedId ? "hidden md:flex" : "flex",
         )}
@@ -108,29 +120,29 @@ export function MessagesClient({ initialConversationId }: MessagesClientProps) {
         {selectedId && otherUser ? (
           <>
             {/* Conversation header */}
-            <div className="flex items-center gap-3 border-b border-white/5 bg-[#0a0a0a] px-4 py-3 shrink-0">
+            <div className="flex items-center gap-3 border-b border-border/60 bg-background/50 px-4 py-3 shrink-0 backdrop-blur-xl">
               {/* Back button (mobile) */}
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={handleBack}
-                className="md:hidden h-8 w-8 text-white/60 hover:text-white hover:bg-white/5"
+                className="md:hidden h-8 w-8 text-text-secondary hover:text-foreground hover:bg-surface/60"
               >
-                <ArrowLeft className="h-4 w-4" />
+                <ArrowLeft weight="bold" className="h-4 w-4" />
               </Button>
 
-              <Avatar className="h-9 w-9">
+              <Avatar className="h-9 w-9 ring-1 ring-border/60">
                 <AvatarImage
                   src={otherUser.avatar_url ?? undefined}
                   alt={otherUser.display_name ?? "User"}
                 />
-                <AvatarFallback className="bg-gradient-to-br from-[#c2185b]/20 to-[#d4a574]/20 text-white/70 text-xs border border-white/5">
+                <AvatarFallback className="bg-gradient-to-br from-accent/25 to-gold/20 text-foreground/80 text-xs border border-border/50">
                   {otherInitials}
                 </AvatarFallback>
               </Avatar>
 
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-medium text-white truncate">
+                <p className="text-sm font-medium text-foreground truncate font-serif">
                   {otherUser.display_name ?? "Unknown"}
                 </p>
                 <EncryptionBadge isEncrypted={isEncrypted} />
@@ -158,23 +170,23 @@ export function MessagesClient({ initialConversationId }: MessagesClientProps) {
           </>
         ) : (
           /* Empty state — no conversation selected (desktop) */
-          <div className="hidden md:flex flex-1 flex-col items-center justify-center gap-4 text-center">
+          <div className="hidden md:flex flex-1 flex-col items-center justify-center gap-4 px-6 text-center">
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-              className="space-y-4"
+              transition={{ duration: 0.6, ease: [0.05, 0.7, 0.1, 1] }}
+              className="space-y-5"
             >
-              <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-[#c2185b]/10 to-[#d4a574]/10 border border-white/5">
-                <ShieldCheck className="h-8 w-8 text-[#d4a574]/60" />
+              <div className="mx-auto flex h-20 w-20 animate-breath items-center justify-center rounded-2xl border border-border/50 bg-gradient-to-br from-accent/12 to-gold/10 shadow-glow-accent">
+                <Heart weight="duotone" className="h-8 w-8 text-accent/70" />
               </div>
               <div>
-                <p className="text-white/60 font-medium font-[family-name:var(--font-playfair)] text-lg">
-                  Your messages
+                <p className="font-serif text-xl italic text-foreground/80">
+                  Someone&rsquo;s thinking of you.
                 </p>
-                <p className="text-white/30 text-sm mt-1 max-w-[280px]">
-                  Select a conversation to start messaging. All conversations
-                  are between matched users.
+                <p className="mx-auto mt-2 max-w-[300px] text-sm leading-relaxed text-text-secondary">
+                  Pick a conversation and lean in. Every thread here is between
+                  two people who&rsquo;ve already said yes to each other.
                 </p>
               </div>
             </motion.div>

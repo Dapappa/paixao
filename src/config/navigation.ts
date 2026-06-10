@@ -1,17 +1,24 @@
+import type { ComponentType } from "react";
 import {
-  CalendarDays,
+  House,
+  CalendarDots,
   Heart,
-  LayoutDashboard,
-  MessageCircle,
-  Shield,
+  ChatCircle,
   User,
-  type LucideIcon,
-} from "lucide-react";
+  ShieldCheck,
+} from "@phosphor-icons/react/ssr";
+
+/** Phosphor icon component shape (works for both /ssr and client icons). */
+export type NavIcon = ComponentType<{
+  className?: string;
+  size?: number;
+  weight?: "thin" | "light" | "regular" | "bold" | "fill" | "duotone";
+}>;
 
 export interface NavItem {
   label: string;
   href: string;
-  icon: LucideIcon;
+  icon: NavIcon;
   badge?: string;
   description?: string;
 }
@@ -20,13 +27,13 @@ export const sidebarNavItems: NavItem[] = [
   {
     label: "Dashboard",
     href: "/dashboard",
-    icon: LayoutDashboard,
+    icon: House,
     description: "Overview and activity feed",
   },
   {
     label: "Events",
     href: "/events",
-    icon: CalendarDays,
+    icon: CalendarDots,
     description: "Browse and manage events",
   },
   {
@@ -38,7 +45,7 @@ export const sidebarNavItems: NavItem[] = [
   {
     label: "Messages",
     href: "/messages",
-    icon: MessageCircle,
+    icon: ChatCircle,
     description: "Private conversations",
   },
   {
@@ -50,7 +57,7 @@ export const sidebarNavItems: NavItem[] = [
   {
     label: "Safety",
     href: "/safety",
-    icon: Shield,
+    icon: ShieldCheck,
     description: "Consent settings, blocks, and reporting",
   },
 ];

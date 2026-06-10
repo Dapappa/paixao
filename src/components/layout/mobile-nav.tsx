@@ -5,18 +5,18 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import {
-  CalendarDays,
+  CalendarDots,
   Heart,
-  LayoutDashboard,
-  MessageCircle,
+  House,
+  ChatCircle,
   User,
-} from "lucide-react";
+} from "@phosphor-icons/react/ssr";
 
 const mobileNavItems = [
-  { label: "Home", href: "/dashboard", icon: LayoutDashboard },
-  { label: "Events", href: "/events", icon: CalendarDays },
+  { label: "Home", href: "/dashboard", icon: House },
+  { label: "Events", href: "/events", icon: CalendarDots },
   { label: "Matches", href: "/matches", icon: Heart },
-  { label: "Messages", href: "/messages", icon: MessageCircle },
+  { label: "Messages", href: "/messages", icon: ChatCircle },
   { label: "Profile", href: "/profile", icon: User },
 ];
 
@@ -39,8 +39,9 @@ export function MobileNav() {
             >
               <div className="relative">
                 <Icon
+                  weight={isActive ? "fill" : "light"}
                   className={cn(
-                    "h-5 w-5 transition-colors",
+                    "h-6 w-6 transition-colors",
                     isActive
                       ? "text-[var(--color-accent)]"
                       : "text-muted-foreground"

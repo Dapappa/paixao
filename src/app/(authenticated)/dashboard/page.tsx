@@ -9,16 +9,16 @@ import { EmptyState } from "@/components/shared/empty-state";
 import { useProfile } from "@/lib/hooks/use-profile";
 import { motion } from "framer-motion";
 import {
-  CalendarDays,
+  CalendarDots,
   Heart,
-  MessageCircle,
-  TrendingUp,
+  ChatCircle,
+  TrendUp,
   MapPin,
   Clock,
-  Users,
+  UsersThree,
   ArrowRight,
-  Sparkles,
-} from "lucide-react";
+  Sparkle,
+} from "@phosphor-icons/react/ssr";
 
 const container = {
   hidden: { opacity: 0 },
@@ -77,7 +77,7 @@ function StatCard({
   accentColor,
   glowColor,
 }: {
-  icon: typeof CalendarDays;
+  icon: typeof CalendarDots;
   label: string;
   value: string | number;
   accentColor: string;
@@ -97,7 +97,7 @@ function StatCard({
             className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl"
             style={{ backgroundColor: `${accentColor}15` }}
           >
-            <Icon className="h-6 w-6" style={{ color: accentColor }} />
+            <Icon weight="duotone" className="h-6 w-6" style={{ color: accentColor }} />
           </div>
           <div>
             <p className="text-2xl font-bold text-foreground">{value}</p>
@@ -111,7 +111,7 @@ function StatCard({
 
 function DashboardSkeleton() {
   return (
-    <div className="space-y-8 p-4 md:p-6 lg:p-8">
+    <div className="space-y-8">
       <div className="space-y-2">
         <Skeleton className="h-8 w-64" />
         <Skeleton className="h-5 w-48" />
@@ -162,7 +162,7 @@ export default function DashboardPage() {
       variants={container}
       initial="hidden"
       animate="show"
-      className="space-y-8 p-4 md:p-6 lg:p-8"
+      className="space-y-8"
     >
       {/* Welcome */}
       <motion.div variants={item}>
@@ -178,7 +178,7 @@ export default function DashboardPage() {
       {/* Stats Grid */}
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         <StatCard
-          icon={CalendarDays}
+          icon={CalendarDots}
           label="Upcoming Events"
           value={3}
           accentColor="#c2185b"
@@ -192,14 +192,14 @@ export default function DashboardPage() {
           glowColor="rgba(233, 30, 99, 0.08)"
         />
         <StatCard
-          icon={MessageCircle}
+          icon={ChatCircle}
           label="Unread Messages"
           value={4}
           accentColor="#d4a574"
           glowColor="rgba(212, 165, 116, 0.08)"
         />
         <StatCard
-          icon={TrendingUp}
+          icon={TrendUp}
           label="Profile Completion"
           value={`${completionPercent}%`}
           accentColor="#4caf50"
@@ -219,7 +219,7 @@ export default function DashboardPage() {
             className="text-muted-foreground hover:text-foreground"
           >
             View all
-            <ArrowRight className="ml-1 h-4 w-4" />
+            <ArrowRight weight="bold" className="ml-1 h-4 w-4" />
           </Button>
         </div>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -248,17 +248,17 @@ export default function DashboardPage() {
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Clock className="h-4 w-4 shrink-0" />
+                    <Clock weight="light" className="h-4 w-4 shrink-0" />
                     <span>
                       {event.date} at {event.time}
                     </span>
                   </div>
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <MapPin className="h-4 w-4 shrink-0" />
+                    <MapPin weight="light" className="h-4 w-4 shrink-0" />
                     <span>{event.location}</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <Users className="h-4 w-4 shrink-0" />
+                    <UsersThree weight="light" className="h-4 w-4 shrink-0" />
                     <span>{event.attendees} attending</span>
                   </div>
                 </CardContent>
@@ -280,7 +280,7 @@ export default function DashboardPage() {
             className="text-muted-foreground hover:text-foreground"
           >
             Explore
-            <ArrowRight className="ml-1 h-4 w-4" />
+            <ArrowRight weight="bold" className="ml-1 h-4 w-4" />
           </Button>
         </div>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -308,7 +308,7 @@ export default function DashboardPage() {
                   </div>
                   <div className="flex flex-col items-center shrink-0">
                     <div className="flex items-center gap-1">
-                      <Sparkles className="h-3.5 w-3.5 text-[var(--color-gold)]" />
+                      <Sparkle weight="fill" className="h-3.5 w-3.5 text-[var(--color-gold)]" />
                       <span className="text-sm font-bold text-[var(--color-gold)]">
                         {person.matchScore}%
                       </span>

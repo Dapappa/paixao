@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Eye, EyeOff, Loader2 } from "lucide-react";
+import { Eye, EyeSlash, CircleNotch } from "@phosphor-icons/react/ssr";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -122,9 +122,9 @@ export function SignupForm() {
             tabIndex={-1}
           >
             {showPassword ? (
-              <EyeOff className="h-4 w-4" />
+              <EyeSlash className="h-4 w-4" weight="light" />
             ) : (
-              <Eye className="h-4 w-4" />
+              <Eye className="h-4 w-4" weight="light" />
             )}
           </button>
         </div>
@@ -210,11 +210,11 @@ export function SignupForm() {
         >
           {isLoading ? (
             <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Creating account...
+              <CircleNotch className="mr-2 h-4 w-4 animate-spin" weight="bold" />
+              Setting the mood…
             </>
           ) : (
-            "Create Account"
+            "Step inside"
           )}
         </Button>
       </motion.div>

@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { Check } from "lucide-react";
+import { Check } from "@phosphor-icons/react/ssr";
 
 interface OnboardingStepperProps {
   currentStep: number;
@@ -57,7 +57,7 @@ export function OnboardingStepper({
                   )}
                 >
                   {isCompleted ? (
-                    <Check className="h-3.5 w-3.5 text-white" />
+                    <Check weight="bold" className="h-3.5 w-3.5 text-white" />
                   ) : (
                     <span
                       className={cn(

@@ -5,16 +5,15 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import {
   Shield,
-  AlertTriangle,
-  Ban,
+  Warning,
+  Prohibit,
   Key,
   Phone,
-  ExternalLink,
-  ChevronRight,
+  ArrowSquareOut,
+  CaretRight,
   FileText,
-} from "lucide-react";
+} from "@phosphor-icons/react/ssr";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 import { SafetyTips } from "@/components/safety/safety-tips";
 import { ReportForm } from "@/components/safety/report-form";
 import { SafeWordSetup } from "@/components/safety/safe-word-setup";
@@ -25,27 +24,27 @@ import { SafeWordSetup } from "@/components/safety/safe-word-setup";
 
 const QUICK_ACTIONS = [
   {
-    label: "Report an Issue",
-    description: "Report harassment, safety concerns, or policy violations",
-    icon: AlertTriangle,
-    color: "text-red-400",
-    bg: "bg-red-500/10 border-red-500/20",
+    label: "Speak up",
+    description: "Something felt off? Tell us quietly. We'll handle it with care.",
+    icon: Warning,
+    color: "text-accent",
+    bg: "bg-accent-muted border-accent/20",
     href: "/safety/report",
   },
   {
-    label: "Manage Blocked Users",
-    description: "View and manage your blocked users list",
-    icon: Ban,
-    color: "text-orange-400",
-    bg: "bg-orange-500/10 border-orange-500/20",
+    label: "Who you've shut out",
+    description: "See the people you've blocked, and open or close that door anytime.",
+    icon: Prohibit,
+    color: "text-gold",
+    bg: "bg-gold-muted border-gold/20",
     href: "/safety/blocked",
   },
   {
-    label: "Safe Word Setup",
-    description: "Configure your safe word and emergency contacts",
+    label: "Your safe word",
+    description: "Set a word that's yours alone, and the people who'll come if you say it.",
     icon: Key,
-    color: "text-[#d4a574]",
-    bg: "bg-[#d4a574]/10 border-[#d4a574]/20",
+    color: "text-gold",
+    bg: "bg-gold-muted border-gold/20",
     href: "#safe-word",
   },
 ];
@@ -63,8 +62,8 @@ const stagger = {
 };
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 12 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+  hidden: { opacity: 0, y: 14 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.05, 0.7, 0.1, 1] as const } },
 };
 
 /* ─────────────────────────────────────────────
@@ -75,139 +74,153 @@ export function SafetyHubClient() {
   const [reportOpen, setReportOpen] = useState(false);
 
   return (
-    <motion.div
-      variants={stagger}
-      initial="hidden"
-      animate="show"
-      className="mx-auto max-w-3xl px-4 py-6 sm:px-6 lg:px-8"
-    >
-      {/* Hero */}
-      <motion.div variants={fadeUp} className="mb-8 text-center">
-        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-[#c2185b]/10">
-          <Shield className="h-8 w-8 text-[#c2185b]" />
-        </div>
-        <h1 className="mb-2 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-          Safety Center
-        </h1>
-        <p className="mx-auto max-w-md text-sm text-muted-foreground">
-          Your safety is our top priority. Use these tools to report issues,
-          manage your boundaries, and stay safe in the community.
-        </p>
-      </motion.div>
+    <div className="relative min-h-[calc(100dvh-4rem)] overflow-hidden">
+      {/* ── Ambient aura backdrop (Velvet Aura) ── */}
+      <div className="pointer-events-none absolute inset-0 z-0">
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-[0.16] mix-blend-screen"
+          style={{ backgroundImage: "url(/generated/bg-bar.webp)" }}
+        />
+        <div className="aura-field absolute inset-0 animate-aura-drift opacity-60" />
+        <div className="absolute left-1/2 top-[-10%] h-[460px] w-[640px] -translate-x-1/2 rounded-full bg-accent/[0.06] blur-[130px]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background" />
+      </div>
 
-      {/* Quick Actions */}
       <motion.div
-        variants={fadeUp}
-        className="mb-8 grid grid-cols-1 gap-3 sm:grid-cols-3"
+        variants={stagger}
+        initial="hidden"
+        animate="show"
+        className="relative z-10 mx-auto max-w-3xl"
       >
-        {QUICK_ACTIONS.map((action) => {
-          const Icon = action.icon;
-          const isAnchor = action.href.startsWith("#");
-
-          const content = (
-            <div
-              className={cn(
-                "group flex flex-col rounded-xl border border-zinc-800 bg-zinc-900/30 p-4 transition-all hover:border-zinc-600 hover:bg-zinc-800/30",
-                "cursor-pointer"
-              )}
-            >
-              <div
-                className={cn(
-                  "mb-3 flex h-10 w-10 items-center justify-center rounded-lg border",
-                  action.bg
-                )}
-              >
-                <Icon className={cn("h-5 w-5", action.color)} />
-              </div>
-              <h3 className="mb-1 text-sm font-semibold text-foreground">
-                {action.label}
-              </h3>
-              <p className="flex-1 text-xs text-muted-foreground">
-                {action.description}
-              </p>
-              <ChevronRight className="mt-3 h-4 w-4 text-zinc-600 transition-transform group-hover:translate-x-1 group-hover:text-zinc-400" />
-            </div>
-          );
-
-          if (isAnchor) {
-            return (
-              <a key={action.label} href={action.href}>
-                {content}
-              </a>
-            );
-          }
-
-          return (
-            <Link key={action.label} href={action.href}>
-              {content}
-            </Link>
-          );
-        })}
-      </motion.div>
-
-      {/* Emergency info */}
-      <motion.div
-        variants={fadeUp}
-        className="mb-8 rounded-xl border border-[#c2185b]/20 bg-[#c2185b]/5 p-4"
-      >
-        <div className="flex items-start gap-3">
-          <Phone className="mt-0.5 h-5 w-5 shrink-0 text-[#c2185b]" />
-          <div>
-            <h3 className="mb-1 text-sm font-semibold text-[#c2185b]">
-              In Immediate Danger?
-            </h3>
-            <p className="text-sm text-[#c2185b]/80">
-              If you are in immediate physical danger, please contact your local
-              emergency services (911) first. The panic button (red shield
-              icon) at the bottom of your screen will alert our moderation
-              team.
-            </p>
+        {/* Hero */}
+        <motion.div variants={fadeUp} className="mb-10 text-center">
+          <div className="mx-auto mb-5 flex h-16 w-16 animate-breath items-center justify-center rounded-2xl border border-accent/20 bg-accent-muted">
+            <Shield weight="duotone" className="h-8 w-8 text-accent" />
           </div>
-        </div>
-      </motion.div>
+          <span className="text-xs font-medium uppercase tracking-[0.34em] text-gold">
+            Held, not watched
+          </span>
+          <h1 className="mt-4 font-serif text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+            You&apos;re looked after here
+          </h1>
+          <p className="mx-auto mt-4 max-w-md leading-relaxed text-text-secondary">
+            However close the night gets, the door stays yours. These are the
+            quiet tools that keep it that way — set your boundaries, name what&apos;s
+            wrong, and we&apos;ll move on it.
+          </p>
+        </motion.div>
 
-      {/* Safety tips */}
-      <motion.div variants={fadeUp} className="mb-8">
-        <SafetyTips context="general" defaultOpen />
-      </motion.div>
+        {/* Quick Actions */}
+        <motion.div
+          variants={fadeUp}
+          className="mb-8 grid grid-cols-1 gap-3 sm:grid-cols-3"
+        >
+          {QUICK_ACTIONS.map((action) => {
+            const Icon = action.icon;
+            const isAnchor = action.href.startsWith("#");
 
-      {/* Safe Word Setup */}
-      <motion.div variants={fadeUp} className="mb-8" id="safe-word">
-        <h2 className="mb-4 flex items-center gap-2 text-lg font-semibold text-foreground">
-          <Key className="h-5 w-5 text-[#d4a574]" />
-          Safe Word Configuration
-        </h2>
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900/30 p-4 sm:p-6">
-          <SafeWordSetup />
-        </div>
-      </motion.div>
-
-      {/* Community Guidelines link */}
-      <motion.div variants={fadeUp}>
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900/30 p-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <FileText className="h-5 w-5 text-[#d4a574]" />
-              <div>
-                <h3 className="text-sm font-semibold text-foreground">
-                  Community Guidelines
+            const content = (
+              <div className="group flex h-full cursor-pointer flex-col rounded-2xl border border-border/50 bg-surface/50 p-5 backdrop-blur-sm transition-all duration-300 hover:border-accent/30 hover:bg-surface/80 hover:shadow-glow-accent">
+                <div
+                  className={cn(
+                    "mb-3 flex h-10 w-10 items-center justify-center rounded-lg border",
+                    action.bg
+                  )}
+                >
+                  <Icon weight="light" className={cn("h-5 w-5", action.color)} />
+                </div>
+                <h3 className="mb-1 text-sm font-semibold text-foreground">
+                  {action.label}
                 </h3>
-                <p className="text-xs text-muted-foreground">
-                  Review our standards for respectful, consensual interaction
+                <p className="flex-1 text-xs leading-relaxed text-text-secondary">
+                  {action.description}
                 </p>
+                <CaretRight weight="bold" className="mt-3 h-4 w-4 text-text-secondary transition-transform group-hover:translate-x-1 group-hover:text-gold" />
+              </div>
+            );
+
+            if (isAnchor) {
+              return (
+                <a key={action.label} href={action.href}>
+                  {content}
+                </a>
+              );
+            }
+
+            return (
+              <Link key={action.label} href={action.href}>
+                {content}
+              </Link>
+            );
+          })}
+        </motion.div>
+
+        {/* Emergency info */}
+        <motion.div
+          variants={fadeUp}
+          className="mb-8 rounded-2xl border border-accent/20 bg-accent/5 p-5 backdrop-blur-sm"
+        >
+          <div className="flex items-start gap-3">
+            <Phone weight="light" className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
+            <div>
+              <h3 className="mb-1 text-sm font-semibold text-foreground">
+                If you&apos;re in danger right now
+              </h3>
+              <p className="text-sm leading-relaxed text-text-secondary">
+                Your safety comes before anything on this screen. If you&apos;re in
+                immediate physical danger, call your local emergency services
+                (911) first. The red shield at the bottom of your screen reaches
+                our team in a heartbeat.
+              </p>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Safety tips */}
+        <motion.div variants={fadeUp} className="mb-8">
+          <SafetyTips context="general" defaultOpen />
+        </motion.div>
+
+        {/* Safe Word Setup */}
+        <motion.div variants={fadeUp} className="mb-8" id="safe-word">
+          <h2 className="mb-4 flex items-center gap-2 font-serif text-xl font-semibold text-foreground">
+            <Key weight="light" className="h-5 w-5 text-gold" />
+            A word that&apos;s only yours
+          </h2>
+          <div className="rounded-2xl border border-border/50 bg-surface/50 p-4 backdrop-blur-sm sm:p-6">
+            <SafeWordSetup />
+          </div>
+        </motion.div>
+
+        {/* Community Guidelines link */}
+        <motion.div variants={fadeUp}>
+          <Link href="/guidelines">
+            <div className="group rounded-2xl border border-border/50 bg-surface/50 p-5 backdrop-blur-sm transition-all duration-300 hover:border-accent/30 hover:bg-surface/80 hover:shadow-glow-accent">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <FileText weight="light" className="h-5 w-5 text-gold" />
+                  <div>
+                    <h3 className="text-sm font-semibold text-foreground">
+                      How we treat each other
+                    </h3>
+                    <p className="text-xs text-text-secondary">
+                      The few things we ask of everyone in the room — consent first, always.
+                    </p>
+                  </div>
+                </div>
+                <ArrowSquareOut weight="bold" className="h-4 w-4 text-text-secondary transition-colors group-hover:text-gold" />
               </div>
             </div>
-            <ExternalLink className="h-4 w-4 text-zinc-600" />
-          </div>
-        </div>
+          </Link>
+        </motion.div>
+
+        {/* Report dialog (accessible from quick action) */}
+        <ReportForm asDialog open={reportOpen} onOpenChange={setReportOpen} />
       </motion.div>
 
-      {/* Report dialog (accessible from quick action) */}
-      <ReportForm
-        asDialog
-        open={reportOpen}
-        onOpenChange={setReportOpen}
-      />
-    </motion.div>
+      {/* ── Atmosphere overlays ── */}
+      <div className="vignette" aria-hidden />
+      <div className="film-grain" aria-hidden />
+    </div>
   );
 }

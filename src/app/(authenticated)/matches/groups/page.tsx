@@ -1,7 +1,7 @@
 import { GroupsClient } from "./groups-client";
 
 export const metadata = {
-  title: "Groups | PassionDen",
+  title: "Groups | Paixão",
   description: "Match as a group",
 };
 

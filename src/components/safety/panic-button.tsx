@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Shield, Loader2, CheckCircle2 } from "lucide-react";
+import { Shield, CircleNotch, CheckCircle } from "@phosphor-icons/react/ssr";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -47,7 +47,7 @@ export function PanicButton() {
         )}
         aria-label="Emergency safety button"
       >
-        <Shield className="h-5 w-5" />
+        <Shield weight="fill" className="h-5 w-5" />
       </button>
 
       {/* Global pulse keyframes */}
@@ -69,7 +69,7 @@ export function PanicButton() {
           {sent ? (
             <div className="flex flex-col items-center py-6 text-center">
               <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/10">
-                <CheckCircle2 className="h-8 w-8 text-emerald-400" />
+                <CheckCircle weight="duotone" className="h-8 w-8 text-emerald-400" />
               </div>
               <h3 className="mb-2 text-lg font-semibold text-foreground">
                 Help is on the way
@@ -90,7 +90,7 @@ export function PanicButton() {
             <>
               <DialogHeader>
                 <DialogTitle className="flex items-center gap-2 text-foreground">
-                  <Shield className="h-5 w-5 text-[#c2185b]" />
+                  <Shield weight="light" className="h-5 w-5 text-[#c2185b]" />
                   Emergency Alert
                 </DialogTitle>
                 <DialogDescription>
@@ -121,12 +121,12 @@ export function PanicButton() {
                 >
                   {loading ? (
                     <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      <CircleNotch weight="bold" className="mr-2 h-4 w-4 animate-spin" />
                       Sending Alert...
                     </>
                   ) : (
                     <>
-                      <Shield className="mr-2 h-4 w-4" />
+                      <Shield weight="light" className="mr-2 h-4 w-4" />
                       Send Emergency Alert
                     </>
                   )}

@@ -1,7 +1,7 @@
 import { PreferencesClient } from "./preferences-client";
 
 export const metadata = {
-  title: "Match Preferences | PassionDen",
+  title: "Match Preferences | Paixão",
   description: "Customize your match preferences",
 };
 

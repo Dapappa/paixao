@@ -19,14 +19,10 @@ import {
 import { motion } from "framer-motion";
 import {
   ArrowLeft,
-  ArrowRight,
-  Calendar,
-  Check,
-  Clock,
+  CalendarDots,
   Eye,
   ShieldCheck,
-  XCircle,
-} from "lucide-react";
+} from "@phosphor-icons/react/ssr";
 import { format, formatDistanceToNow } from "date-fns";
 
 interface ReportDetail {
@@ -159,7 +155,7 @@ export function ReportDetailClient({ reportId }: { reportId: string }) {
           className="text-zinc-500 hover:text-white hover:bg-white/[0.06]"
           onClick={() => router.push("/admin/reports")}
         >
-          <ArrowLeft className="h-5 w-5" />
+          <ArrowLeft weight="bold" className="h-5 w-5" />
         </Button>
         <div className="flex-1">
           <h1 className="text-2xl font-bold tracking-tight text-white capitalize">
@@ -372,7 +368,7 @@ function UserCard({
         <div>
           <div className="flex items-center gap-1.5">
             <p className="text-sm font-medium text-zinc-200">{user.display_name}</p>
-            {user.is_verified && <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />}
+            {user.is_verified && <ShieldCheck weight="fill" className="h-3.5 w-3.5 text-emerald-400" />}
           </div>
           <div className="flex items-center gap-1.5 mt-0.5">
             <Badge variant="outline" className="text-[9px] capitalize bg-zinc-500/10 text-zinc-500 border-zinc-500/30">
@@ -385,7 +381,7 @@ function UserCard({
         </div>
       </div>
       <div className="text-xs text-zinc-600">
-        <Calendar className="mr-1 inline h-3 w-3" />
+        <CalendarDots weight="light" className="mr-1 inline h-3 w-3" />
         Joined {format(new Date(user.created_at), "MMM yyyy")}
       </div>
       <Button
@@ -394,7 +390,7 @@ function UserCard({
         className="w-full h-7 text-xs bg-white/[0.03] border-white/[0.08] text-zinc-400 hover:bg-white/[0.06]"
         onClick={onViewProfile}
       >
-        <Eye className="mr-1 h-3 w-3" />
+        <Eye weight="light" className="mr-1 h-3 w-3" />
         View Full Profile
       </Button>
     </div>

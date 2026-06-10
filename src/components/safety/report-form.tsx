@@ -4,21 +4,21 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Shield,
-  AlertTriangle,
-  UserX,
+  Warning,
+  UserMinus,
   Baby,
-  ImageOff,
-  MessageSquareWarning,
-  Users,
-  Ban,
-  HelpCircle,
-  ChevronLeft,
-  ChevronRight,
+  ImageBroken,
+  ChatCenteredDots,
+  UsersThree,
+  Prohibit,
+  Question,
+  CaretLeft,
+  CaretRight,
   Plus,
   X,
-  CheckCircle2,
-  Loader2,
-} from "lucide-react";
+  CheckCircle,
+  CircleNotch,
+} from "@phosphor-icons/react/ssr";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -42,7 +42,7 @@ const CATEGORIES = [
     value: "harassment" as const,
     label: "Harassment",
     description: "Bullying, threats, or intimidation",
-    icon: UserX,
+    icon: UserMinus,
     color: "text-red-400",
     bg: "bg-red-500/10 border-red-500/20",
   },
@@ -50,7 +50,7 @@ const CATEGORIES = [
     value: "consent_violation" as const,
     label: "Consent Violation",
     description: "Boundaries crossed without permission",
-    icon: AlertTriangle,
+    icon: Warning,
     color: "text-orange-400",
     bg: "bg-orange-500/10 border-orange-500/20",
   },
@@ -66,7 +66,7 @@ const CATEGORIES = [
     value: "inappropriate_content" as const,
     label: "Inappropriate Content",
     description: "Unwanted explicit material",
-    icon: ImageOff,
+    icon: ImageBroken,
     color: "text-yellow-400",
     bg: "bg-yellow-500/10 border-yellow-500/20",
   },
@@ -74,7 +74,7 @@ const CATEGORIES = [
     value: "spam" as const,
     label: "Spam",
     description: "Unsolicited or repetitive messages",
-    icon: MessageSquareWarning,
+    icon: ChatCenteredDots,
     color: "text-zinc-400",
     bg: "bg-zinc-500/10 border-zinc-500/20",
   },
@@ -82,7 +82,7 @@ const CATEGORIES = [
     value: "impersonation" as const,
     label: "Impersonation",
     description: "Pretending to be someone else",
-    icon: Users,
+    icon: UsersThree,
     color: "text-purple-400",
     bg: "bg-purple-500/10 border-purple-500/20",
   },
@@ -98,7 +98,7 @@ const CATEGORIES = [
     value: "discrimination" as const,
     label: "Discrimination",
     description: "Hate speech or prejudice",
-    icon: Ban,
+    icon: Prohibit,
     color: "text-amber-400",
     bg: "bg-amber-500/10 border-amber-500/20",
   },
@@ -106,7 +106,7 @@ const CATEGORIES = [
     value: "other" as const,
     label: "Other",
     description: "Something else not listed above",
-    icon: HelpCircle,
+    icon: Question,
     color: "text-zinc-400",
     bg: "bg-zinc-500/10 border-zinc-500/20",
   },
@@ -224,7 +224,7 @@ export function ReportForm({
             className="flex flex-col items-center py-8 text-center"
           >
             <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-500/10">
-              <CheckCircle2 className="h-8 w-8 text-emerald-400" />
+              <CheckCircle weight="duotone" className="h-8 w-8 text-emerald-400" />
             </div>
             <h3 className="mb-2 text-lg font-semibold text-foreground">
               Report Submitted
@@ -281,6 +281,7 @@ export function ReportForm({
                       )}
                     >
                       <Icon
+                        weight="light"
                         className={cn(
                           "h-4 w-4",
                           isSelected ? "text-[#c2185b]" : cat.color
@@ -311,7 +312,7 @@ export function ReportForm({
                 className="bg-[#c2185b] text-white hover:bg-[#c2185b]/90"
               >
                 Continue
-                <ChevronRight className="ml-1 h-4 w-4" />
+                <CaretRight weight="bold" className="ml-1 h-4 w-4" />
               </Button>
             </div>
           </motion.div>
@@ -367,7 +368,7 @@ export function ReportForm({
                   onClick={addUrl}
                   className="shrink-0 border-zinc-700"
                 >
-                  <Plus className="h-4 w-4" />
+                  <Plus weight="bold" className="h-4 w-4" />
                 </Button>
               </div>
               {evidenceUrls.length > 0 && (
@@ -385,7 +386,7 @@ export function ReportForm({
                         onClick={() => removeUrl(i)}
                         className="shrink-0 text-zinc-500 hover:text-red-400"
                       >
-                        <X className="h-3 w-3" />
+                        <X weight="bold" className="h-3 w-3" />
                       </button>
                     </div>
                   ))}
@@ -399,7 +400,7 @@ export function ReportForm({
                 onClick={() => setStep(1)}
                 className="text-muted-foreground"
               >
-                <ChevronLeft className="mr-1 h-4 w-4" />
+                <CaretLeft weight="bold" className="mr-1 h-4 w-4" />
                 Back
               </Button>
               <Button
@@ -408,7 +409,7 @@ export function ReportForm({
                 className="bg-[#c2185b] text-white hover:bg-[#c2185b]/90"
               >
                 Review
-                <ChevronRight className="ml-1 h-4 w-4" />
+                <CaretRight weight="bold" className="ml-1 h-4 w-4" />
               </Button>
             </div>
           </motion.div>
@@ -437,6 +438,7 @@ export function ReportForm({
                   {selectedCategory && (
                     <>
                       <selectedCategory.icon
+                        weight="light"
                         className={cn("h-4 w-4", selectedCategory.color)}
                       />
                       <span className="text-sm font-medium text-foreground">
@@ -484,7 +486,7 @@ export function ReportForm({
                 onClick={() => setStep(2)}
                 className="text-muted-foreground"
               >
-                <ChevronLeft className="mr-1 h-4 w-4" />
+                <CaretLeft weight="bold" className="mr-1 h-4 w-4" />
                 Edit
               </Button>
               <Button
@@ -494,7 +496,7 @@ export function ReportForm({
               >
                 {loading ? (
                   <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    <CircleNotch weight="bold" className="mr-2 h-4 w-4 animate-spin" />
                     Submitting...
                   </>
                 ) : (
@@ -521,7 +523,7 @@ export function ReportForm({
       <DialogContent className="max-h-[90vh] overflow-y-auto border-zinc-800 bg-[#0a0a0a] sm:max-w-lg">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-foreground">
-            <Shield className="h-5 w-5 text-[#c2185b]" />
+            <Shield weight="light" className="h-5 w-5 text-[#c2185b]" />
             Report an Issue
           </DialogTitle>
           <DialogDescription>

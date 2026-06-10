@@ -13,14 +13,15 @@ import { motion } from "framer-motion";
 import {
   ArrowLeft,
   Crown,
-  Users,
-  Pencil,
-  Trash2,
-  Save,
+  UsersThree,
+  PencilSimple,
+  Trash,
+  FloppyDisk,
   X,
-} from "lucide-react";
+} from "@phosphor-icons/react/ssr";
 import Link from "next/link";
 import { toast } from "sonner";
+import { MatchesAtmosphere } from "../../matches-atmosphere";
 
 /* ─────────────────────────────────────────────
    Types
@@ -164,25 +165,30 @@ export function GroupDetailClient({ groupId }: GroupDetailClientProps) {
 
   if (loading) {
     return (
-      <div className="flex justify-center py-20">
-        <LoadingSpinner size="lg" />
+      <div className="relative z-10">
+        <MatchesAtmosphere />
+        <div className="flex flex-col items-center justify-center gap-4 py-20">
+          <LoadingSpinner size="lg" />
+          <p className="text-sm italic text-text-secondary">Setting the mood&hellip;</p>
+        </div>
       </div>
     );
   }
 
   if (error || !group) {
     return (
-      <div className="space-y-6">
+      <div className="relative z-10 space-y-6">
+        <MatchesAtmosphere />
         <Link
           href="/matches/groups"
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+          className="inline-flex items-center gap-2 text-sm text-text-secondary hover:text-foreground transition-colors"
         >
-          <ArrowLeft className="h-4 w-4" />
-          Back to Groups
+          <ArrowLeft weight="bold" className="h-4 w-4" />
+          Back to groups
         </Link>
-        <div className="rounded-lg border border-[var(--color-danger)]/30 bg-[var(--color-danger)]/10 p-6 text-center">
+        <div className="rounded-2xl border border-[var(--color-danger)]/30 bg-[var(--color-danger)]/10 p-6 text-center backdrop-blur-sm">
           <p className="text-sm text-[var(--color-danger)]">
-            {error || "Group not found"}
+            {error || "This circle's gone quiet. We couldn't find it."}
           </p>
         </div>
       </div>
@@ -195,14 +201,16 @@ export function GroupDetailClient({ groupId }: GroupDetailClientProps) {
   const typeColor = typeColors[group.group_type] || typeColors.other;
 
   return (
-    <div className="space-y-6 max-w-2xl">
+    <div className="relative z-10 space-y-6 max-w-2xl mx-auto">
+      <MatchesAtmosphere />
+
       {/* Header */}
       <div className="flex items-center gap-4">
         <Link
           href="/matches/groups"
-          className="flex h-9 w-9 items-center justify-center rounded-full border border-border hover:border-foreground/30 text-muted-foreground hover:text-foreground transition-colors"
+          className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-surface/50 backdrop-blur-sm hover:border-accent/30 text-text-secondary hover:text-foreground transition-all"
         >
-          <ArrowLeft className="h-4 w-4" />
+          <ArrowLeft weight="bold" className="h-4 w-4" />
         </Link>
         <div className="flex-1 min-w-0">
           {editing ? (
@@ -235,7 +243,7 @@ export function GroupDetailClient({ groupId }: GroupDetailClientProps) {
               onClick={() => setEditing(true)}
               className="h-9 w-9 border-border"
             >
-              <Pencil className="h-4 w-4" />
+              <PencilSimple weight="light" className="h-4 w-4" />
             </Button>
             <Button
               variant="outline"
@@ -247,7 +255,7 @@ export function GroupDetailClient({ groupId }: GroupDetailClientProps) {
               {deleting ? (
                 <LoadingSpinner size="sm" />
               ) : (
-                <Trash2 className="h-4 w-4" />
+                <Trash weight="light" className="h-4 w-4" />
               )}
             </Button>
           </div>
@@ -265,7 +273,7 @@ export function GroupDetailClient({ groupId }: GroupDetailClientProps) {
               }}
               className="h-9 w-9 border-border"
             >
-              <X className="h-4 w-4" />
+              <X weight="bold" className="h-4 w-4" />
             </Button>
             <Button
               size="icon"
@@ -276,7 +284,7 @@ export function GroupDetailClient({ groupId }: GroupDetailClientProps) {
               {saving ? (
                 <LoadingSpinner size="sm" />
               ) : (
-                <Save className="h-4 w-4" />
+                <FloppyDisk weight="light" className="h-4 w-4" />
               )}
             </Button>
           </div>
@@ -287,7 +295,7 @@ export function GroupDetailClient({ groupId }: GroupDetailClientProps) {
       <motion.div
         initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
-        className="rounded-xl border border-border bg-surface p-5"
+        className="rounded-2xl border border-border/60 bg-surface/50 backdrop-blur-sm p-5"
       >
         {editing ? (
           <Textarea
@@ -314,7 +322,7 @@ export function GroupDetailClient({ groupId }: GroupDetailClientProps) {
       >
         <div className="flex items-center justify-between">
           <h2 className="text-sm font-semibold text-foreground flex items-center gap-2">
-            <Users className="h-4 w-4 text-[var(--color-accent)]" />
+            <UsersThree weight="light" className="h-4 w-4 text-[var(--color-accent)]" />
             Members ({members.length})
           </h2>
         </div>
@@ -356,7 +364,7 @@ export function GroupDetailClient({ groupId }: GroupDetailClientProps) {
                   variant="outline"
                   className="border-[var(--color-gold)]/30 text-[var(--color-gold)] text-[10px]"
                 >
-                  <Crown className="mr-0.5 h-3 w-3" />
+                  <Crown weight="fill" className="mr-0.5 h-3 w-3" />
                   Owner
                 </Badge>
               )}

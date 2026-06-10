@@ -1,0 +1,42 @@
+[
+  {
+    "name": "real-persona-3",
+    "model": "shortapi/flux-1.0/text-to-image",
+    "args": { "prompt": "Candid amateur phone photo of a woman in her early thirties lying back on her bed shot from above, warm lamp light, casual oversized shirt, one arm across her eyes so her face is hidden, real cozy bedroom with a soft blanket and a book, unposed and natural, slightly grainy authentic iPhone night photo, true-to-life imperfect skin, no studio, no retouching, intimate and real, warm dim tones. A real person's photo, not professional.", "aspect_ratio": "2:3", "performance": "dev", "num_images": 1 }
+  },
+  {
+    "name": "real-persona-4",
+    "model": "shortapi/flux-1.0/text-to-image",
+    "args": { "prompt": "Candid amateur phone photo of an androgynous person with short dark hair in their own dim apartment bedroom at night, warm lamp, casual black tank top, turned to look out the window so their face is in shadow and away from camera, real lived-in room with plants and string lights, unposed natural moment, slightly grainy authentic phone photo, true-to-life skin, no studio, no retouching, intimate and real, warm dim tones. A real person's photo.", "aspect_ratio": "2:3", "performance": "dev", "num_images": 1 }
+  },
+  {
+    "name": "real-persona-5",
+    "model": "shortapi/flux-1.0/text-to-image",
+    "args": { "prompt": "Candid amateur phone photo of a woman in her late twenties standing at her bedroom mirror getting ready at night, warm lamp, casual slip dress, her hair falling forward to cover her face for anonymity, real messy bedroom with makeup on the dresser and clothes on a chair, unposed and natural, soft grain like a real low-light phone photo, authentic imperfect skin, no studio, no retouching, intimate and real, warm dim tones. A real person's photo, not a shoot.", "aspect_ratio": "2:3", "performance": "dev", "num_images": 1 }
+  },
+  {
+    "name": "real-persona-6",
+    "model": "shortapi/flux-1.0/text-to-image",
+    "args": { "prompt": "Candid amateur mirror selfie of a man in his late twenties in his dim bedroom at night, warm lamp glow, casual unbuttoned shirt over a t-shirt, phone raised covering most of his face so he stays anonymous, real lived-in room with a guitar in the corner and an unmade bed, unposed natural, slightly grainy authentic iPhone photo, true-to-life skin, no studio, no retouching, intimate and real, warm dim tones. A real person's photo.", "aspect_ratio": "2:3", "performance": "dev", "num_images": 1 }
+  },
+  {
+    "name": "real-persona-7",
+    "model": "shortapi/flux-1.0/text-to-image",
+    "args": { "prompt": "Candid amateur phone photo of a woman in her thirties sitting on the floor against her bed at night, warm lamp and fairy lights, casual knit sweater slipping off one shoulder, looking down at her hands so her face is hidden, real cozy lived-in bedroom with a mug and a record player, unposed and natural, slightly grainy authentic iPhone night photo, true-to-life imperfect skin, no studio, no retouching, intimate and real, warm dim tones. A real person's photo.", "aspect_ratio": "2:3", "performance": "dev", "num_images": 1 }
+  },
+  {
+    "name": "real-persona-8",
+    "model": "shortapi/flux-1.0/text-to-image",
+    "args": { "prompt": "Candid amateur phone photo of a woman in her late twenties in her bathroom mirror at night, warm vanity light, casual silk robe loosely tied, phone held up covering her face for anonymity, real lived-in bathroom with products on the counter and a plant, unposed natural, slightly grainy authentic phone photo, true-to-life skin, no studio, no retouching, intimate and real, warm dim tones. A real person's photo, not professional.", "aspect_ratio": "2:3", "performance": "dev", "num_images": 1 }
+  },
+  {
+    "name": "real-couple",
+    "model": "shortapi/flux-1.0/text-to-image",
+    "args": { "prompt": "Candid amateur phone photo of a couple at home on their bed at night, warm lamp and fairy lights, both casually dressed, foreheads close together laughing, faces turned away and partly hidden, a real lived-in bedroom with rumpled sheets and a wine glass, unposed and genuine, slightly grainy authentic iPhone night photo, true-to-life imperfect skin, intimate and warm and real, no studio, no retouching. A real couple's photo, not a shoot.", "aspect_ratio": "3:2", "performance": "dev", "num_images": 1 }
+  },
+  {
+    "name": "real-ambiance",
+    "model": "shortapi/flux-1.0/text-to-image",
+    "args": { "prompt": "Candid amateur phone photo of a cozy dim bedroom at night with nobody in it, warm bedside lamp and fairy lights, an unmade bed with rumpled white sheets, a glass of red wine and a candle on the nightstand, clothes draped over a chair, real lived-in and personal, slightly grainy authentic low-light phone photo, warm intimate tones, no studio, no retouching. A real person's room.", "aspect_ratio": "16:9", "performance": "dev", "num_images": 1 }
+  }
+]

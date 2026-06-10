@@ -1,7 +1,7 @@
 import { SuggestionsClient } from "./suggestions-client";
 
 export const metadata = {
-  title: "Top Picks | PassionDen",
+  title: "Top Picks | Paixão",
   description: "Your highest-compatibility matches",
 };
 

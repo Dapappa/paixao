@@ -1,6 +1,6 @@
 "use client";
 
-import { Lock, LockOpen } from "lucide-react";
+import { Lock, LockOpen } from "@phosphor-icons/react/ssr";
 import {
   Tooltip,
   TooltipContent,
@@ -33,9 +33,9 @@ export function EncryptionBadge({
             )}
           >
             {isEncrypted ? (
-              <Lock className="h-2.5 w-2.5" />
+              <Lock weight="fill" className="h-2.5 w-2.5" />
             ) : (
-              <LockOpen className="h-2.5 w-2.5" />
+              <LockOpen weight="light" className="h-2.5 w-2.5" />
             )}
             Encrypted
           </span>

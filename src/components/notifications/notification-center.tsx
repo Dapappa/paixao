@@ -10,12 +10,12 @@ import { useNotifications, type Notification } from "@/lib/hooks/use-notificatio
 import { motion } from "framer-motion";
 import {
   Bell,
-  CheckCheck,
+  Checks,
   Heart,
-  MessageCircle,
-  Calendar,
+  ChatCircle,
+  CalendarDots,
   Shield,
-} from "lucide-react";
+} from "@phosphor-icons/react/ssr";
 import {
   isToday,
   isYesterday,
@@ -30,8 +30,8 @@ import {
 const filterTabs = [
   { value: "all", label: "All", icon: Bell },
   { value: "matches", label: "Matches", icon: Heart },
-  { value: "messages", label: "Messages", icon: MessageCircle },
-  { value: "events", label: "Events", icon: Calendar },
+  { value: "messages", label: "Messages", icon: ChatCircle },
+  { value: "events", label: "Events", icon: CalendarDots },
   { value: "system", label: "System", icon: Shield },
 ];
 
@@ -161,7 +161,7 @@ export function NotificationCenter() {
             onClick={() => markAllAsRead()}
             className="gap-2 border-[var(--color-border)] text-xs"
           >
-            <CheckCheck className="h-3.5 w-3.5" />
+            <Checks weight="bold" className="h-3.5 w-3.5" />
             Mark all read
           </Button>
         )}
@@ -186,7 +186,7 @@ export function NotificationCenter() {
                   "data-[state=inactive]:bg-[var(--color-surface-elevated)] data-[state=inactive]:text-muted-foreground",
                 )}
               >
-                <Icon className="h-3.5 w-3.5" />
+                <Icon weight="light" className="h-3.5 w-3.5" />
                 {tab.label}
               </TabsTrigger>
             );
@@ -203,7 +203,7 @@ export function NotificationCenter() {
             className="flex flex-col items-center justify-center rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] py-16 text-center"
           >
             <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[var(--color-surface-elevated)]">
-              <Bell className="h-7 w-7 text-muted-foreground/40" />
+              <Bell weight="duotone" className="h-7 w-7 text-muted-foreground/40" />
             </div>
             <p className="mt-4 font-serif text-lg text-foreground">
               No notifications

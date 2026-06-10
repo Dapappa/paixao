@@ -2,8 +2,8 @@ import { createClient } from "@/lib/supabase/server";
 import { MatchesDiscoveryClient } from "./matches-discovery-client";
 
 export const metadata = {
-  title: "Discover | PassionDen",
-  description: "Find your next connection in the PassionDen community",
+  title: "Discover | Paixão",
+  description: "Find your next connection in the Paixão community",
 };
 
 export default async function MatchesPage() {

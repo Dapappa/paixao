@@ -9,15 +9,14 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import {
-  AlertTriangle,
+  Warning,
   ArrowRight,
-  Calendar,
-  ChevronRight,
-  Clock,
+  CalendarDots,
+  CaretRight,
   Shield,
   UserCheck,
-  Users,
-} from "lucide-react";
+  UsersThree,
+} from "@phosphor-icons/react/ssr";
 import { formatDistanceToNow, format } from "date-fns";
 
 interface RecentReport {
@@ -93,14 +92,14 @@ export function AdminDashboardClient() {
         {[
           {
             label: "Manage Users",
-            icon: Users,
+            icon: UsersThree,
             href: "/admin/users",
             color: "text-blue-400",
             bg: "bg-blue-500/10 hover:bg-blue-500/15",
           },
           {
             label: "Review Reports",
-            icon: AlertTriangle,
+            icon: Warning,
             href: "/admin/reports",
             color: "text-amber-400",
             bg: "bg-amber-500/10 hover:bg-amber-500/15",
@@ -132,9 +131,9 @@ export function AdminDashboardClient() {
                 action.bg
               )}
             >
-              <Icon className={cn("h-5 w-5 shrink-0", action.color)} />
+              <Icon weight="duotone" className={cn("h-5 w-5 shrink-0", action.color)} />
               <span className="text-sm font-medium text-zinc-300">{action.label}</span>
-              <ChevronRight className="ml-auto h-4 w-4 text-zinc-600" />
+              <CaretRight weight="bold" className="ml-auto h-4 w-4 text-zinc-600" />
             </motion.button>
           );
         })}
@@ -153,7 +152,7 @@ export function AdminDashboardClient() {
               onClick={() => router.push("/admin/reports")}
             >
               View All
-              <ArrowRight className="ml-1 h-3 w-3" />
+              <ArrowRight weight="bold" className="ml-1 h-3 w-3" />
             </Button>
           </div>
 
@@ -207,7 +206,7 @@ export function AdminDashboardClient() {
               onClick={() => router.push("/admin/events")}
             >
               View All
-              <ArrowRight className="ml-1 h-3 w-3" />
+              <ArrowRight weight="bold" className="ml-1 h-3 w-3" />
             </Button>
           </div>
 
@@ -226,7 +225,7 @@ export function AdminDashboardClient() {
                   className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left transition-colors hover:bg-white/[0.03]"
                 >
                   <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#c2185b]/10">
-                    <Calendar className="h-4 w-4 text-[#c2185b]" />
+                    <CalendarDots weight="light" className="h-4 w-4 text-[#c2185b]" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="truncate text-xs font-medium text-zinc-300">{event.title}</p>

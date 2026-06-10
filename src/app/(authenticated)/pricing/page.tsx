@@ -2,8 +2,8 @@ import { createClient } from '@/lib/supabase/server';
 import { PricingClient } from './pricing-client';
 
 export const metadata = {
-  title: 'Pricing | PassionDen',
-  description: 'Choose the perfect plan for your PassionDen experience',
+  title: 'Membership | Paixão',
+  description: 'Pick the room you belong in. Every tier opens a little more of the night.',
 };
 
 export default async function PricingPage() {

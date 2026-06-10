@@ -16,18 +16,17 @@ import {
 } from "@/components/ui/select";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  AlertTriangle,
   ArrowRight,
   CheckCircle,
-  ChevronDown,
-  ChevronLeft,
-  ChevronRight,
-  ChevronUp,
+  CaretDown,
+  CaretLeft,
+  CaretRight,
+  CaretUp,
   Clock,
   Eye,
-  Search as SearchIcon,
+  MagnifyingGlass as SearchIcon,
   XCircle,
-} from "lucide-react";
+} from "@phosphor-icons/react/ssr";
 import { formatDistanceToNow } from "date-fns";
 
 interface Report {
@@ -172,7 +171,7 @@ export function ReportQueue() {
           ))
         ) : reports.length === 0 ? (
           <div className="flex flex-col items-center justify-center rounded-xl border border-white/[0.06] bg-white/[0.02] py-16">
-            <CheckCircle className="h-10 w-10 text-emerald-400/40" />
+            <CheckCircle weight="duotone" className="h-10 w-10 text-emerald-400/40" />
             <p className="mt-3 text-sm text-zinc-500">No reports found</p>
           </div>
         ) : (
@@ -212,7 +211,7 @@ export function ReportQueue() {
                     <span className="truncate text-xs text-zinc-400">
                       {report.reporter?.display_name || "Unknown"}
                     </span>
-                    <ArrowRight className="h-3 w-3 shrink-0 text-zinc-600" />
+                    <ArrowRight weight="bold" className="h-3 w-3 shrink-0 text-zinc-600" />
                     <span className="truncate text-xs text-zinc-400">
                       {report.reported_user?.display_name || "Unknown"}
                     </span>
@@ -230,9 +229,9 @@ export function ReportQueue() {
 
                   {/* Expand */}
                   {isExpanded ? (
-                    <ChevronUp className="h-4 w-4 text-zinc-500 shrink-0" />
+                    <CaretUp weight="bold" className="h-4 w-4 text-zinc-500 shrink-0" />
                   ) : (
-                    <ChevronDown className="h-4 w-4 text-zinc-500 shrink-0" />
+                    <CaretDown weight="bold" className="h-4 w-4 text-zinc-500 shrink-0" />
                   )}
                 </div>
 
@@ -261,7 +260,7 @@ export function ReportQueue() {
                               router.push(`/admin/reports/${report.id}`);
                             }}
                           >
-                            <Eye className="mr-1 h-3 w-3" />
+                            <Eye weight="light" className="mr-1 h-3 w-3" />
                             View Full Report
                           </Button>
 
@@ -275,7 +274,7 @@ export function ReportQueue() {
                                   handleQuickResolve(report.id, "resolved");
                                 }}
                               >
-                                <CheckCircle className="mr-1 h-3 w-3" />
+                                <CheckCircle weight="fill" className="mr-1 h-3 w-3" />
                                 Resolve
                               </Button>
                               <Button
@@ -287,7 +286,7 @@ export function ReportQueue() {
                                   handleQuickResolve(report.id, "dismissed");
                                 }}
                               >
-                                <XCircle className="mr-1 h-3 w-3" />
+                                <XCircle weight="light" className="mr-1 h-3 w-3" />
                                 Dismiss
                               </Button>
                             </>
@@ -317,7 +316,7 @@ export function ReportQueue() {
               disabled={page === 1}
               onClick={() => setPage((p) => p - 1)}
             >
-              <ChevronLeft className="h-4 w-4" />
+              <CaretLeft weight="bold" className="h-4 w-4" />
             </Button>
             <Button
               variant="ghost"
@@ -326,7 +325,7 @@ export function ReportQueue() {
               disabled={page >= totalPages}
               onClick={() => setPage((p) => p + 1)}
             >
-              <ChevronRight className="h-4 w-4" />
+              <CaretRight weight="bold" className="h-4 w-4" />
             </Button>
           </div>
         </div>

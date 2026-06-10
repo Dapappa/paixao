@@ -3,8 +3,9 @@
 import { useState, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence, type PanInfo } from "framer-motion";
-import { Heart, Sparkles } from "lucide-react";
-import { MatchCard } from "./match-card";
+import { Heart, Sparkle } from "@phosphor-icons/react/ssr";
+import Image from "next/image";
+import { MatchCard, personaFallback } from "./match-card";
 import type { MatchCandidate, MatchActionResult } from "@/lib/hooks/use-matches";
 
 /* ─────────────────────────────────────────────
@@ -115,7 +116,7 @@ export function MatchStack({
       >
         <div className="text-center px-8">
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[var(--color-accent-muted)]">
-            <Heart className="h-8 w-8 text-[var(--color-accent)]" />
+            <Heart weight="duotone" className="h-8 w-8 text-[var(--color-accent)]" />
           </div>
           <h3 className="font-serif text-xl font-semibold text-foreground mb-2">
             No more profiles
@@ -257,7 +258,7 @@ export function MatchStack({
                 transition={{ duration: 0.5, delay: 0.3 }}
               >
                 <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-[var(--color-accent)] to-[var(--color-accent-hover)] shadow-[0_0_40px_rgba(194,24,91,0.5)]">
-                  <Sparkles className="h-10 w-10 text-white" />
+                  <Sparkle weight="fill" className="h-10 w-10 text-white" />
                 </div>
               </motion.div>
 
@@ -296,25 +297,18 @@ export function MatchStack({
                   delay: 0.4,
                 }}
               >
-                <div className="h-24 w-24 rounded-full overflow-hidden border-4 border-[var(--color-accent)] shadow-[0_0_30px_rgba(194,24,91,0.4)]">
-                  {matchedProfile.primary_photo?.url ||
-                  matchedProfile.avatar_url ? (
-                    <img
-                      src={
-                        matchedProfile.primary_photo?.url ||
-                        matchedProfile.avatar_url ||
-                        ""
-                      }
-                      alt=""
-                      className="h-full w-full object-cover"
-                    />
-                  ) : (
-                    <div className="h-full w-full bg-[var(--color-accent-muted)] flex items-center justify-center">
-                      <span className="text-2xl font-serif text-[var(--color-accent)]">
-                        {(matchedProfile.display_name || "?")[0]?.toUpperCase()}
-                      </span>
-                    </div>
-                  )}
+                <div className="relative h-24 w-24 rounded-full overflow-hidden border-4 border-[var(--color-accent)] shadow-[0_0_30px_rgba(194,24,91,0.4)] bg-[var(--color-accent-muted)]">
+                  <Image
+                    src={
+                      matchedProfile.primary_photo?.url ||
+                      matchedProfile.avatar_url ||
+                      personaFallback(matchedProfile.id)
+                    }
+                    alt={matchedProfile.display_name || "Match"}
+                    fill
+                    sizes="6rem"
+                    className="object-cover"
+                  />
                 </div>
               </motion.div>
 

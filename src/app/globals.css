@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ========================================
-   PassionDen Design System — Tailwind v4 Theme
+   Paixão Design System — Tailwind v4 Theme
    ======================================== */
 
 @theme inline {
@@ -27,7 +27,7 @@
   --color-danger: #f44336;
 
   /* Font Families */
-  --font-sans: var(--font-inter), "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-hanken), "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-playfair), "Playfair Display", ui-serif, Georgia, serif;
 
   /* Border Radius */
@@ -46,10 +46,21 @@
   --shadow-glow-accent: 0 0 20px rgba(194, 24, 91, 0.3);
   --shadow-glow-gold: 0 0 20px rgba(212, 165, 116, 0.3);
 
+  /* Motion language — Velvet Aura (mirrors src/lib/motion.ts) */
+  --ease-enter: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --ease-exit: cubic-bezier(0.3, 0, 1, 1);
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-elegant: cubic-bezier(0.4, 0, 0.2, 1);
+
   /* Animations */
   --animate-fade-in: fade-in 0.3s ease-out;
   --animate-slide-up: slide-up 0.4s ease-out;
   --animate-pulse-glow: pulse-glow 2s ease-in-out infinite;
+  /* The living baseline: a slow ~5s breath + a periodic double-thump heartbeat */
+  --animate-breath: breath 5s var(--ease-elegant) infinite;
+  --animate-heartbeat: heartbeat 4.5s var(--ease-elegant) infinite;
+  --animate-aura-drift: aura-drift 24s var(--ease-elegant) infinite;
+  --animate-grain: grain 0.8s steps(1) infinite;
 }
 
 /* CSS Variables for shadcn/ui compatibility */
@@ -202,4 +213,117 @@ body {
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+/* ========================================
+   Velvet Aura — atmosphere & living motion
+   ======================================== */
+
+/* The living baseline: a slow swell that reads as breathing. */
+@keyframes breath {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.92;
+  }
+  50% {
+    transform: scale(1.018);
+    opacity: 1;
+  }
+}
+
+/* A periodic double-thump — used sparingly on focal accents (the logo mark,
+   the compatibility ring). Two quick beats, then a long rest. */
+@keyframes heartbeat {
+  0%,
+  18%,
+  100% {
+    transform: scale(1);
+  }
+  6% {
+    transform: scale(1.06);
+  }
+  12% {
+    transform: scale(1.012);
+  }
+}
+
+/* Slow drift of the amber/crimson aura fields behind the stage. */
+@keyframes aura-drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(3%, -2%, 0) scale(1.06);
+  }
+  66% {
+    transform: translate3d(-2%, 2%, 0) scale(0.97);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+/* Film grain jitter — tiny positional shifts make static noise feel alive. */
+@keyframes grain {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-3%, 4%); }
+  40% { transform: translate(5%, -2%); }
+  60% { transform: translate(-2%, -5%); }
+  80% { transform: translate(4%, 3%); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Warm "aura" field — a soft amber→crimson radial glow on near-black.
+   The signature Velvet Aura backdrop element (CSS fallback for the WebGL field). */
+@utility aura-field {
+  background:
+    radial-gradient(60% 55% at 30% 35%, rgba(212, 165, 116, 0.18), transparent 70%),
+    radial-gradient(55% 50% at 72% 65%, rgba(194, 24, 91, 0.16), transparent 72%),
+    radial-gradient(40% 40% at 50% 50%, rgba(233, 30, 99, 0.08), transparent 80%);
+}
+
+/* Persistent low-opacity film grain overlay (~9%). Fixed, non-interactive,
+   tinted softly warm so it reads as 35mm, not TV static. */
+@utility film-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  opacity: 0.09;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  animation: var(--animate-grain);
+}
+
+/* Golden-hour vignette — darkens the stage edges so the centre glows. */
+@utility vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 55;
+  pointer-events: none;
+  background: radial-gradient(
+    120% 100% at 50% 38%,
+    transparent 45%,
+    rgba(10, 10, 10, 0.35) 78%,
+    rgba(10, 10, 10, 0.72) 100%
+  );
+}
+
+/* Accessibility & perf hard gate: when the user prefers reduced motion, kill
+   the living baseline + all decorative motion. The static composition remains.
+   This doubles as the no-WebGL fallback path. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .film-grain {
+    animation: none !important;
+  }
 }

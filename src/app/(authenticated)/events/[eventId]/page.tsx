@@ -17,8 +17,8 @@ export async function generateMetadata({
 
   return {
     title: data?.title
-      ? `${data.title} | PassionDen`
-      : "Event | PassionDen",
+      ? `${data.title} | Paixão`
+      : "Event | Paixão",
     description: data?.short_description || "View event details",
   };
 }

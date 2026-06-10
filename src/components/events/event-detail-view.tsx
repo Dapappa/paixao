@@ -9,20 +9,20 @@ import { EventRulesDisplay } from "./event-rules-display";
 import { EventAttendees } from "./event-attendees";
 import { motion } from "framer-motion";
 import {
-  Calendar,
+  CalendarDots,
   Clock,
   MapPin,
   Monitor,
   Globe,
-  Shirt,
+  TShirt,
   Wine,
-  UtensilsCrossed,
+  ForkKnife,
   Shield,
-  Users,
+  UsersThree,
   Ticket,
-  ExternalLink,
+  ArrowSquareOut,
   Crown,
-} from "lucide-react";
+} from "@phosphor-icons/react/ssr";
 import { format } from "date-fns";
 import Link from "next/link";
 import type { EventWithHost } from "@/lib/hooks/use-events";
@@ -108,7 +108,7 @@ export function EventDetailView({
   return (
     <div className={cn("pb-12", className)}>
       {/* ───── Hero ───── */}
-      <div className="relative -mx-4 sm:-mx-6 lg:-mx-8">
+      <div className="relative -mx-5 sm:-mx-7 lg:-mx-10">
         <div className="relative h-64 sm:h-80 lg:h-96 w-full overflow-hidden">
           {event.cover_image_url ? (
             <img
@@ -126,7 +126,7 @@ export function EventDetailView({
         </div>
 
         {/* Hero content overlay */}
-        <div className="absolute bottom-0 left-0 right-0 px-4 sm:px-6 lg:px-8 pb-6">
+        <div className="absolute bottom-0 left-0 right-0 px-5 sm:px-7 lg:px-10 pb-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -150,7 +150,7 @@ export function EventDetailView({
               )}
               {event.is_featured && (
                 <Badge className="bg-[var(--color-gold)] text-black border-0">
-                  <Crown className="mr-1 h-3 w-3" />
+                  <Crown weight="fill" className="mr-1 h-3 w-3" />
                   Featured
                 </Badge>
               )}
@@ -164,16 +164,16 @@ export function EventDetailView({
             {/* Quick info row */}
             <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-white/70">
               <span className="flex items-center gap-1.5">
-                <Calendar className="h-4 w-4" />
+                <CalendarDots className="h-4 w-4" />
                 {format(startsAt, "EEEE, MMMM d, yyyy")}
               </span>
               <span className="flex items-center gap-1.5">
-                <Clock className="h-4 w-4" />
+                <Clock weight="light" className="h-4 w-4" />
                 {format(startsAt, "h:mm a")} &ndash;{" "}
                 {format(endsAt, "h:mm a")}
               </span>
               <span className="flex items-center gap-1.5">
-                <Ticket className="h-4 w-4 text-[var(--color-gold)]" />
+                <Ticket weight="light" className="h-4 w-4 text-[var(--color-gold)]" />
                 <span
                   className={
                     event.ticket_price_cents === 0
@@ -223,7 +223,7 @@ export function EventDetailView({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {event.dress_code && (
                 <div className="flex items-start gap-3 rounded-lg bg-surface p-4 border border-border">
-                  <Shirt className="mt-0.5 h-5 w-5 text-[var(--color-accent)]" />
+                  <TShirt weight="light" className="mt-0.5 h-5 w-5 text-[var(--color-accent)]" />
                   <div>
                     <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
                       Dress Code
@@ -236,7 +236,7 @@ export function EventDetailView({
               )}
 
               <div className="flex items-start gap-3 rounded-lg bg-surface p-4 border border-border">
-                <Wine className="mt-0.5 h-5 w-5 text-[var(--color-gold)]" />
+                <Wine weight="light" className="mt-0.5 h-5 w-5 text-[var(--color-gold)]" />
                 <div>
                   <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
                     BYOB
@@ -248,7 +248,7 @@ export function EventDetailView({
               </div>
 
               <div className="flex items-start gap-3 rounded-lg bg-surface p-4 border border-border">
-                <UtensilsCrossed className="mt-0.5 h-5 w-5 text-[var(--color-gold)]" />
+                <ForkKnife weight="light" className="mt-0.5 h-5 w-5 text-[var(--color-gold)]" />
                 <div>
                   <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
                     Catering
@@ -262,7 +262,7 @@ export function EventDetailView({
               </div>
 
               <div className="flex items-start gap-3 rounded-lg bg-surface p-4 border border-border">
-                <Shield className="mt-0.5 h-5 w-5 text-[var(--color-accent)]" />
+                <Shield weight="light" className="mt-0.5 h-5 w-5 text-[var(--color-accent)]" />
                 <div>
                   <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
                     Verification
@@ -276,7 +276,7 @@ export function EventDetailView({
               </div>
 
               <div className="flex items-start gap-3 rounded-lg bg-surface p-4 border border-border">
-                <Users className="mt-0.5 h-5 w-5 text-[var(--color-accent)]" />
+                <UsersThree weight="light" className="mt-0.5 h-5 w-5 text-[var(--color-accent)]" />
                 <div>
                   <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
                     Minimum Age
@@ -286,7 +286,7 @@ export function EventDetailView({
               </div>
 
               <div className="flex items-start gap-3 rounded-lg bg-surface p-4 border border-border">
-                <Globe className="mt-0.5 h-5 w-5 text-muted-foreground" />
+                <Globe weight="light" className="mt-0.5 h-5 w-5 text-muted-foreground" />
                 <div>
                   <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">
                     Timezone
@@ -312,7 +312,7 @@ export function EventDetailView({
                 <Card className="bg-surface border-border">
                   <CardContent className="p-4 space-y-2">
                     <div className="flex items-center gap-2">
-                      <MapPin className="h-5 w-5 text-[var(--color-accent)]" />
+                      <MapPin weight="light" className="h-5 w-5 text-[var(--color-accent)]" />
                       <span className="font-medium text-foreground">
                         {event.venue_name || "Venue"}
                       </span>
@@ -361,7 +361,7 @@ export function EventDetailView({
                   <CardContent className="p-4">
                     <div className="flex items-center justify-between gap-4">
                       <div className="flex items-center gap-2">
-                        <Monitor className="h-5 w-5 text-[var(--color-gold)]" />
+                        <Monitor weight="light" className="h-5 w-5 text-[var(--color-gold)]" />
                         <span className="text-sm text-foreground">
                           {event.virtual_platform || "Online"}
                         </span>
@@ -373,7 +373,7 @@ export function EventDetailView({
                         className="inline-flex items-center gap-1.5 rounded-md bg-[var(--color-accent)] px-4 py-2 text-sm font-medium text-white hover:bg-[var(--color-accent-hover)] transition-colors"
                       >
                         Join Room
-                        <ExternalLink className="h-3.5 w-3.5" />
+                        <ArrowSquareOut weight="bold" className="h-3.5 w-3.5" />
                       </a>
                     </div>
                   </CardContent>
@@ -387,7 +387,7 @@ export function EventDetailView({
             <>
               <Separator className="bg-border" />
               <div className="rounded-lg border border-border bg-surface p-4 text-center">
-                <MapPin className="mx-auto mb-2 h-6 w-6 text-muted-foreground" />
+                <MapPin weight="duotone" className="mx-auto mb-2 h-6 w-6 text-muted-foreground" />
                 <p className="text-sm text-muted-foreground">
                   Venue details will be revealed after registration
                 </p>

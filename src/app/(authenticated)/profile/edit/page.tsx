@@ -28,11 +28,11 @@ import {
   Heart,
   MapPin,
   Plus,
-  Save,
+  FloppyDisk,
   Shield,
-  Trash2,
+  Trash,
   User,
-} from "lucide-react";
+} from "@phosphor-icons/react/ssr";
 
 const genderOptions = [
   "Man", "Woman", "Non-binary", "Trans man", "Trans woman",
@@ -189,7 +189,7 @@ export default function EditProfilePage() {
       variants={container}
       initial="hidden"
       animate="show"
-      className="space-y-6 p-4 md:p-6 lg:p-8 max-w-3xl"
+      className="mx-auto max-w-3xl space-y-6"
     >
       {/* Header */}
       <motion.div variants={item} className="flex items-center justify-between">
@@ -200,7 +200,7 @@ export default function EditProfilePage() {
             onClick={() => router.back()}
             className="h-9 w-9"
           >
-            <ArrowLeft className="h-5 w-5" />
+            <ArrowLeft weight="bold" className="h-5 w-5" />
           </Button>
           <div>
             <h1 className="text-xl font-bold text-foreground">Edit Profile</h1>
@@ -218,12 +218,12 @@ export default function EditProfilePage() {
             <LoadingSpinner size="sm" />
           ) : saved ? (
             <>
-              <Check className="mr-2 h-4 w-4" />
+              <Check weight="bold" className="mr-2 h-4 w-4" />
               Saved
             </>
           ) : (
             <>
-              <Save className="mr-2 h-4 w-4" />
+              <FloppyDisk weight="light" className="mr-2 h-4 w-4" />
               Save
             </>
           )}
@@ -235,7 +235,7 @@ export default function EditProfilePage() {
         <Card className="border-[var(--color-border)] bg-[var(--color-surface)]">
           <CardHeader>
             <CardTitle className="text-base flex items-center gap-2">
-              <User className="h-4 w-4 text-[var(--color-accent)]" />
+              <User weight="light" className="h-4 w-4 text-[var(--color-accent)]" />
               Basic Information
             </CardTitle>
           </CardHeader>
@@ -347,7 +347,7 @@ export default function EditProfilePage() {
 
             <div className="space-y-2">
               <Label htmlFor="edit-location">
-                <MapPin className="inline h-3.5 w-3.5 mr-1" />
+                <MapPin weight="light" className="inline h-3.5 w-3.5 mr-1" />
                 Location
               </Label>
               <Input
@@ -420,7 +420,7 @@ export default function EditProfilePage() {
         <Card className="border-[var(--color-border)] bg-[var(--color-surface)]">
           <CardHeader>
             <CardTitle className="text-base flex items-center gap-2">
-              <Heart className="h-4 w-4 text-[var(--color-accent)]" />
+              <Heart weight="light" className="h-4 w-4 text-[var(--color-accent)]" />
               Interests & Desires
             </CardTitle>
           </CardHeader>
@@ -438,7 +438,7 @@ export default function EditProfilePage() {
         <Card className="border-[var(--color-border)] bg-[var(--color-surface)]">
           <CardHeader>
             <CardTitle className="text-base flex items-center gap-2">
-              <Shield className="h-4 w-4 text-[var(--color-accent)]" />
+              <Shield weight="light" className="h-4 w-4 text-[var(--color-accent)]" />
               Boundaries
             </CardTitle>
           </CardHeader>
@@ -507,7 +507,7 @@ export default function EditProfilePage() {
                   disabled={!newBoundary.description.trim()}
                   className="h-9 bg-[var(--color-accent)] text-white hover:bg-[var(--color-accent-hover)]"
                 >
-                  <Plus className="h-4 w-4" />
+                  <Plus weight="bold" className="h-4 w-4" />
                 </Button>
               </div>
             </div>
@@ -551,7 +551,7 @@ export default function EditProfilePage() {
                       onClick={() => removeBoundary(b.id)}
                       className="shrink-0 text-muted-foreground hover:text-[var(--color-danger)] transition-colors"
                     >
-                      <Trash2 className="h-4 w-4" />
+                      <Trash weight="light" className="h-4 w-4" />
                     </button>
                   </div>
                 ))}
@@ -577,12 +577,12 @@ export default function EditProfilePage() {
             <LoadingSpinner size="sm" />
           ) : saved ? (
             <>
-              <Check className="mr-2 h-4 w-4" />
+              <Check weight="bold" className="mr-2 h-4 w-4" />
               Saved Successfully
             </>
           ) : (
             <>
-              <Save className="mr-2 h-4 w-4" />
+              <FloppyDisk weight="light" className="mr-2 h-4 w-4" />
               Save All Changes
             </>
           )}

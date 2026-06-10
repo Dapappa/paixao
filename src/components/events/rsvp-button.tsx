@@ -8,9 +8,9 @@ import {
   Check,
   Clock,
   XCircle,
-  Loader2,
-  AlertTriangle,
-} from "lucide-react";
+  CircleNotch,
+  Warning,
+} from "@phosphor-icons/react/ssr";
 
 export type RSVPState =
   | "available"
@@ -65,7 +65,7 @@ export function RSVPButton({
     if (actionLoading || state === "loading") {
       return (
         <>
-          <Loader2 className="h-4 w-4 animate-spin" />
+          <CircleNotch className="h-4 w-4 animate-spin" />
           <span>Processing...</span>
         </>
       );
@@ -79,14 +79,14 @@ export function RSVPButton({
         if (hovering) {
           return (
             <>
-              <XCircle className="h-4 w-4" />
+              <XCircle weight="bold" className="h-4 w-4" />
               <span>Cancel Registration</span>
             </>
           );
         }
         return (
           <>
-            <Check className="h-4 w-4" />
+            <Check weight="bold" className="h-4 w-4" />
             <span>Registered</span>
           </>
         );
@@ -94,7 +94,7 @@ export function RSVPButton({
       case "waitlisted":
         return (
           <>
-            <Clock className="h-4 w-4" />
+            <Clock weight="light" className="h-4 w-4" />
             <span>Waitlisted</span>
           </>
         );
@@ -102,7 +102,7 @@ export function RSVPButton({
       case "sold_out":
         return (
           <>
-            <AlertTriangle className="h-4 w-4" />
+            <Warning className="h-4 w-4" />
             <span>Sold Out</span>
           </>
         );

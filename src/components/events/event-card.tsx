@@ -4,12 +4,12 @@ import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
 import {
-  Calendar,
+  CalendarDots,
   MapPin,
   Monitor,
-  Users,
+  UsersThree,
   Ticket,
-} from "lucide-react";
+} from "@phosphor-icons/react/ssr";
 import { format } from "date-fns";
 import Link from "next/link";
 import type { EventWithHost } from "@/lib/hooks/use-events";
@@ -114,7 +114,7 @@ export function EventCard({ event, className }: EventCardProps) {
                 variant="outline"
                 className="border-[var(--color-gold)]/50 text-[var(--color-gold)] backdrop-blur-sm text-xs"
               >
-                <Monitor className="mr-1 h-3 w-3" />
+                <Monitor weight="light" className="mr-1 h-3 w-3" />
                 {event.format === "hybrid" ? "Hybrid" : "Virtual"}
               </Badge>
             </div>
@@ -123,7 +123,7 @@ export function EventCard({ event, className }: EventCardProps) {
           {/* Date overlay */}
           <div className="absolute bottom-3 left-3">
             <div className="flex items-center gap-1.5 text-sm text-white/90">
-              <Calendar className="h-3.5 w-3.5" />
+              <CalendarDots className="h-3.5 w-3.5" />
               <span className="font-medium">
                 {format(startsAt, "MMM d, yyyy")}
               </span>
@@ -152,12 +152,12 @@ export function EventCard({ event, className }: EventCardProps) {
           <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
             {event.format === "virtual" ? (
               <>
-                <Monitor className="h-3.5 w-3.5 text-[var(--color-gold)]" />
+                <Monitor weight="light" className="h-3.5 w-3.5 text-[var(--color-gold)]" />
                 <span>Virtual Event</span>
               </>
             ) : (
               <>
-                <MapPin className="h-3.5 w-3.5 text-[var(--color-accent)]" />
+                <MapPin weight="light" className="h-3.5 w-3.5 text-[var(--color-accent)]" />
                 <span className="truncate">
                   {[event.venue_city, event.venue_province]
                     .filter(Boolean)
@@ -170,7 +170,7 @@ export function EventCard({ event, className }: EventCardProps) {
           {/* Price + attendees row */}
           <div className="flex items-center justify-between pt-1">
             <div className="flex items-center gap-1.5">
-              <Ticket className="h-3.5 w-3.5 text-[var(--color-gold)]" />
+              <Ticket weight="light" className="h-3.5 w-3.5 text-[var(--color-gold)]" />
               <span
                 className={cn(
                   "text-sm font-semibold",
@@ -184,7 +184,7 @@ export function EventCard({ event, className }: EventCardProps) {
             </div>
 
             <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
-              <Users className="h-3.5 w-3.5" />
+              <UsersThree className="h-3.5 w-3.5" />
               <span>
                 {event.current_attendees}
                 {event.capacity ? ` / ${event.capacity}` : ""}

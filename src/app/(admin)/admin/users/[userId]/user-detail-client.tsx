@@ -27,19 +27,14 @@ import {
 import { motion } from "framer-motion";
 import {
   ArrowLeft,
-  Ban,
-  Calendar,
+  Prohibit,
+  CalendarDots,
   Check,
-  Crown,
-  Mail,
   MapPin,
-  Shield,
   ShieldCheck,
-  ShieldOff,
+  ShieldSlash,
   User,
-  UserCog,
-  X,
-} from "lucide-react";
+} from "@phosphor-icons/react/ssr";
 import { format, formatDistanceToNow } from "date-fns";
 
 interface UserDetail {
@@ -147,7 +142,7 @@ export function UserDetailClient({ userId }: { userId: string }) {
           className="text-zinc-500 hover:text-white hover:bg-white/[0.06]"
           onClick={() => router.push("/admin/users")}
         >
-          <ArrowLeft className="h-5 w-5" />
+          <ArrowLeft weight="bold" className="h-5 w-5" />
         </Button>
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-white">{displayName}</h1>
@@ -203,18 +198,18 @@ export function UserDetailClient({ userId }: { userId: string }) {
           <div className="space-y-2 text-sm">
             {typeof p.gender === "string" && p.gender && (
               <div className="flex items-center gap-2 text-zinc-400">
-                <User className="h-3.5 w-3.5 text-zinc-600" />
+                <User weight="light" className="h-3.5 w-3.5 text-zinc-600" />
                 <span className="capitalize">{p.gender}</span>
               </div>
             )}
             {typeof p.location === "string" && p.location && (
               <div className="flex items-center gap-2 text-zinc-400">
-                <MapPin className="h-3.5 w-3.5 text-zinc-600" />
+                <MapPin weight="light" className="h-3.5 w-3.5 text-zinc-600" />
                 <span>{p.location}</span>
               </div>
             )}
             <div className="flex items-center gap-2 text-zinc-400">
-              <Calendar className="h-3.5 w-3.5 text-zinc-600" />
+              <CalendarDots weight="light" className="h-3.5 w-3.5 text-zinc-600" />
               <span>Joined {p.created_at ? format(new Date(p.created_at as string), "MMM dd, yyyy") : "Unknown"}</span>
             </div>
           </div>
@@ -294,7 +289,7 @@ export function UserDetailClient({ userId }: { userId: string }) {
                   className="h-8 text-xs bg-white/[0.03] border-white/[0.08] text-zinc-400"
                   onClick={() => handleUpdate({ is_verified: false })}
                 >
-                  <ShieldOff className="mr-1 h-3.5 w-3.5" />
+                  <ShieldSlash weight="light" className="mr-1 h-3.5 w-3.5" />
                   Remove Verification
                 </Button>
               ) : (
@@ -303,7 +298,7 @@ export function UserDetailClient({ userId }: { userId: string }) {
                   className="h-8 text-xs bg-emerald-600 hover:bg-emerald-700 text-white"
                   onClick={() => handleUpdate({ is_verified: true })}
                 >
-                  <ShieldCheck className="mr-1 h-3.5 w-3.5" />
+                  <ShieldCheck weight="light" className="mr-1 h-3.5 w-3.5" />
                   Verify User
                 </Button>
               )}
@@ -315,7 +310,7 @@ export function UserDetailClient({ userId }: { userId: string }) {
                   className="h-8 text-xs bg-emerald-600 hover:bg-emerald-700 text-white"
                   onClick={() => handleUpdate({ is_banned: false })}
                 >
-                  <Check className="mr-1 h-3.5 w-3.5" />
+                  <Check weight="bold" className="mr-1 h-3.5 w-3.5" />
                   Unban User
                 </Button>
               ) : (
@@ -325,7 +320,7 @@ export function UserDetailClient({ userId }: { userId: string }) {
                   className="h-8 text-xs"
                   onClick={() => setBanDialogOpen(true)}
                 >
-                  <Ban className="mr-1 h-3.5 w-3.5" />
+                  <Prohibit weight="light" className="mr-1 h-3.5 w-3.5" />
                   Ban User
                 </Button>
               )}

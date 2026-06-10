@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
-import { MessageCircle, Sparkles } from "lucide-react";
+import { ChatCircle, Sparkle } from "@phosphor-icons/react/ssr";
 import { formatDistanceToNow } from "date-fns";
 import Link from "next/link";
 import type { MatchConnection } from "@/lib/hooks/use-matches";
@@ -64,7 +64,7 @@ export function ConnectionList({ connections, className }: ConnectionListProps) 
                 {isNew && (
                   <div className="absolute -top-1.5 -right-1.5">
                     <Badge className="bg-[var(--color-gold)] text-black border-0 text-[10px] px-1.5 py-0.5">
-                      <Sparkles className="mr-0.5 h-2.5 w-2.5" />
+                      <Sparkle weight="fill" className="mr-0.5 h-2.5 w-2.5" />
                       New
                     </Badge>
                   </div>
@@ -113,7 +113,7 @@ export function ConnectionList({ connections, className }: ConnectionListProps) 
                       onClick={(e) => e.stopPropagation()}
                       className="flex h-9 w-9 items-center justify-center rounded-full bg-[var(--color-accent-muted)] text-[var(--color-accent)] hover:bg-[var(--color-accent)]/20 transition-colors shrink-0"
                     >
-                      <MessageCircle className="h-4 w-4" />
+                      <ChatCircle weight="light" className="h-4 w-4" />
                     </Link>
                   )}
                 </div>

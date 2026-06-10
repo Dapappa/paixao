@@ -19,14 +19,12 @@ import {
   ArrowUp,
   Camera,
   Crown,
-  Eye,
-  EyeOff,
-  ImagePlus,
+  EyeSlash,
+  ImagesSquare,
   Lock,
   Shield,
-  Trash2,
-  Upload,
-} from "lucide-react";
+  Trash,
+} from "@phosphor-icons/react/ssr";
 
 const container = {
   hidden: { opacity: 0 },
@@ -148,7 +146,7 @@ export default function PhotosPage() {
       variants={container}
       initial="hidden"
       animate="show"
-      className="space-y-6 p-4 md:p-6 lg:p-8 max-w-3xl"
+      className="mx-auto max-w-3xl space-y-6"
     >
       {/* Header */}
       <motion.div variants={item} className="flex items-center justify-between">
@@ -159,7 +157,7 @@ export default function PhotosPage() {
             onClick={() => router.back()}
             className="h-9 w-9"
           >
-            <ArrowLeft className="h-5 w-5" />
+            <ArrowLeft weight="bold" className="h-5 w-5" />
           </Button>
           <div>
             <h1 className="text-xl font-bold text-foreground">Photos</h1>
@@ -190,7 +188,7 @@ export default function PhotosPage() {
               ) : (
                 <>
                   <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--color-accent-muted)]">
-                    <ImagePlus className="h-7 w-7 text-[var(--color-accent)]" />
+                    <ImagesSquare weight="duotone" className="h-7 w-7 text-[var(--color-accent)]" />
                   </div>
                   <div className="text-center">
                     <p className="text-sm font-medium text-foreground">
@@ -221,7 +219,7 @@ export default function PhotosPage() {
           <Card className="border-[var(--color-border)] bg-[var(--color-surface)]">
             <CardHeader>
               <CardTitle className="text-base flex items-center gap-2">
-                <Camera className="h-4 w-4 text-[var(--color-accent)]" />
+                <Camera weight="light" className="h-4 w-4 text-[var(--color-accent)]" />
                 Your Photos ({photos.length})
               </CardTitle>
             </CardHeader>
@@ -252,19 +250,19 @@ export default function PhotosPage() {
                         <div className="absolute top-2 left-2 flex flex-wrap gap-1">
                           {photo.is_primary && (
                             <Badge className="bg-[var(--color-accent)] text-white text-[10px] px-1.5">
-                              <Crown className="mr-1 h-3 w-3" />
+                              <Crown weight="fill" className="mr-1 h-3 w-3" />
                               Primary
                             </Badge>
                           )}
                           {photo.is_private && (
                             <Badge className="bg-[var(--color-surface)]/80 text-foreground text-[10px] px-1.5 backdrop-blur-sm">
-                              <Lock className="mr-1 h-3 w-3" />
+                              <Lock weight="light" className="mr-1 h-3 w-3" />
                               Private
                             </Badge>
                           )}
                           {photo.is_nsfw && (
                             <Badge className="bg-[var(--color-warning)]/80 text-white text-[10px] px-1.5">
-                              <EyeOff className="mr-1 h-3 w-3" />
+                              <EyeSlash weight="light" className="mr-1 h-3 w-3" />
                               NSFW
                             </Badge>
                           )}
@@ -277,14 +275,14 @@ export default function PhotosPage() {
                             disabled={index === 0}
                             className="flex h-7 w-7 items-center justify-center rounded-md bg-[var(--color-surface)]/80 text-foreground backdrop-blur-sm hover:bg-[var(--color-surface)] disabled:opacity-30"
                           >
-                            <ArrowUp className="h-3.5 w-3.5" />
+                            <ArrowUp weight="bold" className="h-3.5 w-3.5" />
                           </button>
                           <button
                             onClick={() => moveDown(photo.id)}
                             disabled={index === photos.length - 1}
                             className="flex h-7 w-7 items-center justify-center rounded-md bg-[var(--color-surface)]/80 text-foreground backdrop-blur-sm hover:bg-[var(--color-surface)] disabled:opacity-30"
                           >
-                            <ArrowDown className="h-3.5 w-3.5" />
+                            <ArrowDown weight="bold" className="h-3.5 w-3.5" />
                           </button>
                         </div>
                       </div>
@@ -304,7 +302,7 @@ export default function PhotosPage() {
                             onClick={() => removePhoto(photo.id)}
                             className="text-muted-foreground hover:text-[var(--color-danger)] transition-colors"
                           >
-                            <Trash2 className="h-4 w-4" />
+                            <Trash weight="light" className="h-4 w-4" />
                           </button>
                         </div>
                         <div className="flex items-center gap-4">
@@ -352,7 +350,7 @@ export default function PhotosPage() {
         <Card className="border-[var(--color-border)] bg-[var(--color-surface)]">
           <CardContent className="p-4">
             <div className="flex items-start gap-3">
-              <Shield className="h-5 w-5 text-[var(--color-gold)] shrink-0 mt-0.5" />
+              <Shield weight="duotone" className="h-5 w-5 text-[var(--color-gold)] shrink-0 mt-0.5" />
               <div className="space-y-1">
                 <p className="text-sm font-medium text-foreground">
                   Photo Guidelines

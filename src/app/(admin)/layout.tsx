@@ -7,25 +7,39 @@ export default async function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // DEV-ONLY preview: walk the admin UI without a Supabase session.
+  const previewAuth = process.env.PREVIEW_AUTH === "1";
+
   const supabase = await createClient();
 
   const {
     data: { session },
   } = await supabase.auth.getSession();
 
-  if (!session) {
+  if (!session && !previewAuth) {
     redirect("/auth/login");
   }
 
   // Verify admin role from profiles table
-  const { data: profile } = await (supabase.from("profiles") as any)
-    .select("id, display_name, avatar_url, role")
-    .eq("id", session.user.id)
-    .in("role", ["admin", "moderator"])
-    .single();
+  let profile: { id: string; display_name: string | null; avatar_url: string | null; role: string } | null = null;
+  if (session) {
+    const { data } = await (supabase.from("profiles") as any)
+      .select("id, display_name, avatar_url, role")
+      .eq("id", session.user.id)
+      .in("role", ["admin", "moderator"])
+      .single();
+    profile = data;
+    if (!profile) {
+      redirect("/dashboard");
+    }
+  }
+
+  if (!profile && previewAuth) {
+    profile = { id: "preview", display_name: "Preview Admin", avatar_url: null, role: "admin" };
+  }
 
   if (!profile) {
-    redirect("/dashboard");
+    redirect("/auth/login");
   }
 
   return (
