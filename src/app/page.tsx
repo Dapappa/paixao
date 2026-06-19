@@ -10,19 +10,14 @@ import {
   useInView,
 } from "motion/react";
 import {
-  Shield,
-  CalendarDots,
-  Heart,
-  HandHeart,
-  UserPlus,
-  MagnifyingGlass,
-  ChatCircle,
   ArrowRight,
   Sparkle,
 } from "@phosphor-icons/react/ssr";
 import { Button } from "@/components/ui/button";
 import { HeroMockup } from "@/components/marketing/hero-mockup";
 import { AuraVideo } from "@/components/marketing/aura-video";
+import { WhyPaixao } from "@/components/marketing/why-paixao";
+import { HowItWorks } from "@/components/marketing/how-it-works";
 import { riseIn, riseInSoft, stagger, inView } from "@/lib/motion";
 
 /* ------------------------------------------------------------------ */
@@ -43,23 +38,10 @@ function AnimatedSection({ children, className }: { children: React.ReactNode; c
 /* Data                                                                */
 /* ------------------------------------------------------------------ */
 
-const features = [
-  { icon: Shield, title: "Anonymous until you decide", description: "You stay a stranger as long as you like. A name, a face, a want — each one is yours to offer, never taken. Reveal it on your timing, or never at all." },
-  { icon: CalendarDots, title: "Rooms worth dressing for", description: "Hand-picked gatherings for verified members — a candlelit dozen or a full velvet floor. You'll know the guest list is real before you ever walk in." },
-  { icon: Heart, title: "Wanted for who you are", description: "No swiping into a blur of strangers. We pair you on the things you'd never put on a first date — the real appetites — so the people who find you actually mean it." },
-  { icon: HandHeart, title: "Yes means everything here", description: "Every touch, every step, every door — opened only by mutual yes. Boundaries set the tempo, and they're honored without a second thought." },
-];
-
-const steps = [
-  { icon: UserPlus, step: "01", title: "Slip in unseen", description: "Sign up anonymous. Build the version of you that you actually want met — keep the rest under wraps until you say otherwise." },
-  { icon: MagnifyingGlass, step: "02", title: "Read the room", description: "Wander the events, the profiles, the quiet corners. See who lingers on you, and notice who you can't stop coming back to." },
-  { icon: ChatCircle, step: "03", title: "Lean in", description: "A first message, a held glance, an invitation across the floor. Move at your own pace — every step waits for your yes." },
-];
-
 const testimonials = [
-  { quote: "I spent years editing myself on every other app. Three weeks in here and I'd already said the things I never say out loud — to someone who only leaned closer.", who: "Member · Calgary" },
-  { quote: "The events undid me, honestly. Candlelight, real people, no phones out, no performance. I left feeling like I'd been somewhere — not just scrolled through someone.", who: "Member · Edmonton" },
-  { quote: "What sold me was how slow it let me go. Nobody pushed. Every yes was mine to give, and that's the most wanted I've felt in a long time.", who: "Member · anonymous by choice" },
+  { quote: "I spent years editing myself on every other app. Three weeks in here and I'd already said the things I never say out loud — to someone who only leaned closer.", who: "Member, Calgary" },
+  { quote: "The events undid me, honestly. Candlelight, real people, no phones out, no performance. I left feeling like I'd been somewhere — not just scrolled through someone.", who: "Member, Edmonton" },
+  { quote: "What sold me was how slow it let me go. Nobody pushed. Every yes was mine to give, and that's the most wanted I've felt in a long time.", who: "Member, anonymous by choice" },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -107,28 +89,28 @@ export default function LandingPage() {
         <section className="relative z-10 mx-auto grid min-h-dvh max-w-7xl grid-cols-1 items-center gap-12 px-4 pt-28 pb-16 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:gap-8 lg:px-8">
           {/* Left: copy */}
           <m.div initial="hidden" animate="visible" variants={stagger} className="text-center lg:text-left">
-            <m.div variants={riseIn} custom={0} className="mb-6">
-              <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/70 px-4 py-1.5 text-xs font-medium text-text-secondary backdrop-blur-sm">
-                <Sparkle className="h-3.5 w-3.5 text-gold" weight="fill" />
-                By invitation · After dark · First 100 seats
+            <m.div variants={riseIn} custom={0} className="mb-7">
+              <span className="inline-flex items-center gap-2.5 rounded-full border border-border bg-surface/70 px-4 py-2 text-[13px] font-medium tracking-wide text-text-secondary backdrop-blur-sm">
+                <Sparkle className="h-4 w-4 text-gold" weight="fill" />
+                By invitation only. After dark.
               </span>
             </m.div>
 
-            <m.p variants={riseIn} custom={1} className="mb-4 text-xs font-medium uppercase tracking-[0.34em] text-text-secondary">
+            <m.p variants={riseIn} custom={1} className="mb-5 text-[13px] font-medium uppercase tracking-[0.34em] text-text-secondary">
               Welcome to the Passion Den
             </m.p>
 
-            <m.h1 variants={riseIn} custom={2} className="font-serif text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">
+            <m.h1 variants={riseIn} custom={2} className="font-serif text-6xl font-bold leading-[1.02] tracking-tight sm:text-7xl lg:text-8xl">
               <span className="text-foreground">Come as you want.</span>
               <br />
               <span className="text-gradient-brand">Leave nothing behind.</span>
             </m.h1>
 
-            <m.p variants={riseIn} custom={3} className="mt-5 font-serif text-xl italic text-gold">
+            <m.p variants={riseIn} custom={3} className="mt-6 font-serif text-2xl italic text-gold sm:text-3xl">
               Desire, kept in confidence.
             </m.p>
 
-            <m.p variants={riseIn} custom={4} className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-text-secondary sm:text-lg lg:mx-0">
+            <m.p variants={riseIn} custom={4} className="mx-auto mt-7 max-w-xl text-lg leading-relaxed text-text-secondary sm:text-xl lg:mx-0">
               A members-only room for grown adults who know exactly what they&rsquo;re after. Meet on your
               terms, show only what you choose, and let the night find its own shape — no pressure, no
               traces, no apologies. Whatever you&rsquo;ve been quiet about, you can finally say it here.
@@ -144,9 +126,11 @@ export default function LandingPage() {
               <Button variant="outline" size="lg" asChild className="min-w-[160px]"><a href="#features">See the room</a></Button>
             </m.div>
 
-            <m.p variants={riseIn} custom={6} className="mt-6 text-xs text-text-secondary">
-              18+ only · Your identity remains anonymous · Cancel anytime
-            </m.p>
+            <m.div variants={riseIn} custom={6} className="mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-1.5 text-[13px] text-text-secondary lg:justify-start">
+              <span>18+ only</span>
+              <span>Your identity remains anonymous</span>
+              <span>Cancel anytime</span>
+            </m.div>
           </m.div>
 
           {/* Right: the breathing app mockup */}
@@ -183,82 +167,26 @@ export default function LandingPage() {
                   &ldquo;The best conversations begin after midnight.&rdquo;
                 </p>
                 <p className="mt-3 text-xs uppercase tracking-[0.25em] text-gold/90">
-                  A founding member · Calgary
+                  A founding member, Calgary
                 </p>
               </div>
             </div>
           </m.div>
         </AnimatedSection>
 
-        {/* ── Features ── */}
-        <AnimatedSection className="relative z-10 mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8">
-          <div id="features" className="scroll-mt-24">
-            <m.div variants={riseIn} custom={0} className="text-center">
-              <h2 className="font-serif text-3xl font-bold tracking-tight sm:text-4xl">
-                Why <span className="text-gradient-brand">Paixão</span>?
-              </h2>
-              <p className="mx-auto mt-4 max-w-2xl text-text-secondary">
-                Built from the ground up with safety, privacy, and pleasure in mind.
-                Every feature exists to protect and empower you.
-              </p>
-            </m.div>
+        {/* ── Why Paixão — cinematic scroll-driven feature panels ── */}
+        <WhyPaixao />
 
-            <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {features.map((feature, i) => (
-                <m.div
-                  key={feature.title}
-                  variants={riseInSoft}
-                  custom={i}
-                  className="group relative rounded-xl border border-border/50 bg-surface/50 p-6 backdrop-blur-sm transition-all duration-300 hover:border-accent/30 hover:bg-surface/80 hover:shadow-glow-accent"
-                >
-                  <div className="mb-4 inline-flex rounded-lg bg-accent-muted p-3">
-                    <feature.icon className="h-5 w-5 text-accent" weight="duotone" />
-                  </div>
-                  <h3 className="mb-2 text-lg font-semibold text-foreground">{feature.title}</h3>
-                  <p className="text-sm leading-relaxed text-text-secondary">{feature.description}</p>
-                </m.div>
-              ))}
-            </div>
-          </div>
-        </AnimatedSection>
-
-        {/* ── How It Works ── */}
-        <AnimatedSection className="relative z-10 mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8">
-          <m.div variants={riseIn} custom={0} className="text-center">
-            <h2 className="font-serif text-3xl font-bold tracking-tight sm:text-4xl">
-              How It <span className="text-gradient-gold">Works</span>
-            </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-text-secondary">
-              Getting started is simple. Three steps to a world of possibilities.
-            </p>
-          </m.div>
-
-          <div className="mt-16 grid gap-8 md:grid-cols-3">
-            {steps.map((step, i) => (
-              <m.div key={step.step} variants={riseInSoft} custom={i} className="relative text-center">
-                {i < steps.length - 1 && (
-                  <div className="absolute right-0 top-12 hidden h-px w-full translate-x-1/2 bg-gradient-to-r from-border to-transparent md:block" />
-                )}
-                <div className="relative mx-auto mb-6 inline-flex">
-                  <div className="flex h-24 w-24 items-center justify-center rounded-2xl border border-border/50 bg-surface/80 backdrop-blur-sm">
-                    <step.icon className="h-8 w-8 text-gold" weight="duotone" />
-                  </div>
-                  <span className="absolute -right-2 -top-2 flex h-7 w-7 items-center justify-center rounded-full bg-accent text-xs font-bold text-white">{step.step}</span>
-                </div>
-                <h3 className="mb-2 text-lg font-semibold text-foreground">{step.title}</h3>
-                <p className="mx-auto max-w-xs text-sm leading-relaxed text-text-secondary">{step.description}</p>
-              </m.div>
-            ))}
-          </div>
-        </AnimatedSection>
+        {/* ── How It Works — self-drawing scroll timeline ── */}
+        <HowItWorks />
 
         {/* ── Testimonials ── */}
         <AnimatedSection className="relative z-10 mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8">
           <m.div variants={riseIn} custom={0} className="text-center">
-            <h2 className="font-serif text-3xl font-bold tracking-tight sm:text-4xl">
+            <h2 className="font-serif text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl">
               Said quietly, <span className="text-gradient-gold">after</span>.
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-text-secondary">
+            <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-text-secondary">
               What members tell us once the room has done its work.
             </p>
           </m.div>
@@ -293,8 +221,8 @@ export default function LandingPage() {
               />
               <div className="aura-field absolute inset-0 opacity-50" />
               <div className="relative">
-                <h2 className="font-serif text-3xl font-bold tracking-tight sm:text-4xl">Hold one of the first hundred seats.</h2>
-                <p className="mx-auto mt-4 max-w-lg text-text-secondary">
+                <h2 className="font-serif text-4xl font-bold leading-[1.06] tracking-tight sm:text-5xl">Hold one of the first hundred seats.</h2>
+                <p className="mx-auto mt-5 max-w-lg text-lg leading-relaxed text-text-secondary">
                   The first hundred set the tone for everyone after them. Found this room with us: a lifetime
                   seat at CA$39, a price that never moves, and a real say in who we become and which city opens
                   next. The seat costs more once a hundred are taken — and it never reopens at this price.
@@ -307,7 +235,11 @@ export default function LandingPage() {
                     </Link>
                   </Button>
                 </div>
-                <p className="mt-6 text-xs text-text-secondary">18+ only · Your identity stays anonymous · A price that never moves</p>
+                <div className="mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-1.5 text-[13px] text-text-secondary">
+                  <span>18+ only</span>
+                  <span>Your identity stays anonymous</span>
+                  <span>A price that never moves</span>
+                </div>
               </div>
             </m.div>
           </div>
