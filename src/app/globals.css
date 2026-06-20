@@ -16,15 +16,18 @@
   --color-text-secondary: #a3a3a3;
 
   --color-accent: #c2185b;
-  --color-accent-hover: #e91e63;
+  /* hover = MORE LIGHT, not a new hue (was hot-pink #e91e63 — an AI-slop tell) */
+  --color-accent-hover: #d81b60;
   --color-accent-muted: rgba(194, 24, 91, 0.15);
 
   --color-gold: #d4a574;
   --color-gold-muted: rgba(212, 165, 116, 0.15);
 
-  --color-success: #4caf50;
-  --color-warning: #ff9800;
-  --color-danger: #f44336;
+  /* Status tones kept inside the velvet palette (no Material green/orange/red
+     rainbow). Meaning is carried by icon + position, not hue. */
+  --color-success: #9a8c5a;
+  --color-warning: #d4a574;
+  --color-danger: #c2185b;
 
   /* Font Families */
   --font-sans: var(--font-hanken), "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
@@ -104,11 +107,12 @@
   --sidebar-border: #262626;
   --sidebar-ring: #c2185b;
 
+  /* Charts: crimson + gold + tints only — never green/orange/pink rainbow */
   --chart-1: #c2185b;
   --chart-2: #d4a574;
-  --chart-3: #4caf50;
-  --chart-4: #ff9800;
-  --chart-5: #e91e63;
+  --chart-3: #e0b88a;
+  --chart-4: #8f1244;
+  --chart-5: #6b6b6b;
 }
 
 /* Keyframes */
@@ -199,9 +203,11 @@ body {
   border: 1px solid rgba(38, 38, 38, 0.6);
 }
 
-/* Utility: text gradient for brand */
+/* Utility: brand headline accent — now WARM GOLD, not crimson. Crimson is
+   rationed to true CTA/active drops (70/25/5); headline accents read gold so
+   the brand feels expensive, not app-y. Subtle sheen, not dead-flat. */
 @utility text-gradient-brand {
-  background: linear-gradient(135deg, #c2185b, #e91e63);
+  background: linear-gradient(135deg, #d4a574, #e8c49a);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;

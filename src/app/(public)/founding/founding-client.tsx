@@ -31,16 +31,16 @@ type Interest = "events" | "matchmaking";
 const MEMBER_QUOTES = [
   {
     quote: "The events undid me. Candlelight, real people, no phones out.",
-    who: "Member · Edmonton",
+    who: "Member, Edmonton",
   },
   {
     quote:
       "I locked my seat the first night. Nothing here has ever asked me to be smaller.",
-    who: "Founding member · Calgary",
+    who: "Founding member, Calgary",
   },
   {
     quote: "It moves at my pace. Every yes was mine to give — that's rare.",
-    who: "Member · anonymous by choice",
+    who: "Member, anonymous by choice",
   },
 ] as const;
 
@@ -179,7 +179,7 @@ export function FoundingClient({
               <span className="animate-breath font-serif text-sm font-bold tracking-wider text-foreground">
                 PAIX<span className="text-accent">Ã</span>O
               </span>{" "}
-              · Founding seats
+              Founding seats
             </m.p>
 
             <m.h1
@@ -236,7 +236,7 @@ export function FoundingClient({
                 <span className="animate-breath font-serif text-4xl font-bold text-foreground">
                   {price}
                 </span>
-                <span className="text-sm text-text-secondary">once · yours for good</span>
+                <span className="text-sm text-text-secondary">once, yours for good</span>
               </m.div>
             )}
 
@@ -261,13 +261,13 @@ export function FoundingClient({
             <m.div
               variants={riseIn}
               custom={8}
-              className="relative mt-10 hidden aspect-[16/10] w-full overflow-hidden rounded-2xl border border-border/40 lg:block"
+              className="relative mt-10 aspect-[16/11] w-full overflow-hidden rounded-2xl border border-border/40 sm:aspect-[16/10]"
             >
               <Image
                 src="/generated/real-couple.webp"
                 alt="A real couple laughing together by fairy light"
                 fill
-                sizes="(max-width: 1024px) 0px, 560px"
+                sizes="(max-width: 1024px) 100vw, 560px"
                 className="object-cover object-center"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
@@ -394,19 +394,33 @@ export function FoundingClient({
                   </Button>
                 </m.div>
 
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="w-full"
-                  onClick={joinWaitlist}
-                  disabled={loading !== null}
-                >
-                  {loading === "waitlist" ? (
-                    <CircleNotch className="h-4 w-4 animate-spin" weight="bold" />
-                  ) : (
-                    "Just leave your email (free)"
-                  )}
-                </Button>
+                {!soldOut && (
+                  <button
+                    type="button"
+                    onClick={joinWaitlist}
+                    disabled={loading !== null}
+                    className="mx-auto block text-center text-sm text-text-secondary underline-offset-4 transition-colors hover:text-foreground hover:underline disabled:opacity-50"
+                  >
+                    {loading === "waitlist"
+                      ? "Saving…"
+                      : "Not ready to commit? Leave your email instead"}
+                  </button>
+                )}
+                {soldOut && (
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="w-full"
+                    onClick={joinWaitlist}
+                    disabled={loading !== null}
+                  >
+                    {loading === "waitlist" ? (
+                      <CircleNotch className="h-4 w-4 animate-spin" weight="bold" />
+                    ) : (
+                      "Hold the door for me at launch"
+                    )}
+                  </Button>
+                )}
               </div>
 
               {!soldOut && nextPrice && (
@@ -417,9 +431,10 @@ export function FoundingClient({
                 </p>
               )}
 
-              <p className="mt-4 text-center text-xs text-text-secondary">
-                18+ only · Quiet, secure checkout by Stripe · Change your mind
-                before launch for a full refund.
+              <p className="mt-4 flex flex-wrap justify-center gap-x-4 gap-y-1 text-center text-xs text-text-secondary">
+                <span>18+ only</span>
+                <span>Discreet, secure checkout by Stripe</span>
+                <span>Fully refundable until we open</span>
               </p>
             </div>
           </m.div>
@@ -473,13 +488,21 @@ function SeatMeter({
     <div ref={ref}>
       <div className="flex items-baseline justify-between">
         <span className="text-sm text-text-secondary">
-          <span className="font-serif text-xl font-bold text-foreground">
-            {display}
-          </span>{" "}
-          of {cap} seats claimed
+          {claimed <= 0 ? (
+            <span className="font-serif text-base italic text-foreground">
+              The founding doors just opened
+            </span>
+          ) : (
+            <>
+              <span className="font-serif text-xl font-bold text-foreground">
+                {display}
+              </span>{" "}
+              of {cap} seats claimed
+            </>
+          )}
         </span>
         <span className="text-xs font-medium uppercase tracking-[0.2em] text-gold/90">
-          {cap - claimed} left
+          {claimed <= 0 ? "Be the first" : `${cap - claimed} left`}
         </span>
       </div>
       <div className="mt-2.5 h-1.5 w-full overflow-hidden rounded-full bg-border/60">

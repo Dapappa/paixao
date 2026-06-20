@@ -1,12 +1,14 @@
 "use client";
 
-import { useRef } from "react";
+import Image from "next/image";
+import { useRef, useState } from "react";
 import {
   LazyMotion,
   domAnimation,
   m,
   useScroll,
   useTransform,
+  useMotionValueEvent,
   useReducedMotion,
   type MotionValue,
 } from "motion/react";
@@ -23,6 +25,8 @@ type Step = {
   step: string;
   title: string;
   description: string;
+  media: string;
+  alt: string;
 };
 
 const steps: Step[] = [
@@ -32,6 +36,8 @@ const steps: Step[] = [
     title: "Slip in unseen",
     description:
       "Sign up anonymous. Build the version of you that you actually want met — keep the rest under wraps until you say otherwise.",
+    media: "/generated/tier1-desire-blindfold.webp",
+    alt: "A figure half-lit, identity withheld",
   },
   {
     icon: MagnifyingGlass,
@@ -39,6 +45,8 @@ const steps: Step[] = [
     title: "Read the room",
     description:
       "Wander the events, the profiles, the quiet corners. See who lingers on you, and notice who you can't stop coming back to.",
+    media: "/generated/real-ambiance.webp",
+    alt: "A warm, low-lit room alive with possibility",
   },
   {
     icon: ChatCircle,
@@ -46,12 +54,15 @@ const steps: Step[] = [
     title: "Lean in",
     description:
       "A first message, a held glance, an invitation across the floor. Move at your own pace — every step waits for your yes.",
+    media: "/generated/tier1-couple.webp",
+    alt: "Two people leaning close in golden light",
   },
 ];
 
-/* A single step node. It "activates" (icon glows, ring fills) as the scroll
-   line draws past its position. */
-function StepNode({
+const TOTAL = steps.length;
+
+/* One full-stage layer, crossfaded by the pinned scroll progress. */
+function StepLayer({
   step,
   i,
   progress,
@@ -62,109 +73,159 @@ function StepNode({
   progress: MotionValue<number>;
   reduce: boolean;
 }) {
-  // Each node owns a slice of the line. It activates as the draw reaches it.
-  const at = (i + 0.5) / steps.length;
-  const span = 0.16;
-  const fill = useTransform(progress, [at - span, at], [0, 1]);
+  const seg = 1 / TOTAL;
+  const inAt = i / TOTAL;
+  const outAt = (i + 1) / TOTAL;
 
-  const ringOpacity = useTransform(fill, [0, 1], [0.25, 1]);
-  const ringScale = useTransform(fill, [0, 1], reduce ? [1, 1] : [0.82, 1]);
-  const glow = useTransform(
-    fill,
-    [0, 1],
-    ["0 0 0px rgba(212,165,116,0)", "0 0 32px rgba(212,165,116,0.45)"]
+  // Crossfade windows, clamped to [0,1] so the scroll-driven offsets stay
+  // monotonic. Motion's WAAPI path turns this input range into keyframe
+  // offsets, which must be non-decreasing and within [0,1] — out-of-range
+  // sentinels (-1 / 2) throw "Offsets must be monotonically non-decreasing".
+  const clamp01 = (x: number) => Math.min(1, Math.max(0, x));
+  const fadeInStart = clamp01(inAt - seg * 0.35);
+  const fadeInEnd = clamp01(inAt + seg * 0.18);
+  const fadeOutStart = clamp01(outAt - seg * 0.18);
+  const fadeOutEnd = clamp01(outAt + seg * 0.35);
+
+  // First layer is live at the very top; last stays to the very bottom.
+  const opacity = useTransform(
+    progress,
+    i === 0
+      ? [0, fadeOutStart, fadeOutEnd]
+      : i === TOTAL - 1
+        ? [fadeInStart, fadeInEnd, 1]
+        : [fadeInStart, fadeInEnd, fadeOutStart, fadeOutEnd],
+    i === 0 ? [1, 1, 0] : i === TOTAL - 1 ? [0, 1, 1] : [0, 1, 1, 0]
   );
-  const iconColor = useTransform(fill, [0, 1], ["#a3a3a3", "#d4a574"]);
+
+  // The active window, normalised 0→1, drives the in-layer motion.
+  const local = useTransform(progress, [inAt, outAt], [0, 1]);
+  const mediaScale = useTransform(local, [0, 1], reduce ? [1, 1] : [1.16, 1.02]);
+  const mediaY = useTransform(local, [0, 1], reduce ? ["0%", "0%"] : ["8%", "-8%"]);
+  const numberY = useTransform(local, [0, 1], reduce ? ["0%", "0%"] : ["18%", "-18%"]);
+  const copyY = useTransform(local, [0, 1], reduce ? ["0%", "0%"] : ["44px", "-20px"]);
 
   return (
-    <div className="relative flex flex-col items-center text-center">
-      <m.div
-        style={{ scale: ringScale, opacity: ringOpacity, boxShadow: glow }}
-        className="relative z-10 mb-7 flex h-28 w-28 items-center justify-center rounded-3xl border border-gold/30 bg-surface/90 backdrop-blur-sm"
-      >
-        <m.div style={{ color: iconColor }}>
-          <step.icon className="h-10 w-10" weight="duotone" />
-        </m.div>
-        <span className="absolute -right-3 -top-3 flex h-9 w-9 items-center justify-center rounded-full bg-accent font-serif text-sm font-bold text-white shadow-glow-accent">
-          {step.step}
-        </span>
-      </m.div>
+    <m.div style={{ opacity }} className="absolute inset-0 flex items-center">
+      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8">
+        {/* Media */}
+        <div className="relative order-1 overflow-hidden rounded-[2rem] border border-border/40">
+          <div className="relative aspect-[16/11] w-full sm:aspect-[16/10]">
+            <m.div style={{ y: mediaY, scale: mediaScale }} className="absolute inset-[-8%]">
+              <Image
+                src={step.media}
+                alt={step.alt}
+                fill
+                sizes="(max-width: 1024px) 100vw, 640px"
+                className="object-cover"
+              />
+            </m.div>
+            <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/10 to-transparent" />
+            <div className="aura-field absolute inset-0 opacity-40 mix-blend-screen" />
+            <m.span
+              style={{ y: numberY }}
+              aria-hidden
+              className="pointer-events-none absolute -bottom-10 -right-2 select-none font-serif text-[11rem] font-bold leading-none text-foreground/[0.07] sm:text-[16rem]"
+            >
+              {step.step}
+            </m.span>
+          </div>
+        </div>
 
-      <m.div
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.7, ease: [0.05, 0.7, 0.1, 1], delay: i * 0.1 }}
-      >
-        <h3 className="mb-3 font-serif text-2xl font-semibold text-foreground sm:text-3xl">
-          {step.title}
-        </h3>
-        <p className="mx-auto max-w-xs text-base leading-relaxed text-text-secondary">
-          {step.description}
-        </p>
-      </m.div>
-    </div>
+        {/* Copy */}
+        <m.div style={{ y: copyY }} className="order-2 text-center lg:text-left">
+          <div className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-2xl border border-gold/30 bg-surface/80 shadow-glow-gold backdrop-blur-sm">
+            <step.icon className="h-8 w-8 text-gold" weight="duotone" />
+          </div>
+          <p className="mb-3 font-serif text-xl font-bold text-gold/70">{step.step}</p>
+          <h3 className="font-serif text-5xl font-bold leading-[1.04] tracking-tight text-foreground sm:text-6xl">
+            {step.title}
+          </h3>
+          <p className="mx-auto mt-6 max-w-md text-lg leading-relaxed text-text-secondary lg:mx-0">
+            {step.description}
+          </p>
+        </m.div>
+      </div>
+    </m.div>
   );
 }
 
 export function HowItWorks() {
   const ref = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
+  const [active, setActive] = useState(0);
 
-  // Draw the line as the row scrolls through the middle of the viewport.
+  // Pin scrub: 0 when the tall track's top hits the viewport top, 1 at its bottom.
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start 75%", "end 60%"],
+    offset: ["start start", "end end"],
   });
 
-  // Horizontal line (desktop) draws left→right; vertical line (mobile) top→bottom.
-  const drawX = useTransform(scrollYProgress, [0, 1], [0, 1]);
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
+    const idx = Math.min(TOTAL - 1, Math.max(0, Math.floor(v * TOTAL + 0.0001)));
+    setActive(idx);
+  });
+
+  const railFill = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   return (
     <LazyMotion features={domAnimation}>
-      <section className="relative z-10 mx-auto max-w-7xl px-4 py-28 sm:px-6 sm:py-40 lg:px-8">
-        <m.div
-          initial={{ opacity: 0, y: 28 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.8, ease: [0.05, 0.7, 0.1, 1] }}
-          className="mx-auto max-w-2xl text-center"
-        >
-          <p className="mb-4 text-xs font-medium uppercase tracking-[0.34em] text-gold/80">
-            From stranger to wanted
-          </p>
-          <h2 className="font-serif text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl">
-            How it <span className="text-gradient-gold">works</span>
-          </h2>
-          <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-text-secondary">
-            Three steps, taken entirely at your pace. Nothing happens before you
-            choose it.
-          </p>
-        </m.div>
+      {/* Tall track creates the scroll distance the pin scrubs through. */}
+      <section ref={ref} className="relative z-10" style={{ height: `${TOTAL * 100}vh` }}>
+        <div className="sticky top-0 flex h-screen flex-col overflow-hidden">
+          {/* Persistent header */}
+          <div className="mx-auto flex w-full max-w-7xl items-end justify-between px-4 pt-24 sm:px-6 lg:px-8">
+            <div>
+              <p className="mb-3 text-xs font-medium uppercase tracking-[0.34em] text-gold/80">
+                From stranger to wanted
+              </p>
+              <h2 className="font-serif text-5xl font-bold leading-[1.04] tracking-tight sm:text-6xl">
+                How it <span className="text-gradient-gold">works</span>
+              </h2>
+            </div>
+            <div className="hidden font-serif text-text-secondary sm:block">
+              <span className="text-3xl font-bold text-foreground">{steps[active].step}</span>
+              <span className="text-lg"> / 0{TOTAL}</span>
+            </div>
+          </div>
 
-        <div ref={ref} className="relative mt-24">
-          {/* ── The drawing line ── */}
-          {/* Desktop: horizontal, behind the node row */}
-          <div className="pointer-events-none absolute left-0 right-0 top-14 hidden md:block">
-            <div className="mx-auto h-px w-[78%] overflow-hidden rounded-full bg-border/50">
+          {/* Stage — layers crossfade through it */}
+          <div className="relative flex-1">
+            {steps.map((step, i) => (
+              <StepLayer key={step.step} step={step} i={i} progress={scrollYProgress} reduce={!!reduce} />
+            ))}
+          </div>
+
+          {/* Progress rail */}
+          <div className="mx-auto w-full max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
+            <div className="relative h-px w-full overflow-hidden rounded-full bg-border/50">
               <m.div
-                style={{ scaleX: drawX, transformOrigin: "left" }}
+                style={{ scaleX: railFill, transformOrigin: "left" }}
                 className="h-full w-full bg-gradient-to-r from-gold via-accent to-gold"
               />
             </div>
-          </div>
-          {/* Mobile: vertical line down the centre */}
-          <div className="pointer-events-none absolute bottom-12 left-1/2 top-12 w-px -translate-x-1/2 overflow-hidden bg-border/50 md:hidden">
-            <m.div
-              style={{ scaleY: drawX, transformOrigin: "top" }}
-              className="h-full w-full bg-gradient-to-b from-gold via-accent to-gold"
-            />
-          </div>
-
-          <div className="relative grid gap-16 md:grid-cols-3 md:gap-8">
-            {steps.map((step, i) => (
-              <StepNode key={step.step} step={step} i={i} progress={scrollYProgress} reduce={!!reduce} />
-            ))}
+            <div className="mt-4 flex justify-between">
+              {steps.map((step, i) => (
+                <button
+                  key={step.step}
+                  type="button"
+                  className={`flex items-center gap-2 text-sm transition-colors ${
+                    i <= active ? "text-foreground" : "text-text-secondary/50"
+                  }`}
+                >
+                  <span
+                    className={`h-2 w-2 rounded-full transition-all ${
+                      i === active
+                        ? "scale-125 bg-gold shadow-glow-gold"
+                        : i < active
+                          ? "bg-accent"
+                          : "bg-border"
+                    }`}
+                  />
+                  <span className="hidden sm:inline">{step.title}</span>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </section>

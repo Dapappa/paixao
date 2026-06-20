@@ -51,7 +51,7 @@ const testimonials = [
 export default function LandingPage() {
   return (
     <LazyMotion features={domAnimation}>
-      <div className="relative min-h-dvh overflow-hidden bg-background">
+      <div className="relative min-h-dvh overflow-x-clip bg-background">
         {/* ── Ambient aura backdrop (Velvet Aura) ── */}
         <div className="pointer-events-none fixed inset-0 z-0">
           <div className="aura-field absolute inset-0 animate-aura-drift opacity-70" />
@@ -89,21 +89,14 @@ export default function LandingPage() {
         <section className="relative z-10 mx-auto grid min-h-dvh max-w-7xl grid-cols-1 items-center gap-12 px-4 pt-28 pb-16 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:gap-8 lg:px-8">
           {/* Left: copy */}
           <m.div initial="hidden" animate="visible" variants={stagger} className="text-center lg:text-left">
-            <m.div variants={riseIn} custom={0} className="mb-7">
-              <span className="inline-flex items-center gap-2.5 rounded-full border border-border bg-surface/70 px-4 py-2 text-[13px] font-medium tracking-wide text-text-secondary backdrop-blur-sm">
-                <Sparkle className="h-4 w-4 text-gold" weight="fill" />
-                By invitation only. After dark.
-              </span>
-            </m.div>
-
-            <m.p variants={riseIn} custom={1} className="mb-5 text-[13px] font-medium uppercase tracking-[0.34em] text-text-secondary">
+            <m.p variants={riseIn} custom={1} className="mb-5 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[11px] font-medium uppercase tracking-[0.28em] text-text-secondary sm:text-[13px] sm:tracking-[0.34em] lg:justify-start">
+              <Sparkle className="h-4 w-4 shrink-0 text-gold" weight="fill" />
               Welcome to the Passion Den
             </m.p>
 
-            <m.h1 variants={riseIn} custom={2} className="font-serif text-6xl font-bold leading-[1.02] tracking-tight sm:text-7xl lg:text-8xl">
-              <span className="text-foreground">Come as you want.</span>
-              <br />
-              <span className="text-gradient-brand">Leave nothing behind.</span>
+            <m.h1 variants={riseIn} custom={2} className="font-serif text-[clamp(2.6rem,11vw,7rem)] font-medium leading-[1.0] tracking-[-0.02em]">
+              <span className="block text-foreground">Come as you want.</span>
+              <span className="block text-gradient-brand">Leave nothing behind.</span>
             </m.h1>
 
             <m.p variants={riseIn} custom={3} className="mt-6 font-serif text-2xl italic text-gold sm:text-3xl">
@@ -116,8 +109,13 @@ export default function LandingPage() {
               traces, no apologies. Whatever you&rsquo;ve been quiet about, you can finally say it here.
             </m.p>
 
-            <m.div variants={riseIn} custom={5} className="mt-9 flex flex-col items-center gap-4 sm:flex-row sm:justify-center lg:justify-start">
-              <Button size="lg" asChild className="group min-w-[190px]">
+            <m.p variants={riseIn} custom={5} className="mt-8 flex flex-wrap items-baseline justify-center gap-x-2.5 gap-y-1 lg:justify-start">
+              <span className="font-serif text-lg text-gold">A lifetime founding seat for CA$39.</span>
+              <span className="text-sm text-text-secondary">Only the first 100.</span>
+            </m.p>
+
+            <m.div variants={riseIn} custom={6} className="mt-6 flex flex-col items-center gap-4 sm:flex-row sm:justify-center lg:justify-start">
+              <Button size="lg" asChild className="group min-w-[190px] animate-pulse-glow">
                 <Link href="/founding">
                   Claim your seat
                   <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" weight="bold" />
@@ -126,7 +124,7 @@ export default function LandingPage() {
               <Button variant="outline" size="lg" asChild className="min-w-[160px]"><a href="#features">See the room</a></Button>
             </m.div>
 
-            <m.div variants={riseIn} custom={6} className="mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-1.5 text-[13px] text-text-secondary lg:justify-start">
+            <m.div variants={riseIn} custom={7} className="mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-1.5 text-[13px] text-text-secondary lg:justify-start">
               <span>18+ only</span>
               <span>Your identity remains anonymous</span>
               <span>Cancel anytime</span>

@@ -1,9 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useRef } from "react";
 import { LazyMotion, domAnimation, m, useInView } from "motion/react";
-import { Shield, Heart, Eye, UsersThree } from "@phosphor-icons/react/ssr";
+import { Shield, Heart, Eye, UsersThree, ArrowRight, Crown } from "@phosphor-icons/react/ssr";
+import { Button } from "@/components/ui/button";
 import { riseIn, riseInSoft, stagger, inView } from "@/lib/motion";
 
 /* ------------------------------------------------------------------ */
@@ -86,6 +88,24 @@ export default function AboutPage() {
               the right photo, the softened truth, wanting a little less than you actually do. We wanted one
               room where you could set all that down at the door. So a few of us made it.
             </m.p>
+
+            <m.p variants={riseIn} custom={3} className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-text-secondary/80">
+              A members-only, anonymous room for verified adults — candlelit events and quiet
+              matchmaking, on your terms, with your name yours to give.
+            </m.p>
+
+            <m.div variants={riseIn} custom={4} className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
+              <Button size="lg" asChild className="group min-w-[200px] animate-pulse-glow">
+                <Link href="/founding">
+                  Request your invite
+                  <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" weight="bold" />
+                </Link>
+              </Button>
+              <span className="inline-flex items-center gap-2 text-sm text-gold/90">
+                <Crown className="h-4 w-4" weight="fill" />
+                Founding seats from CA$39, the first 100 only
+              </span>
+            </m.div>
           </m.div>
 
           {/* ── Atmosphere band — a real couple, with a pull-quote ── */}
@@ -227,6 +247,18 @@ export default function AboutPage() {
                 <p className="mt-7 font-serif text-lg italic text-foreground/90">
                   — the people behind Paixão
                 </p>
+
+                <div className="mt-10 flex flex-col items-center gap-4">
+                  <Button size="lg" asChild className="group min-w-[210px] animate-pulse-glow">
+                    <Link href="/founding">
+                      Claim a founding seat
+                      <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" weight="bold" />
+                    </Link>
+                  </Button>
+                  <p className="text-xs text-text-secondary">
+                    A lifetime seat at CA$39 — the price never moves, and the first hundred never reopen.
+                  </p>
+                </div>
               </div>
             </m.div>
           </AnimatedSection>
