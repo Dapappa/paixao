@@ -43,9 +43,9 @@ const features: Feature[] = [
     kicker: "Anonymity",
     title: "Anonymous until you decide",
     description:
-      "You stay a stranger as long as you like. A name, a face, a want — each one is yours to offer, never taken. Reveal it on your timing, or never at all.",
+      "You stay a stranger as long as you like. A name, a face, a want; each one is yours to offer, never taken. Reveal it on your timing, or never at all.",
     media: "/generated/tier1-desire-blindfold.webp",
-    alt: "A figure in a soft blindfold, half-lit — identity withheld by choice",
+    alt: "A figure in a soft blindfold, half-lit, identity withheld by choice",
   },
   {
     icon: CalendarDots,
@@ -53,7 +53,7 @@ const features: Feature[] = [
     kicker: "The room",
     title: "Rooms worth dressing for",
     description:
-      "Hand-picked gatherings for verified members — a candlelit dozen or a full velvet floor. You'll know the guest list is real before you ever walk in.",
+      "Hand-picked gatherings for verified members: a candlelit dozen or a full velvet floor. You'll know the guest list is real before you ever walk in.",
     media: "/generated/tier1-events.webp",
     alt: "A warm candlelit gathering room set for a private event",
   },
@@ -63,7 +63,7 @@ const features: Feature[] = [
     kicker: "The match",
     title: "Wanted for who you are",
     description:
-      "No swiping into a blur of strangers. We pair you on the things you'd never put on a first date — the real appetites — so the people who find you actually mean it.",
+      "No swiping into a blur of strangers. We pair you on the things you'd never put on a first date, the real appetites, so the people who find you actually mean it.",
     media: "/generated/tier1-couple.webp",
     alt: "Two people leaning close in low golden light",
   },
@@ -73,9 +73,9 @@ const features: Feature[] = [
     kicker: "Consent",
     title: "Yes means everything here",
     description:
-      "Every touch, every step, every door — opened only by mutual yes. Boundaries set the tempo, and they're honored without a second thought.",
+      "Every touch, every step, every door, opened only by mutual yes. Boundaries set the tempo, and they're honored without a second thought.",
     media: "/generated/tier1-desire-restraint.webp",
-    alt: "A hand resting open — an invitation, never a demand",
+    alt: "A hand resting open, an invitation, never a demand",
   },
 ];
 
@@ -104,11 +104,14 @@ function FeaturePanel({ feature, i }: { feature: Feature; i: number }) {
       className="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16"
     >
       {/* ── Media slot (GIF/video-ready) ── */}
+      {/* Frame stays always-visible (no opacity/clip gate) so the lazy image
+          reliably loads + shows on mobile; motion comes from the parallax +
+          a soft fade-up that never leaves the image hidden if it fails. */}
       <m.div
-        initial={{ opacity: 0, clipPath: "inset(0 0 100% 0 round 1.5rem)" }}
-        whileInView={{ opacity: 1, clipPath: "inset(0 0 0% 0 round 1.5rem)" }}
-        viewport={{ once: true, margin: "-120px" }}
-        transition={{ duration: 1.1, ease: [0.05, 0.7, 0.1, 1] }}
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.8, ease: [0.05, 0.7, 0.1, 1] }}
         className={`group relative overflow-hidden rounded-3xl border border-border/40 ${
           flipped ? "lg:order-2" : ""
         }`}
@@ -120,6 +123,7 @@ function FeaturePanel({ feature, i }: { feature: Feature; i: number }) {
               src={feature.media}
               alt={feature.alt}
               fill
+              loading="eager"
               sizes="(max-width: 1024px) 100vw, 600px"
               className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-[1.04]"
             />
