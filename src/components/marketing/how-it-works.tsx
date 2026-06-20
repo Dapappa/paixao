@@ -35,7 +35,7 @@ const steps: Step[] = [
     step: "01",
     title: "Slip in unseen",
     description:
-      "Sign up anonymous. Build the version of you that you actually want met — keep the rest under wraps until you say otherwise.",
+      "Sign up anonymous. Build the version of you that you actually want met. Keep the rest under wraps until you say otherwise.",
     media: "/generated/tier1-desire-blindfold.webp",
     alt: "A figure half-lit, identity withheld",
   },
@@ -53,7 +53,7 @@ const steps: Step[] = [
     step: "03",
     title: "Lean in",
     description:
-      "A first message, a held glance, an invitation across the floor. Move at your own pace — every step waits for your yes.",
+      "A first message, a held glance, an invitation across the floor. Move at your own pace; every step waits for your yes.",
     media: "/generated/tier1-couple.webp",
     alt: "Two people leaning close in golden light",
   },
@@ -73,30 +73,28 @@ function StepLayer({
   progress: MotionValue<number>;
   reduce: boolean;
 }) {
-  const seg = 1 / TOTAL;
   const inAt = i / TOTAL;
   const outAt = (i + 1) / TOTAL;
 
-  // Crossfade windows, clamped to [0,1] so the scroll-driven offsets stay
-  // monotonic. Motion's WAAPI path turns this input range into keyframe
-  // offsets, which must be non-decreasing and within [0,1] — out-of-range
-  // sentinels (-1 / 2) throw "Offsets must be monotonically non-decreasing".
-  const clamp01 = (x: number) => Math.min(1, Math.max(0, x));
-  const fadeInStart = clamp01(inAt - seg * 0.35);
-  const fadeInEnd = clamp01(inAt + seg * 0.18);
-  const fadeOutStart = clamp01(outAt - seg * 0.18);
-  const fadeOutEnd = clamp01(outAt + seg * 0.35);
-
-  // First layer is live at the very top; last stays to the very bottom.
-  const opacity = useTransform(
-    progress,
-    i === 0
-      ? [0, fadeOutStart, fadeOutEnd]
-      : i === TOTAL - 1
-        ? [fadeInStart, fadeInEnd, 1]
-        : [fadeInStart, fadeInEnd, fadeOutStart, fadeOutEnd],
-    i === 0 ? [1, 1, 0] : i === TOTAL - 1 ? [0, 1, 1] : [0, 1, 1, 0]
-  );
+  // Opacity is defined EXPLICITLY across the full [0,1] range (with values at
+  // both 0 and 1) so there's no reliance on clamping/extrapolation — that's
+  // what was leaving extra layers lit at the end of the scrub. Exactly one
+  // layer is fully visible at a time, with short crossfade ramps.
+  const r = (0.5 / TOTAL) * 0.45; // crossfade half-width
+  const inputRange: number[] = [0];
+  const outputRange: number[] = [i === 0 ? 1 : 0];
+  if (i > 0) {
+    inputRange.push(inAt - r, inAt + r);
+    outputRange.push(0, 1);
+  }
+  if (i < TOTAL - 1) {
+    inputRange.push(outAt - r, outAt + r, 1);
+    outputRange.push(1, 0, 0);
+  } else {
+    inputRange.push(1);
+    outputRange.push(1);
+  }
+  const opacity = useTransform(progress, inputRange, outputRange);
 
   // The active window, normalised 0→1, drives the in-layer motion.
   const local = useTransform(progress, [inAt, outAt], [0, 1]);

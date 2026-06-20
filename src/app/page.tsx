@@ -96,7 +96,7 @@ export default function LandingPage() {
             </m.p>
 
             <RevealText
-              className="block font-serif text-[clamp(2.6rem,11vw,7rem)] font-medium leading-[1.0] tracking-[-0.02em]"
+              className="block font-serif text-[clamp(2.1rem,7.5vw,4.75rem)] font-medium leading-[1.02] tracking-[-0.02em]"
               delay={0.15}
               lines={[
                 { text: "Come as you want.", className: "text-foreground" },
@@ -104,19 +104,19 @@ export default function LandingPage() {
               ]}
             />
 
-            <m.p variants={riseIn} custom={3} className="mt-6 font-serif text-2xl italic text-gold sm:text-3xl">
+            <m.p variants={riseIn} custom={3} className="mt-6 font-serif text-3xl italic text-gold sm:text-4xl">
               Desire, kept in confidence.
             </m.p>
 
-            <m.p variants={riseIn} custom={4} className="mx-auto mt-7 max-w-xl text-lg leading-relaxed text-text-secondary sm:text-xl lg:mx-0">
+            <m.p variants={riseIn} custom={4} className="mx-auto mt-7 max-w-xl text-xl leading-relaxed text-text-secondary sm:text-2xl lg:mx-0">
               A members-only room for grown adults who know exactly what they&rsquo;re after. Meet on your
               terms, show only what you choose, and let the night find its own shape — no pressure, no
               traces, no apologies. Whatever you&rsquo;ve been quiet about, you can finally say it here.
             </m.p>
 
-            <m.p variants={riseIn} custom={5} className="mt-8 flex flex-wrap items-baseline justify-center gap-x-2.5 gap-y-1 lg:justify-start">
-              <span className="font-serif text-lg text-gold">A lifetime founding seat for CA$39.</span>
-              <span className="text-sm text-text-secondary">Only the first 100.</span>
+            <m.p variants={riseIn} custom={5} className="mt-8 flex flex-wrap items-baseline justify-center gap-x-3 gap-y-1 lg:justify-start">
+              <span className="font-serif text-xl text-gold sm:text-2xl">A lifetime founding seat for CA$39.</span>
+              <span className="text-base text-text-secondary">Only the first 100.</span>
             </m.p>
 
             <m.div variants={riseIn} custom={6} className="mt-6 flex flex-col items-center gap-4 sm:flex-row sm:justify-center lg:justify-start">
@@ -129,7 +129,7 @@ export default function LandingPage() {
               <Button variant="outline" size="lg" asChild className="min-w-[160px]"><a href="#features">See the room</a></Button>
             </m.div>
 
-            <m.div variants={riseIn} custom={7} className="mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-1.5 text-[13px] text-text-secondary lg:justify-start">
+            <m.div variants={riseIn} custom={7} className="mt-7 flex flex-wrap items-center justify-center gap-x-6 gap-y-1.5 text-[15px] text-text-secondary lg:justify-start">
               <span>18+ only</span>
               <span>Your identity remains anonymous</span>
               <span>Cancel anytime</span>
