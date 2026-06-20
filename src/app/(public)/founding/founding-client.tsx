@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { LazyMotion, domAnimation, m, useInView } from "motion/react";
+import { LazyMotion, domAnimation, m, AnimatePresence, useInView } from "motion/react";
 import { toast } from "sonner";
 import {
   Crown,
@@ -14,6 +14,7 @@ import {
   UsersThree,
   TrendUp,
   Lock,
+  Quotes,
 } from "@phosphor-icons/react/ssr";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -41,6 +42,44 @@ const MEMBER_QUOTES = [
   {
     quote: "It moves at my pace. Every yes was mine to give — that's rare.",
     who: "Member, anonymous by choice",
+  },
+] as const;
+
+/* Anonymous founding voices for the proof grid (faces turned / half-lit). */
+const FOUNDING_VOICES = [
+  {
+    quote:
+      "I joined for the events and stayed for the quiet. Nobody performs here. You just arrive.",
+    who: "Founding member, Calgary",
+    img: "/generated/real-persona-w.webp",
+  },
+  {
+    quote:
+      "Paying upfront felt like a statement — I'm done waiting for permission to want what I want.",
+    who: "Founding member, Edmonton",
+    img: "/generated/real-persona-3.webp",
+  },
+  {
+    quote:
+      "It's the first room where being anonymous made me feel more myself, not less.",
+    who: "Founding member, anonymous by choice",
+    img: "/generated/real-persona-5.webp",
+  },
+] as const;
+
+/* The friction questions a founding buyer actually asks before paying. */
+const FOUNDING_FAQ = [
+  {
+    q: "When does Paixão actually open?",
+    a: "We open the first city in stages over the coming months. Founding members get in first, help shape the rooms, and are told before anyone else.",
+  },
+  {
+    q: "How anonymous am I, really?",
+    a: "Completely, until you decide otherwise. Your name, your face, your wants — each one is yours to reveal on your timing, to whom you choose, or never at all.",
+  },
+  {
+    q: "What am I paying for right now?",
+    a: "A lifetime founding seat: the lowest price we will ever offer, locked for good, plus a real say in who we become. One quiet charge, fully refundable until we open.",
   },
 ] as const;
 
@@ -440,11 +479,133 @@ export function FoundingClient({
           </m.div>
         </div>
 
+        {/* ════════════════ SECOND ACT — what you're joining ════════════════ */}
+
+        {/* ── "What a night looks like" cinematic band ── */}
+        <Reveal className="relative z-10 mx-auto mt-8 max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="relative aspect-[16/10] w-full overflow-hidden rounded-3xl border border-border/40 sm:aspect-[21/9]">
+            <Image
+              src="/generated/lounge-couple.webp"
+              alt="Two people close together in a candlelit lounge"
+              fill
+              sizes="(max-width: 1152px) 100vw, 1100px"
+              className="object-cover object-center"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-transparent to-transparent" />
+            <div className="absolute inset-0 flex items-end p-6 sm:p-12">
+              <div className="max-w-md">
+                <p className="text-xs font-medium uppercase tracking-[0.34em] text-gold/80">
+                  What a night looks like
+                </p>
+                <p className="mt-3 font-serif text-2xl italic leading-snug text-foreground sm:text-3xl">
+                  Candlelight. Real people. No phones out. The night finds its own shape.
+                </p>
+              </div>
+            </div>
+          </div>
+        </Reveal>
+
+        {/* ── Proof: three founding voices ── */}
+        <section className="relative z-10 mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-28 lg:px-8">
+          <Reveal className="mx-auto max-w-xl text-center">
+            <p className="mb-3 text-xs font-medium uppercase tracking-[0.34em] text-gold/80">
+              In their words
+            </p>
+            <h2 className="font-serif text-4xl font-semibold tracking-tight text-foreground sm:text-5xl">
+              Why they took a <span className="text-gradient-brand">seat</span>
+            </h2>
+          </Reveal>
+
+          <div className="mt-14 grid gap-6 md:grid-cols-3">
+            {FOUNDING_VOICES.map((v, i) => (
+              <Reveal key={v.who} delay={i * 0.08}>
+                <figure className="flex h-full flex-col rounded-2xl border border-border/50 bg-surface/40 p-6 backdrop-blur-sm">
+                  <Quotes className="h-6 w-6 text-gold/50" weight="fill" />
+                  <blockquote className="mt-4 flex-1 font-serif text-lg italic leading-relaxed text-foreground/90">
+                    {v.quote}
+                  </blockquote>
+                  <figcaption className="mt-6 flex items-center gap-3">
+                    <span className="relative h-10 w-10 overflow-hidden rounded-full border border-gold/20">
+                      <Image src={v.img} alt="" fill sizes="40px" className="object-cover object-center" />
+                    </span>
+                    <span className="text-xs uppercase tracking-[0.18em] text-gold/80">{v.who}</span>
+                  </figcaption>
+                </figure>
+              </Reveal>
+            ))}
+          </div>
+        </section>
+
+        {/* ── FAQ — the friction questions, answered ── */}
+        <section className="relative z-10 mx-auto max-w-3xl px-4 pb-24 sm:px-6 lg:px-8">
+          <Reveal className="text-center">
+            <h2 className="font-serif text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+              Before you decide
+            </h2>
+          </Reveal>
+          <dl className="mt-12 divide-y divide-border/50">
+            {FOUNDING_FAQ.map((item, i) => (
+              <Reveal key={item.q} delay={i * 0.06}>
+                <div className="py-7">
+                  <dt className="font-serif text-xl text-foreground">{item.q}</dt>
+                  <dd className="mt-3 leading-relaxed text-text-secondary">{item.a}</dd>
+                </div>
+              </Reveal>
+            ))}
+          </dl>
+
+          {/* Founder note + final CTA */}
+          <Reveal className="mt-10 border-t border-border/50 pt-10 text-center">
+            <p className="mx-auto max-w-xl font-serif text-lg italic leading-relaxed text-foreground/90">
+              We are building the room we always wished existed — kinder, safer, more beautiful than
+              anyone bothered to make before. The first hundred build it with us.
+            </p>
+            <p className="mt-4 text-xs uppercase tracking-[0.25em] text-gold/80">
+              — the people behind Paixão
+            </p>
+            <div className="mt-8 flex justify-center">
+              <Button size="lg" asChild className="group min-w-[210px] animate-pulse-glow">
+                <a href="#top" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
+                  Claim your founding seat
+                  <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" weight="bold" />
+                </a>
+              </Button>
+            </div>
+          </Reveal>
+        </section>
+
         {/* ── Atmosphere overlays (fixed, non-interactive) ── */}
         <div className="vignette" aria-hidden />
         <div className="film-grain" aria-hidden />
       </div>
     </LazyMotion>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Reveal — a single scroll-into-view rise. The second act lives below */
+/* the fold, so it animates on view rather than on page-load stagger.  */
+/* ------------------------------------------------------------------ */
+function Reveal({
+  children,
+  className,
+  delay = 0,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  delay?: number;
+}) {
+  return (
+    <m.div
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.7, ease: ease.enter, delay }}
+      className={className}
+    >
+      {children}
+    </m.div>
   );
 }
 
@@ -534,19 +695,22 @@ function RotatingQuote() {
 
   return (
     <div className="border-l-2 border-gold/40 pl-4">
-      <m.div
-        key={i}
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: ease.enter }}
-      >
-        <p className="font-serif text-base italic leading-relaxed text-foreground/85">
-          &ldquo;{current.quote}&rdquo;
-        </p>
-        <span className="mt-2 block text-xs uppercase tracking-[0.25em] text-gold/90">
-          {current.who}
-        </span>
-      </m.div>
+      <AnimatePresence mode="wait">
+        <m.div
+          key={i}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.6, ease: ease.enter }}
+        >
+          <p className="font-serif text-base italic leading-relaxed text-foreground/85">
+            &ldquo;{current.quote}&rdquo;
+          </p>
+          <span className="mt-2 block text-xs uppercase tracking-[0.25em] text-gold/90">
+            {current.who}
+          </span>
+        </m.div>
+      </AnimatePresence>
     </div>
   );
 }
