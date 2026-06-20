@@ -296,35 +296,28 @@ function RevealScene({ active }: { active: boolean }) {
         ))}
       </div>
 
-      {/* one restrained confetti burst */}
-      {active && !reduce && <Confetti />}
+      {/* one slow gold ring-pulse — restrained, on-brand (no confetti) */}
+      {active && !reduce && <RingPulse />}
     </div>
   );
 }
 
-function Confetti() {
-  const bits = Array.from({ length: 14 });
+function RingPulse() {
   return (
     <div className="pointer-events-none absolute inset-0 grid place-items-center">
-      {bits.map((_, k) => {
-        const angle = (k / bits.length) * Math.PI * 2;
-        const dist = 70 + (k % 3) * 22;
-        return (
-          <m.span
-            key={k}
-            className="absolute h-1.5 w-1.5 rounded-full"
-            style={{ background: k % 2 ? "#d4a574" : "#e91e63" }}
-            initial={{ opacity: 0, x: 0, y: 0, scale: 0 }}
-            animate={{
-              opacity: [0, 1, 0],
-              x: Math.cos(angle) * dist,
-              y: Math.sin(angle) * dist,
-              scale: [0, 1, 0.6],
-              transition: { duration: 1.1, delay: 1.4, ease: ease.exit },
-            }}
-          />
-        );
-      })}
+      {[0, 1].map((k) => (
+        <m.span
+          key={k}
+          className="absolute rounded-full border border-gold/50"
+          style={{ width: 80, height: 80 }}
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{
+            opacity: [0, 0.7, 0],
+            scale: [0.5, 2.4, 2.8],
+            transition: { duration: 2.4, delay: 1.4 + k * 0.5, ease: ease.elegant },
+          }}
+        />
+      ))}
     </div>
   );
 }

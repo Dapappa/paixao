@@ -64,6 +64,17 @@
   --animate-heartbeat: heartbeat 4.5s var(--ease-elegant) infinite;
   --animate-aura-drift: aura-drift 24s var(--ease-elegant) infinite;
   --animate-grain: grain 0.8s steps(1) infinite;
+  /* slow cinematic push-in for parallax image layers */
+  --animate-kenburns: kenburns 22s var(--ease-elegant) infinite alternate;
+}
+
+@keyframes kenburns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.09);
+  }
 }
 
 /* CSS Variables for shadcn/ui compatibility */

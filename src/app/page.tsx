@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useRef } from "react";
 import {
   LazyMotion,
@@ -18,6 +17,7 @@ import { HeroMockup } from "@/components/marketing/hero-mockup";
 import { AuraVideo } from "@/components/marketing/aura-video";
 import { WhyPaixao } from "@/components/marketing/why-paixao";
 import { HowItWorks } from "@/components/marketing/how-it-works";
+import { RevealText, ParallaxLayer, VelvetCursor } from "@/components/marketing/motion-primitives";
 import { riseIn, riseInSoft, stagger, inView } from "@/lib/motion";
 
 /* ------------------------------------------------------------------ */
@@ -52,6 +52,7 @@ export default function LandingPage() {
   return (
     <LazyMotion features={domAnimation}>
       <div className="relative min-h-dvh overflow-x-clip bg-background">
+        <VelvetCursor />
         {/* ── Ambient aura backdrop (Velvet Aura) ── */}
         <div className="pointer-events-none fixed inset-0 z-0">
           <div className="aura-field absolute inset-0 animate-aura-drift opacity-70" />
@@ -94,10 +95,14 @@ export default function LandingPage() {
               Welcome to the Passion Den
             </m.p>
 
-            <m.h1 variants={riseIn} custom={2} className="font-serif text-[clamp(2.6rem,11vw,7rem)] font-medium leading-[1.0] tracking-[-0.02em]">
-              <span className="block text-foreground">Come as you want.</span>
-              <span className="block text-gradient-brand">Leave nothing behind.</span>
-            </m.h1>
+            <RevealText
+              className="block font-serif text-[clamp(2.6rem,11vw,7rem)] font-medium leading-[1.0] tracking-[-0.02em]"
+              delay={0.15}
+              lines={[
+                { text: "Come as you want.", className: "text-foreground" },
+                { text: "Leave nothing behind.", className: "text-gradient-brand" },
+              ]}
+            />
 
             <m.p variants={riseIn} custom={3} className="mt-6 font-serif text-2xl italic text-gold sm:text-3xl">
               Desire, kept in confidence.
@@ -148,13 +153,12 @@ export default function LandingPage() {
             custom={0}
             className="relative aspect-[16/10] w-full overflow-hidden rounded-3xl border border-border/40 sm:aspect-[21/9]"
           >
-            <Image
+            <ParallaxLayer
               src="/generated/real-couple.webp"
               alt="A couple laughing together on their bed under warm fairy lights"
-              fill
               sizes="(max-width: 1280px) 100vw, 1280px"
-              className="object-cover object-center"
               priority
+              kenBurns
             />
             {/* legibility + mood grade */}
             <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />

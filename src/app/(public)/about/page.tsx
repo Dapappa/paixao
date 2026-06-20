@@ -1,11 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
 import { LazyMotion, domAnimation, m, useInView } from "motion/react";
 import { Shield, Heart, Eye, UsersThree, ArrowRight, Crown } from "@phosphor-icons/react/ssr";
 import { Button } from "@/components/ui/button";
+import { RevealText, ParallaxLayer } from "@/components/marketing/motion-primitives";
 import { riseIn, riseInSoft, stagger, inView } from "@/lib/motion";
 
 /* ------------------------------------------------------------------ */
@@ -78,11 +78,14 @@ export default function AboutPage() {
             <m.span variants={riseIn} custom={0} className="inline-block text-xs font-medium uppercase tracking-[0.34em] text-gold">
               A note from us
             </m.span>
-            <m.h1 variants={riseIn} custom={1} className="mt-5 font-serif text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
-              <span className="text-foreground">We were tired of</span>
-              <br />
-              <span className="text-gradient-brand">editing ourselves.</span>
-            </m.h1>
+            <RevealText
+              className="mt-5 block font-serif text-[clamp(2.25rem,7vw,3.75rem)] font-medium leading-[1.05] tracking-[-0.02em]"
+              delay={0.1}
+              lines={[
+                { text: "We were tired of", className: "text-foreground" },
+                { text: "editing ourselves.", className: "text-gradient-brand" },
+              ]}
+            />
             <m.p variants={riseIn} custom={2} className="mx-auto mt-7 max-w-2xl text-lg leading-relaxed text-text-secondary">
               Honestly? We built this because nothing out there felt like us. Every app wanted a performance —
               the right photo, the softened truth, wanting a little less than you actually do. We wanted one
@@ -115,12 +118,11 @@ export default function AboutPage() {
               custom={0}
               className="relative aspect-[4/5] w-full overflow-hidden rounded-3xl border border-border/40 sm:aspect-[3/4]"
             >
-              <Image
+              <ParallaxLayer
                 src="/generated/real-couple.webp"
                 alt="A couple laughing together on their bed under warm fairy lights"
-                fill
                 sizes="(max-width: 896px) 100vw, 896px"
-                className="object-cover object-center"
+                kenBurns
               />
               {/* legibility + mood grade */}
               <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
@@ -176,12 +178,11 @@ export default function AboutPage() {
                 custom={1}
                 className="relative min-h-[280px] overflow-hidden rounded-2xl border border-border/40"
               >
-                <Image
+                <ParallaxLayer
                   src="/generated/real-persona-w.webp"
                   alt="A member at home, face turned away, lit by a lamp"
-                  fill
                   sizes="(max-width: 1024px) 100vw, 360px"
-                  className="object-cover object-center"
+                  kenBurns
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
               </m.div>
@@ -222,12 +223,10 @@ export default function AboutPage() {
               custom={0}
               className="relative overflow-hidden rounded-3xl border border-border/40"
             >
-              <Image
+              <ParallaxLayer
                 src="/generated/real-ambiance.webp"
                 alt="A cozy bedroom at night, wine and a lit candle on the table"
-                fill
                 sizes="(max-width: 896px) 100vw, 896px"
-                className="object-cover object-center"
               />
               <div className="absolute inset-0 bg-background/80" />
               <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-background/70" />

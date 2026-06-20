@@ -7,6 +7,7 @@ import { List, X } from "@phosphor-icons/react/ssr";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { VelvetCursor } from "@/components/marketing/motion-primitives";
 
 const navLinks = [
   { label: "About", href: "/about" },
@@ -35,6 +36,7 @@ export default function PublicLayout({
 
   return (
     <div className="min-h-dvh flex flex-col">
+      <VelvetCursor />
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-xl">
         <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
