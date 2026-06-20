@@ -12,6 +12,7 @@ import {
   Heart,
   UsersThree,
 } from "@phosphor-icons/react/ssr";
+import { RevealText } from "@/components/marketing/motion-primitives";
 import { riseIn, riseInSoft, stagger, inView } from "@/lib/motion";
 
 function AnimatedSection({
@@ -115,13 +116,17 @@ export default function GuidelinesPage() {
       <div className="relative min-h-dvh overflow-hidden bg-background">
         {/* ── Ambient aura backdrop (Velvet Aura) ── */}
         <div className="pointer-events-none fixed inset-0 z-0">
-          <div className="aura-field absolute inset-0 animate-aura-drift opacity-60" />
-          <div className="absolute left-1/3 top-[12%] h-[480px] w-[560px] -translate-x-1/3 rounded-full bg-accent/[0.06] blur-[130px]" />
-          <div className="absolute bottom-[-8%] right-[-6%] h-[420px] w-[520px] rounded-full bg-gold/[0.04] blur-[120px]" />
+          <div className="aura-field absolute inset-0 animate-aura-drift opacity-70" />
+          <div className="absolute left-1/2 top-[-10%] h-[640px] w-[820px] -translate-x-1/2 rounded-full bg-accent/[0.07] blur-[140px]" />
+          <div className="absolute bottom-[-10%] right-[-5%] h-[460px] w-[620px] rounded-full bg-gold/[0.05] blur-[120px]" />
+          <div
+            className="absolute inset-0 bg-cover bg-center opacity-30 mix-blend-screen blur-[2px]"
+            style={{ backgroundImage: "url(/generated/hero-aura.webp)" }}
+          />
         </div>
 
-        <div className="relative z-10 mx-auto max-w-4xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
-          {/* Hero */}
+        <div className="relative z-10 mx-auto max-w-4xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8">
+          {/* ── Hero ── */}
           <m.div
             initial="hidden"
             animate="visible"
@@ -131,54 +136,71 @@ export default function GuidelinesPage() {
             <m.span
               variants={riseIn}
               custom={0}
-              className="inline-block animate-breath font-serif text-xs font-medium uppercase tracking-[0.34em] text-gold"
+              className="inline-block animate-breath text-xs font-medium uppercase tracking-[0.34em] text-gold"
             >
               The house rules
             </m.span>
-            <m.h1
-              variants={riseIn}
-              custom={1}
-              className="mt-5 font-serif text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl"
-            >
-              Community <span className="text-gradient-brand">Guidelines</span>
-            </m.h1>
+            <RevealText
+              className="mt-5 block font-serif text-[clamp(2.25rem,7vw,3.75rem)] font-medium leading-[1.05] tracking-[-0.02em]"
+              delay={0.1}
+              lines={[
+                { text: "How we keep", className: "text-foreground" },
+                { text: "this room safe.", className: "text-gradient-brand" },
+              ]}
+            />
             <m.p
               variants={riseIn}
               custom={2}
-              className="mx-auto mt-6 max-w-2xl text-lg leading-[1.65] text-text-secondary"
+              className="mx-auto mt-7 max-w-2xl text-lg leading-relaxed text-text-secondary"
             >
               A few quiet rules keep the room warm, safe, and yours. Hold to
               them, and everyone breathes easier. Cross them, and you may meet a
               warning, a pause, or a closed door.
             </m.p>
+            <m.p
+              variants={riseIn}
+              custom={3}
+              className="mx-auto mt-6 max-w-xl text-sm leading-relaxed text-text-secondary/80"
+            >
+              Not fine print. The shape of trust we hold each other to — so
+              everyone here can let their guard down.
+            </m.p>
           </m.div>
 
-          {/* Guidelines */}
-          <div className="mt-16 space-y-8">
-            {guidelines.map((section) => (
+          {/* ── Guidelines ── */}
+          <div className="mt-24 space-y-8">
+            {guidelines.map((section, sectionIndex) => (
               <AnimatedSection key={section.title}>
                 <m.div
                   variants={riseInSoft}
                   custom={0}
-                  className="rounded-2xl border border-border/50 bg-surface/40 p-6 backdrop-blur-sm transition-colors duration-300 hover:border-accent/30 sm:p-8"
+                  className="group rounded-2xl border border-border/50 bg-surface/40 p-7 backdrop-blur-sm transition-all duration-300 hover:border-accent/30 hover:bg-surface/60 sm:p-10"
                 >
-                  <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 rounded-lg bg-accent-muted p-2.5">
-                      <section.icon className="h-5 w-5 text-accent" weight="duotone" />
+                  <div className="flex items-start gap-5">
+                    <div className="flex-shrink-0 rounded-xl bg-accent-muted p-3 transition-transform duration-300 group-hover:scale-105">
+                      <section.icon
+                        className="h-5 w-5 text-accent"
+                        weight="duotone"
+                      />
                     </div>
                     <div className="flex-1">
-                      <h2 className="font-serif text-xl font-semibold text-foreground">
-                        {section.title}
-                      </h2>
-                      <ul className="mt-4 space-y-3">
+                      <div className="flex items-baseline gap-3">
+                        <span className="font-serif text-sm text-gold/60">
+                          {String(sectionIndex + 1).padStart(2, "0")}
+                        </span>
+                        <h2 className="font-serif text-xl font-medium tracking-[-0.01em] text-foreground sm:text-2xl">
+                          {section.title}
+                        </h2>
+                      </div>
+                      <ul className="mt-5 space-y-3.5">
                         {section.items.map((item, itemIndex) => (
                           <m.li
                             key={itemIndex}
                             variants={riseInSoft}
                             custom={itemIndex + 1}
-                            className="flex items-start gap-3 text-sm leading-[1.65] text-text-secondary"
+                            className="flex items-start gap-3.5 text-sm leading-relaxed text-text-secondary"
                           >
-                            <span className="mt-1.5 block h-1.5 w-1.5 flex-shrink-0 rounded-full bg-gold/70" />
+                            <span className="mt-[0.55em] block h-1 w-4 flex-shrink-0 rounded-full bg-gold/40" />
                             {item}
                           </m.li>
                         ))}
@@ -190,34 +212,37 @@ export default function GuidelinesPage() {
             ))}
           </div>
 
-          {/* Prohibitions */}
-          <AnimatedSection className="mt-16">
+          {/* ── Prohibitions ── */}
+          <AnimatedSection className="mt-24">
             <m.div
               variants={riseIn}
               custom={0}
-              className="rounded-2xl border border-danger/20 bg-danger/[0.03] p-6 sm:p-8"
+              className="rounded-2xl border border-danger/20 bg-danger/[0.03] p-7 sm:p-10"
             >
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 rounded-lg bg-danger/10 p-2.5">
+              <div className="flex items-start gap-5">
+                <div className="flex-shrink-0 rounded-xl bg-danger/10 p-3">
                   <Prohibit className="h-5 w-5 text-danger" weight="duotone" />
                 </div>
-                <div>
-                  <h2 className="font-serif text-xl font-semibold text-foreground">
+                <div className="flex-1">
+                  <h2 className="font-serif text-xl font-medium tracking-[-0.01em] text-foreground sm:text-2xl">
                     Strictly Prohibited
                   </h2>
-                  <p className="mt-2 text-sm leading-[1.65] text-text-secondary">
+                  <p className="mt-3 text-sm leading-relaxed text-text-secondary">
                     These leave no room for a second look — they close the door
                     for good.
                   </p>
-                  <ul className="mt-4 space-y-3">
+                  <ul className="mt-6 space-y-3.5">
                     {prohibitions.map((item, i) => (
                       <m.li
                         key={i}
                         variants={riseInSoft}
                         custom={i + 1}
-                        className="flex items-start gap-3 text-sm leading-[1.65] text-text-secondary"
+                        className="flex items-start gap-3.5 text-sm leading-relaxed text-text-secondary"
                       >
-                        <Warning className="mt-0.5 h-3.5 w-3.5 flex-shrink-0 text-danger" weight="fill" />
+                        <Warning
+                          className="mt-0.5 h-4 w-4 flex-shrink-0 text-danger"
+                          weight="fill"
+                        />
                         {item}
                       </m.li>
                     ))}
@@ -227,22 +252,33 @@ export default function GuidelinesPage() {
             </m.div>
           </AnimatedSection>
 
-          {/* Reporting */}
-          <AnimatedSection className="mt-16">
-            <m.div variants={riseIn} custom={0} className="text-center">
-              <h2 className="font-serif text-2xl font-bold text-foreground">
-                Reporting &amp; Enforcement
-              </h2>
-              <p className="mx-auto mt-4 max-w-2xl text-sm leading-[1.65] text-text-secondary">
-                Saw something? Felt something? Reach for the in-app reporting
-                tools, or write our safety team at{" "}
-                <span className="font-medium text-accent">
-                  safety@passionden.club
+          {/* ── Reporting ── */}
+          <AnimatedSection className="mt-24">
+            <m.div
+              variants={riseIn}
+              custom={0}
+              className="relative overflow-hidden rounded-3xl border border-gold/15 bg-surface/30 px-6 py-16 text-center backdrop-blur-sm sm:px-12 sm:py-20"
+            >
+              <div className="aura-field absolute inset-0 opacity-40" aria-hidden />
+              <div className="relative">
+                <span className="inline-block text-xs font-medium uppercase tracking-[0.34em] text-gold">
+                  Reporting &amp; Enforcement
                 </span>
-                . Every report is read within 24 hours and kept in strict
-                confidence. We take each one to heart — this room stays safe
-                because we keep it that way, together.
-              </p>
+                <h2 className="mx-auto mt-5 max-w-2xl font-serif text-[clamp(1.75rem,5vw,2.5rem)] font-medium leading-[1.1] tracking-[-0.02em] text-foreground">
+                  Saw something?{" "}
+                  <span className="text-gradient-brand">Felt something?</span>
+                </h2>
+                <p className="mx-auto mt-6 max-w-2xl leading-relaxed text-text-secondary">
+                  Reach for the in-app reporting tools, or write our safety team
+                  at{" "}
+                  <span className="font-medium text-gold">
+                    safety@passionden.club
+                  </span>
+                  . Every report is read within 24 hours and kept in strict
+                  confidence. We take each one to heart — this room stays safe
+                  because we keep it that way, together.
+                </p>
+              </div>
             </m.div>
           </AnimatedSection>
         </div>

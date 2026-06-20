@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { Crown, EnvelopeOpen, ArrowLeft } from "@phosphor-icons/react/ssr";
+import { Crown, EnvelopeOpen, ArrowRight } from "@phosphor-icons/react/ssr";
 import { getStripe } from "@/lib/stripe/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { siteConfig } from "@/config/site";
+import { RevealText } from "@/components/marketing/motion-primitives";
 
 export const metadata = {
   title: `Welcome, Founder | ${siteConfig.name}`,
@@ -65,70 +66,144 @@ export default async function ThankYouPage({
   const isFounder = Boolean(founderEmail);
   const isWaitlist = type === "waitlist" || (!isFounder && !session_id);
 
+  /* One earned payoff per state: eyebrow, masked-reveal headline, body, a single next step. */
+  const headlineLines = isFounder
+    ? [
+        { text: "Welcome,", className: "text-foreground" },
+        { text: "Founder.", className: "text-gradient-brand" },
+      ]
+    : isWaitlist
+      ? [
+          { text: "You’re", className: "text-foreground" },
+          { text: "on the list.", className: "text-gradient-brand" },
+        ]
+      : [
+          { text: "Almost", className: "text-foreground" },
+          { text: "there.", className: "text-gradient-brand" },
+        ];
+
+  const eyebrow = isFounder
+    ? "Founding seat confirmed"
+    : isWaitlist
+      ? "Your place is held"
+      : "One small thing";
+
   return (
-    <div className="relative flex min-h-dvh items-center justify-center overflow-hidden bg-background px-4">
+    <div className="relative flex min-h-dvh items-center justify-center overflow-hidden bg-background px-4 py-24 sm:py-28">
+      {/* ── Ambient aura backdrop (Velvet Aura) ── */}
       <div className="pointer-events-none fixed inset-0 z-0">
-        <div className="absolute left-1/2 top-1/3 h-[500px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/[0.07] blur-[120px]" />
+        <div className="aura-field absolute inset-0 animate-aura-drift opacity-70" />
+        <div className="absolute left-1/2 top-1/3 h-[560px] w-[760px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-gold/[0.06] blur-[150px]" />
+        <div className="absolute bottom-[-12%] right-[-6%] h-[440px] w-[600px] rounded-full bg-accent/[0.05] blur-[130px]" />
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-25 mix-blend-screen blur-[2px]"
+          style={{ backgroundImage: "url(/generated/hero-aura.webp)" }}
+        />
       </div>
 
-      <div className="relative z-10 mx-auto max-w-lg rounded-2xl border border-border/60 bg-surface/60 p-10 text-center backdrop-blur-sm">
-        <div className="mx-auto mb-6 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-accent-muted">
+      <div className="relative z-10 mx-auto w-full max-w-xl text-center">
+        {/* ── Seal: gold for founders, restrained for the rest ── */}
+        <div className="mx-auto mb-9 inline-flex h-16 w-16 items-center justify-center rounded-full border border-gold/30 bg-gold/[0.06] shadow-glow-accent backdrop-blur-sm">
           {isFounder ? (
             <Crown className="h-7 w-7 text-gold" weight="duotone" />
           ) : (
-            <EnvelopeOpen className="h-7 w-7 text-accent" weight="duotone" />
+            <EnvelopeOpen className="h-7 w-7 text-gold" weight="duotone" />
           )}
         </div>
 
+        <span className="inline-block text-xs font-medium uppercase tracking-[0.34em] text-gold">
+          {eyebrow}
+        </span>
+
+        <RevealText
+          className="mt-5 block font-serif text-[clamp(2.25rem,7vw,3.75rem)] font-medium leading-[1.05] tracking-[-0.02em]"
+          delay={0.1}
+          lines={headlineLines}
+        />
+
         {isFounder ? (
-          <>
-            <h1 className="font-serif text-3xl font-bold tracking-tight">
-              Welcome, Founder.
-            </h1>
-            <p className="mt-4 text-text-secondary">
-              Your founding membership is confirmed. You&apos;re one of the first
-              to walk into the Passion Den. We&apos;ll email{" "}
-              <span className="text-foreground">{founderEmail}</span> the moment
-              doors open — with your founder perks ready.
-            </p>
-          </>
+          <p className="mx-auto mt-7 max-w-md text-lg leading-relaxed text-text-secondary">
+            Your founding seat is yours for good. You&apos;re one of the first
+            hundred to set the tone for everyone after you. The moment the doors
+            open, we&apos;ll write to{" "}
+            <span className="text-foreground">{founderEmail}</span> — perks ready,
+            no waiting in line.
+          </p>
         ) : isWaitlist ? (
-          <>
-            <h1 className="font-serif text-3xl font-bold tracking-tight">
-              You&apos;re on the list.
-            </h1>
-            <p className="mt-4 text-text-secondary">
-              Thank you for joining the Paixão waitlist. We&apos;ll be in touch as
-              we get closer to launch. Founding spots are limited — upgrade
-              anytime to lock in lifetime perks.
-            </p>
-          </>
+          <p className="mx-auto mt-7 max-w-md text-lg leading-relaxed text-text-secondary">
+            Thank you for joining the Paixão waitlist. We&apos;ll write to you as
+            the first city draws closer. Founding seats are limited to the first
+            hundred — you can step up to a lifetime seat any time before they
+            close.
+          </p>
         ) : (
-          <>
-            <h1 className="font-serif text-3xl font-bold tracking-tight">
-              We couldn&apos;t confirm that.
-            </h1>
-            <p className="mt-4 text-text-secondary">
-              Your payment may still be processing, or the link was incomplete. If
-              you were charged, you&apos;re covered — email{" "}
-              <a href={`mailto:${siteConfig.support.email}`} className="text-accent underline">
-                {siteConfig.support.email}
-              </a>{" "}
-              and we&apos;ll sort it out right away.
-            </p>
-          </>
+          <p className="mx-auto mt-7 max-w-md text-lg leading-relaxed text-text-secondary">
+            Your payment may still be settling, or the link arrived incomplete.
+            If you were charged, you&apos;re covered — write to{" "}
+            <a
+              href={`mailto:${siteConfig.support.email}`}
+              className="text-gold underline-offset-4 transition-colors hover:text-foreground hover:underline"
+            >
+              {siteConfig.support.email}
+            </a>{" "}
+            and we&apos;ll set it right straight away.
+          </p>
         )}
 
-        <div className="mt-8">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-sm text-text-secondary transition-colors hover:text-foreground"
-          >
-            <ArrowLeft className="h-4 w-4" weight="bold" />
-            Back to home
-          </Link>
+        {/* ── A single clear next step ── */}
+        <div className="mt-10 flex flex-col items-center gap-5">
+          {isFounder ? (
+            <>
+              <Link
+                href="/"
+                className="group inline-flex min-w-[210px] items-center justify-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-medium text-white shadow-glow-accent transition-transform hover:scale-[1.02]"
+              >
+                Return to Paixão
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" weight="bold" />
+              </Link>
+              <p className="text-xs text-text-secondary">
+                Watch your inbox — the first word goes out to founders.
+              </p>
+            </>
+          ) : isWaitlist ? (
+            <>
+              <Link
+                href="/founding"
+                className="group inline-flex min-w-[210px] items-center justify-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-medium text-white shadow-glow-accent transition-transform hover:scale-[1.02]"
+              >
+                Claim a founding seat
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" weight="bold" />
+              </Link>
+              <Link
+                href="/"
+                className="text-sm text-text-secondary underline-offset-4 transition-colors hover:text-foreground hover:underline"
+              >
+                Back to home
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/founding"
+                className="group inline-flex min-w-[210px] items-center justify-center gap-2 rounded-full bg-accent px-7 py-3.5 text-sm font-medium text-white shadow-glow-accent transition-transform hover:scale-[1.02]"
+              >
+                Try again
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" weight="bold" />
+              </Link>
+              <Link
+                href="/"
+                className="text-sm text-text-secondary underline-offset-4 transition-colors hover:text-foreground hover:underline"
+              >
+                Back to home
+              </Link>
+            </>
+          )}
         </div>
       </div>
+
+      {/* ── Atmosphere overlays (fixed, non-interactive) ── */}
+      <div className="vignette" aria-hidden />
+      <div className="film-grain" aria-hidden />
     </div>
   );
 }

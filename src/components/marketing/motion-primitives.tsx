@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import {
-  m,
   motion,
   useScroll,
   useTransform,
@@ -54,7 +53,7 @@ export function RevealText({
       };
 
   return (
-    <m.span
+    <motion.span
       className={className}
       initial="hidden"
       whileInView="visible"
@@ -63,12 +62,12 @@ export function RevealText({
     >
       {lines.map((line, i) => (
         <span key={i} className="block overflow-hidden pb-[0.08em]" aria-hidden>
-          <m.span custom={i} variants={lineVariants} className={`block ${line.className ?? ""}`}>
+          <motion.span custom={i} variants={lineVariants} className={`block ${line.className ?? ""}`}>
             {line.text}
-          </m.span>
+          </motion.span>
         </span>
       ))}
-    </m.span>
+    </motion.span>
   );
 }
 
@@ -99,7 +98,7 @@ export function ParallaxLayer({
   const y = useTransform(scrollYProgress, [0, 1], reduce ? ["0%", "0%"] : ["-10%", "10%"]);
 
   return (
-    <m.div ref={ref} style={{ y }} className="absolute inset-[-12%]">
+    <motion.div ref={ref} style={{ y }} className="absolute inset-[-12%]">
       <Image
         src={src}
         alt={alt}
@@ -108,7 +107,7 @@ export function ParallaxLayer({
         priority={priority}
         className={`object-cover object-center ${kenBurns && !reduce ? "animate-kenburns" : ""}`}
       />
-    </m.div>
+    </motion.div>
   );
 }
 

@@ -10,14 +10,17 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 16 },
+const riseIn = {
+  hidden: { opacity: 0, y: 18 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.08, duration: 0.4, ease: [0.25, 0.4, 0.25, 1] as const },
+    transition: { delay: i * 0.09, duration: 0.6, ease: [0.05, 0.7, 0.1, 1] as const },
   }),
 };
+
+const inputClass =
+  "border-border/70 bg-surface/60 text-foreground transition-colors placeholder:text-text-secondary/60 focus-visible:border-gold/50 focus-visible:ring-gold/30";
 
 export function LoginForm() {
   const router = useRouter();
@@ -64,8 +67,10 @@ export function LoginForm() {
       className="space-y-5"
     >
       {/* Email */}
-      <motion.div variants={fadeUp} custom={0} className="space-y-2">
-        <Label htmlFor="email">Email</Label>
+      <motion.div variants={riseIn} custom={0} className="space-y-2">
+        <Label htmlFor="email" className="text-xs font-medium uppercase tracking-[0.2em] text-text-secondary">
+          Email
+        </Label>
         <Input
           id="email"
           type="email"
@@ -74,17 +79,19 @@ export function LoginForm() {
           onChange={(e) => setEmail(e.target.value)}
           required
           autoComplete="email"
-          className="bg-surface border-border"
+          className={inputClass}
         />
       </motion.div>
 
       {/* Password */}
-      <motion.div variants={fadeUp} custom={1} className="space-y-2">
+      <motion.div variants={riseIn} custom={1} className="space-y-2">
         <div className="flex items-center justify-between">
-          <Label htmlFor="password">Password</Label>
+          <Label htmlFor="password" className="text-xs font-medium uppercase tracking-[0.2em] text-text-secondary">
+            Password
+          </Label>
           <Link
             href="/auth/forgot-password"
-            className="text-xs text-text-secondary hover:text-accent transition-colors"
+            className="text-xs text-text-secondary transition-colors hover:text-gold"
           >
             Forgot password?
           </Link>
@@ -98,7 +105,7 @@ export function LoginForm() {
             onChange={(e) => setPassword(e.target.value)}
             required
             autoComplete="current-password"
-            className="bg-surface border-border pr-10"
+            className={`${inputClass} pr-10`}
           />
           <button
             type="button"
@@ -120,43 +127,43 @@ export function LoginForm() {
         <motion.div
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
-          className="rounded-lg border border-danger/20 bg-danger/10 px-4 py-3 text-sm text-danger"
+          className="rounded-lg border border-danger/25 bg-danger/10 px-4 py-3 text-sm leading-relaxed text-danger"
         >
           {error}
         </motion.div>
       )}
 
       {/* Submit */}
-      <motion.div variants={fadeUp} custom={2} className="pt-2">
+      <motion.div variants={riseIn} custom={2} className="pt-2">
         <Button
           type="submit"
           size="lg"
           disabled={isLoading}
-          className="w-full font-semibold"
+          className="w-full"
         >
           {isLoading ? (
             <>
               <CircleNotch className="mr-2 h-4 w-4 animate-spin" weight="bold" />
-              Signing in...
+              Slipping you in...
             </>
           ) : (
-            "Sign In"
+            "Step back inside"
           )}
         </Button>
       </motion.div>
 
       {/* Signup link */}
       <motion.p
-        variants={fadeUp}
+        variants={riseIn}
         custom={3}
         className="text-center text-sm text-text-secondary"
       >
-        Don&apos;t have an account?{" "}
+        Not a member yet?{" "}
         <Link
           href="/auth/signup"
-          className="font-medium text-accent hover:text-accent-hover transition-colors"
+          className="font-medium text-gold transition-colors hover:text-foreground"
         >
-          Sign up
+          Request an invite
         </Link>
       </motion.p>
     </motion.form>

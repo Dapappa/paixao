@@ -3,23 +3,14 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { Eye, EyeSlash, CircleNotch } from "@phosphor-icons/react/ssr";
+import { m } from "motion/react";
+import { Eye, EyeSlash, CircleNotch, ArrowRight } from "@phosphor-icons/react/ssr";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { cn } from "@/lib/utils";
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 16 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: i * 0.08, duration: 0.4, ease: [0.25, 0.4, 0.25, 1] as const },
-  }),
-};
+import { riseInSoft, ease } from "@/lib/motion";
 
 export function SignupForm() {
   const router = useRouter();
@@ -80,14 +71,14 @@ export function SignupForm() {
   }
 
   return (
-    <motion.form
+    <m.form
       onSubmit={handleSubmit}
       initial="hidden"
       animate="visible"
       className="space-y-5"
     >
       {/* Email */}
-      <motion.div variants={fadeUp} custom={0} className="space-y-2">
+      <m.div variants={riseInSoft} custom={0} className="space-y-2">
         <Label htmlFor="email">Email</Label>
         <Input
           id="email"
@@ -99,10 +90,10 @@ export function SignupForm() {
           autoComplete="email"
           className="bg-surface border-border"
         />
-      </motion.div>
+      </m.div>
 
       {/* Password */}
-      <motion.div variants={fadeUp} custom={1} className="space-y-2">
+      <m.div variants={riseInSoft} custom={1} className="space-y-2">
         <Label htmlFor="password">Password</Label>
         <div className="relative">
           <Input
@@ -128,10 +119,10 @@ export function SignupForm() {
             )}
           </button>
         </div>
-      </motion.div>
+      </m.div>
 
       {/* Confirm Password */}
-      <motion.div variants={fadeUp} custom={2} className="space-y-2">
+      <m.div variants={riseInSoft} custom={2} className="space-y-2">
         <Label htmlFor="confirm-password">Confirm Password</Label>
         <Input
           id="confirm-password"
@@ -143,10 +134,10 @@ export function SignupForm() {
           autoComplete="new-password"
           className="bg-surface border-border"
         />
-      </motion.div>
+      </m.div>
 
       {/* Checkboxes */}
-      <motion.div variants={fadeUp} custom={3} className="space-y-3 pt-1">
+      <m.div variants={riseInSoft} custom={3} className="space-y-3 pt-1">
         <div className="flex items-start gap-3">
           <Checkbox
             id="age-confirm"
@@ -187,26 +178,27 @@ export function SignupForm() {
             </Link>
           </Label>
         </div>
-      </motion.div>
+      </m.div>
 
       {/* Error */}
       {error && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: ease.enter }}
           className="rounded-lg border border-danger/20 bg-danger/10 px-4 py-3 text-sm text-danger"
         >
           {error}
-        </motion.div>
+        </m.div>
       )}
 
       {/* Submit */}
-      <motion.div variants={fadeUp} custom={4} className="pt-2">
+      <m.div variants={riseInSoft} custom={4} className="pt-2">
         <Button
           type="submit"
           size="lg"
           disabled={isLoading}
-          className="w-full font-semibold"
+          className="group w-full"
         >
           {isLoading ? (
             <>
@@ -214,14 +206,17 @@ export function SignupForm() {
               Setting the mood…
             </>
           ) : (
-            "Step inside"
+            <>
+              Step inside
+              <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" weight="bold" />
+            </>
           )}
         </Button>
-      </motion.div>
+      </m.div>
 
       {/* Login link */}
-      <motion.p
-        variants={fadeUp}
+      <m.p
+        variants={riseInSoft}
         custom={5}
         className="text-center text-sm text-text-secondary"
       >
@@ -232,7 +227,7 @@ export function SignupForm() {
         >
           Log in
         </Link>
-      </motion.p>
-    </motion.form>
+      </m.p>
+    </m.form>
   );
 }

@@ -328,7 +328,8 @@ export function FoundingClient({
               scale: 1,
               transition: { delay: 0.35, duration: 0.8, ease: ease.enter },
             }}
-            className="relative h-fit overflow-hidden rounded-2xl border border-border/60 bg-surface/60 p-6 backdrop-blur-sm shadow-glow-accent sm:p-8 lg:sticky lg:top-24"
+            id="claim-form"
+            className="relative h-fit scroll-mt-20 overflow-hidden rounded-2xl border border-border/60 bg-surface/60 p-6 backdrop-blur-sm shadow-glow-accent sm:p-8 lg:sticky lg:top-24"
           >
             {/* warm, authentic backdrop — real cozy room, heavily graded for legibility */}
             <Image
@@ -574,6 +575,33 @@ export function FoundingClient({
             </div>
           </Reveal>
         </section>
+
+        {/* ── Mobile thumb-zone sticky bar — price + Claim, scrolls to form ── */}
+        {!soldOut && (
+          <div
+            className="fixed inset-x-0 bottom-0 z-40 border-t border-border/60 bg-background/85 px-4 py-3 backdrop-blur-xl md:hidden"
+            style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))" }}
+          >
+            <div className="flex items-center justify-between gap-3">
+              <div className="leading-tight">
+                <p className="font-serif text-lg text-foreground">{price ?? "CA$39"}</p>
+                <p className="text-[11px] text-text-secondary">lifetime, first 100</p>
+              </div>
+              <Button
+                size="lg"
+                className="group animate-pulse-glow"
+                onClick={() =>
+                  document
+                    .getElementById("claim-form")
+                    ?.scrollIntoView({ behavior: "smooth", block: "start" })
+                }
+              >
+                Claim your seat
+                <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" weight="bold" />
+              </Button>
+            </div>
+          </div>
+        )}
 
         {/* ── Atmosphere overlays (fixed, non-interactive) ── */}
         <div className="vignette" aria-hidden />
