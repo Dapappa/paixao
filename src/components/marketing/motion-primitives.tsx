@@ -112,6 +112,56 @@ export function ParallaxLayer({
 }
 
 /* ------------------------------------------------------------------ */
+/* UnlockSeal — a cinematic gold "unlock" reveal: a dial arc turns into  */
+/* place, light rings pulse outward, and the seal face blooms with its   */
+/* icon. Reads as unlocking something precious. Plays once on mount.     */
+/* ------------------------------------------------------------------ */
+export function UnlockSeal({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  const reduce = useReducedMotion();
+  return (
+    <div className={`relative mx-auto inline-flex h-20 w-20 items-center justify-center ${className}`}>
+      {/* expanding light rings — the unlock "burst" */}
+      {!reduce &&
+        [0, 1].map((k) => (
+          <motion.span
+            key={k}
+            aria-hidden
+            className="absolute rounded-full border border-gold/50"
+            style={{ width: 72, height: 72 }}
+            initial={{ opacity: 0, scale: 0.55 }}
+            animate={{ opacity: [0, 0.7, 0], scale: [0.55, 1.9, 2.3] }}
+            transition={{ duration: 2.2, delay: 0.55 + k * 0.4, ease: [0.4, 0, 0.2, 1], repeat: Infinity, repeatDelay: 1.6 }}
+          />
+        ))}
+      {/* the dial arc turning into place (the "lock releasing") */}
+      <motion.span
+        aria-hidden
+        className="absolute inset-0 rounded-full border border-gold/20"
+        style={{ borderTopColor: "rgba(212,165,116,0.9)" }}
+        initial={reduce ? { opacity: 0 } : { rotate: -120, opacity: 0 }}
+        animate={reduce ? { opacity: 1 } : { rotate: 0, opacity: 1 }}
+        transition={{ duration: 1, ease: [0.05, 0.7, 0.1, 1] }}
+      />
+      {/* the seal face blooming with the icon */}
+      <motion.div
+        className="relative flex h-16 w-16 items-center justify-center rounded-full border border-gold/30 bg-gold/[0.06] shadow-glow-gold backdrop-blur-sm"
+        initial={reduce ? { opacity: 0 } : { scale: 0.5, opacity: 0 }}
+        animate={reduce ? { opacity: 1 } : { scale: [0.5, 1.08, 1], opacity: 1 }}
+        transition={{ duration: 0.85, delay: 0.18, ease: [0.05, 0.7, 0.1, 1] }}
+      >
+        {children}
+      </motion.div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /* VelvetCursor — a soft gold ring that trails the pointer and swells   */
 /* crimson over interactive elements. Desktop + fine-pointer only,      */
 /* additive (never hides the native cursor), killed on reduced motion.  */

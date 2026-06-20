@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { LazyMotion, domAnimation, m, AnimatePresence, useInView } from "motion/react";
+import { LazyMotion, domAnimation, m, AnimatePresence, useInView, useReducedMotion } from "motion/react";
 import { toast } from "sonner";
 import {
   Crown,
@@ -651,6 +651,7 @@ function SeatMeter({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const visible = useInView(ref, inView);
+  const reduce = useReducedMotion();
   const [display, setDisplay] = useState(0);
 
   useEffect(() => {
@@ -694,13 +695,36 @@ function SeatMeter({
           {claimed <= 0 ? "Be the first" : `${cap - claimed} left`}
         </span>
       </div>
-      <div className="mt-2.5 h-1.5 w-full overflow-hidden rounded-full bg-border/60">
-        <m.div
-          initial={{ width: 0 }}
-          animate={visible ? { width: `${fillPct}%` } : { width: 0 }}
-          transition={{ duration: 1.2, ease: ease.enter, delay: 0.1 }}
-          className="h-full rounded-full bg-gradient-to-r from-accent to-gold shadow-glow-accent"
-        />
+      <div className="relative mt-2.5 h-1.5 w-full overflow-hidden rounded-full bg-border/60">
+        {claimed > 0 ? (
+          <m.div
+            initial={{ width: 0 }}
+            animate={visible ? { width: `${fillPct}%` } : { width: 0 }}
+            transition={{ duration: 1.2, ease: ease.enter, delay: 0.1 }}
+            className="relative h-full overflow-hidden rounded-full bg-gradient-to-r from-accent to-gold shadow-glow-accent"
+          >
+            {visible && !reduce && (
+              <m.span
+                aria-hidden
+                className="absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-white/55 to-transparent"
+                initial={{ x: "-150%" }}
+                animate={{ x: "420%" }}
+                transition={{ duration: 2.2, delay: 1.4, repeat: Infinity, repeatDelay: 2.6, ease: "easeInOut" }}
+              />
+            )}
+          </m.div>
+        ) : (
+          visible &&
+          !reduce && (
+            <m.span
+              aria-hidden
+              className="absolute inset-y-0 left-0 w-1/4 rounded-full bg-gradient-to-r from-transparent via-gold/70 to-transparent"
+              initial={{ x: "-120%" }}
+              animate={{ x: "460%" }}
+              transition={{ duration: 2.4, delay: 0.6, repeat: Infinity, repeatDelay: 1.8, ease: "easeInOut" }}
+            />
+          )
+        )}
       </div>
     </div>
   );

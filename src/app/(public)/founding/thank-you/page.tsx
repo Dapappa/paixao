@@ -3,7 +3,7 @@ import { Crown, EnvelopeOpen, ArrowRight } from "@phosphor-icons/react/ssr";
 import { getStripe } from "@/lib/stripe/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { siteConfig } from "@/config/site";
-import { RevealText } from "@/components/marketing/motion-primitives";
+import { RevealText, UnlockSeal } from "@/components/marketing/motion-primitives";
 
 export const metadata = {
   title: `Welcome, Founder | ${siteConfig.name}`,
@@ -102,13 +102,15 @@ export default async function ThankYouPage({
       </div>
 
       <div className="relative z-10 mx-auto w-full max-w-xl text-center">
-        {/* ── Seal: gold for founders, restrained for the rest ── */}
-        <div className="mx-auto mb-9 inline-flex h-16 w-16 items-center justify-center rounded-full border border-gold/30 bg-gold/[0.06] shadow-glow-accent backdrop-blur-sm">
-          {isFounder ? (
-            <Crown className="h-7 w-7 text-gold" weight="duotone" />
-          ) : (
-            <EnvelopeOpen className="h-7 w-7 text-gold" weight="duotone" />
-          )}
+        {/* ── Cinematic unlock seal — the earned payoff ── */}
+        <div className="mb-9">
+          <UnlockSeal>
+            {isFounder ? (
+              <Crown className="h-7 w-7 text-gold" weight="duotone" />
+            ) : (
+              <EnvelopeOpen className="h-7 w-7 text-gold" weight="duotone" />
+            )}
+          </UnlockSeal>
         </div>
 
         <span className="inline-block text-xs font-medium uppercase tracking-[0.34em] text-gold">
