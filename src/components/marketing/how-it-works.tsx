@@ -138,13 +138,47 @@ function StepLayer({
             <step.icon className="h-8 w-8 text-gold" weight="duotone" />
           </div>
           <p className="mb-3 font-serif text-xl font-bold text-gold/70">{step.step}</p>
-          <h3 className="font-serif text-5xl font-bold leading-[1.04] tracking-tight text-foreground sm:text-6xl">
+          <h3 className="font-serif text-5xl font-medium leading-[1.04] tracking-[-0.02em] text-foreground sm:text-6xl">
             {step.title}
           </h3>
           <p className="mx-auto mt-6 max-w-md text-lg leading-relaxed text-text-secondary lg:mx-0">
             {step.description}
           </p>
         </m.div>
+      </div>
+    </m.div>
+  );
+}
+
+/* Mobile: a clean stacked step — no pin, no absolute layers, no overlap. */
+function MobileStep({ step }: { step: Step }) {
+  return (
+    <m.div
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-12%" }}
+      transition={{ duration: 0.7, ease: [0.05, 0.7, 0.1, 1] }}
+    >
+      <div className="relative aspect-[4/3] w-full overflow-hidden rounded-3xl border border-border/40">
+        <Image src={step.media} alt={step.alt} fill sizes="100vw" className="object-cover object-center" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/10 to-transparent" />
+        <div className="aura-field absolute inset-0 opacity-30 mix-blend-screen" />
+        <span
+          aria-hidden
+          className="pointer-events-none absolute bottom-1 right-3 select-none font-serif text-[6rem] font-medium leading-none text-foreground/10"
+        >
+          {step.step}
+        </span>
+        <div className="absolute left-4 top-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl border border-gold/30 bg-background/50 backdrop-blur-md">
+          <step.icon className="h-6 w-6 text-gold" weight="duotone" />
+        </div>
+      </div>
+      <div className="mt-5">
+        <p className="mb-2 font-serif text-lg font-medium text-gold/70">{step.step}</p>
+        <h3 className="font-serif text-3xl font-medium leading-[1.05] tracking-[-0.01em] text-foreground">
+          {step.title}
+        </h3>
+        <p className="mt-3 text-base leading-relaxed text-text-secondary">{step.description}</p>
       </div>
     </m.div>
   );
@@ -170,8 +204,29 @@ export function HowItWorks() {
 
   return (
     <LazyMotion features={domAnimation}>
-      {/* Tall track creates the scroll distance the pin scrubs through. */}
-      <section ref={ref} className="relative z-10" style={{ height: `${TOTAL * 100}vh` }}>
+      {/* ── Mobile / tablet: stacked, no pin (avoids the cramped-viewport overlap) ── */}
+      <section className="relative z-10 px-4 py-24 sm:px-6 lg:hidden">
+        <div className="mb-14">
+          <p className="mb-3 text-xs font-medium uppercase tracking-[0.34em] text-gold/80">
+            From stranger to wanted
+          </p>
+          <h2 className="font-serif text-4xl font-medium leading-[1.04] tracking-[-0.02em] sm:text-5xl">
+            How it <span className="text-gradient-gold">works</span>
+          </h2>
+        </div>
+        <div className="space-y-16">
+          {steps.map((step) => (
+            <MobileStep key={step.step} step={step} />
+          ))}
+        </div>
+      </section>
+
+      {/* ── Desktop: pinned scroll-scrub. Tall track creates the scrub distance. ── */}
+      <section
+        ref={ref}
+        className="relative z-10 hidden lg:block"
+        style={{ height: `${TOTAL * 100}vh` }}
+      >
         <div className="sticky top-0 flex h-screen flex-col overflow-hidden">
           {/* Persistent header */}
           <div className="mx-auto flex w-full max-w-7xl items-end justify-between px-4 pt-24 sm:px-6 lg:px-8">
@@ -179,7 +234,7 @@ export function HowItWorks() {
               <p className="mb-3 text-xs font-medium uppercase tracking-[0.34em] text-gold/80">
                 From stranger to wanted
               </p>
-              <h2 className="font-serif text-5xl font-bold leading-[1.04] tracking-tight sm:text-6xl">
+              <h2 className="font-serif text-5xl font-medium leading-[1.04] tracking-[-0.02em] sm:text-6xl">
                 How it <span className="text-gradient-gold">works</span>
               </h2>
             </div>
