@@ -16,11 +16,13 @@ loadEnv(".env.local");
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const from = process.env.EMAIL_FROM || "onboarding@resend.dev";
+const to = process.argv[2] || "delivered@resend.dev";
 const res = await resend.emails.send({
   from,
-  to: "delivered@resend.dev",
+  to,
   subject: "Paixão Resend test",
-  html: "<p>Resend integration test ✅</p>",
+  html: "<p>Resend integration test ✅ — sent from your verified domain.</p>",
   text: "Resend integration test",
 });
+console.log("from:", from, "-> to:", to);
 console.log(res.error ? "SEND FAILED: " + JSON.stringify(res.error) : "SENT ok, id: " + res.data?.id);
