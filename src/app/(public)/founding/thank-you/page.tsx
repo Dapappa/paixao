@@ -4,6 +4,7 @@ import { getStripe } from "@/lib/stripe/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { siteConfig } from "@/config/site";
 import { RevealText, UnlockSeal } from "@/components/marketing/motion-primitives";
+import { sendEmail, foundingWelcomeEmail } from "@/emails";
 
 export const metadata = {
   title: `Welcome, Founder | ${siteConfig.name}`,
@@ -31,6 +32,14 @@ async function confirmFounding(sessionId: string): Promise<string | null> {
     if (!email) return null;
 
     const admin = createAdminClient();
+
+    // Only email on the first transition to founding (page can be reloaded).
+    const { data: prior } = await (admin.from("waitlist") as any)
+      .select("is_founding")
+      .eq("email", email.toLowerCase())
+      .maybeSingle();
+    const alreadyFounding = prior?.is_founding === true;
+
     await (admin.from("waitlist") as any).upsert(
       {
         email: email.toLowerCase(),
@@ -43,6 +52,13 @@ async function confirmFounding(sessionId: string): Promise<string | null> {
       },
       { onConflict: "email" },
     );
+
+    // Fire-and-forget the founder welcome (non-blocking; safe if Resend unset).
+    if (!alreadyFounding && process.env.RESEND_API_KEY) {
+      sendEmail(email, foundingWelcomeEmail({})).catch((e) =>
+        console.error("Founding email failed:", e instanceof Error ? e.message : e),
+      );
+    }
 
     return email;
   } catch (err) {

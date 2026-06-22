@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { createAdminClient } from '@/lib/supabase/admin';
+import { sendEmail, waitlistConfirmationEmail } from '@/emails';
 
 /* ─────────────────────────────────────────────
    POST /api/waitlist
@@ -37,6 +38,12 @@ export async function POST(req: NextRequest) {
   try {
     const admin = createAdminClient();
 
+    // Was this email already on the list? (so we only send the welcome once)
+    const { data: existing } = await (admin.from('waitlist') as any)
+      .select('email')
+      .eq('email', email)
+      .maybeSingle();
+
     // Upsert by email so a repeat signup is idempotent and never downgrades an
     // existing founding member back to 'pending'.
     const { error } = await (admin.from('waitlist') as any).upsert(
@@ -54,6 +61,14 @@ export async function POST(req: NextRequest) {
       return NextResponse.json(
         { error: 'Could not join the waitlist. Please try again.' },
         { status: 500 },
+      );
+    }
+
+    // Fire-and-forget the confirmation email on a genuinely new signup. Never
+    // let an email failure (e.g. RESEND_API_KEY unset) break the signup.
+    if (!existing && process.env.RESEND_API_KEY) {
+      sendEmail(email, waitlistConfirmationEmail({})).catch((e) =>
+        console.error('Waitlist email failed:', e instanceof Error ? e.message : e),
       );
     }
 
