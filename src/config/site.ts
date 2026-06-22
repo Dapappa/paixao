@@ -5,13 +5,13 @@ export const siteConfig = {
   tagline: "Pure passion.",
   description:
     "An exclusive, anonymous, consent-first adult platform. Where desire meets discretion.",
-  url: "https://paixao.ca",
+  url: "https://paixao.club",
   links: {
     twitter: "https://x.com/paixao",
     instagram: "https://instagram.com/paixao",
   },
   support: {
-    email: "support@paixao.ca",
+    email: "support@paixao.club",
   },
   legal: {
     minimumAge: 18,
